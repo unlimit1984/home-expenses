@@ -21,18 +21,9 @@ export class ConfigService {
     }
   }
 
-  /**
-   * @deprecated: Use loadConfig() method
-   * @param config
-   */
-  public initialize(config: IConfig) {
-    this._initialize(config);
-  }
-
   public loadConfig(): Observable<IConfig> {
     return this.http.get('./assets/config/config.json').pipe(
       tap((response: IConfig) => {
-        // throw new Error('Some error');
         this._initialize(response);
       }),
       catchError((err) => {
