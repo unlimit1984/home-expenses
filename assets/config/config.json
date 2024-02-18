@@ -1,5 +1,4 @@
 {
-  "baseUrl": "placeholder",
-  "APP_VERSION": "20240218.3",
+  "APP_VERSION": "20240218.4",
   "API": "https://home-expenses-dev.up.railway.app/api"
 }
