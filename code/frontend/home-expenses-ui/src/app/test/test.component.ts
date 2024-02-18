@@ -9,25 +9,15 @@ import { Observable } from 'rxjs';
   styleUrls: ['./test.component.scss']
 })
 export class TestComponent implements OnInit {
-  public backendMessage$: Observable<string>;
+  public backendMessage1$: Observable<string>;
+  public backendMessage2$: Observable<{ value: string }>;
   constructor(private http: HttpClient, private configService: ConfigService) {}
 
   ngOnInit(): void {
-    // this.backendMessage$ = this.http.get<string>(`${this.configService.config.API}/test/hello`);
-
-    const request = this.http.get<string>(`${this.configService.config.API}/test/hello`);
-    request.subscribe((value) => {
-      console.log('=test', value);
+    this.backendMessage1$ = this.http.get(`${this.configService.config.API}/test/hello`, {
+      responseType: 'text'
     });
 
-    this.http.get<string>(`${this.configService.config.API}/test/hello-as-json`).subscribe((value) => {
-      console.log('=hello-as-json', value);
-    });
-
-    this.http
-      .get('https://api.nbp.pl/api/exchangerates/rates/a/gbp/2012-01-01/2012-01-31?format=json')
-      .subscribe((value) => {
-        console.log('nbp response=', value);
-      });
+    this.backendMessage2$ = this.http.get<{ value: string }>(`${this.configService.config.API}/test/hello-as-json`);
   }
 }
