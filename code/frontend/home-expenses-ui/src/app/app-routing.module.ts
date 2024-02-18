@@ -7,6 +7,7 @@ import { SigninComponent } from './pages/signin/signin.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { SignupFinishComponent } from './pages/signup-finish/signup-finish.component';
 import { ErrorPageComponent } from './pages/error-page/error-page.component';
+import { TestComponent } from './test/test.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
         path: 'expenses',
         canActivate: [AtAuthGuard],
         component: ExpensesComponent
+      },
+      {
+        path: 'test',
+        component: TestComponent
       },
       {
         path: 'all-expenses',

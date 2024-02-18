@@ -18,4 +18,12 @@ export class TestController {
     console.log('process.env.PORT2', process.env.PORT2);
     return this.testService.getHello();
   }
+
+  @Get('hello-as-json')
+  getHelloAsJson(): any {
+    console.log('ups');
+    console.log('process.env.port2', process.env.port2);
+    console.log('process.env.PORT2', process.env.PORT2);
+    return this.testService.getHelloAsJson();
+  }
 }

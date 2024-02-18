@@ -24,6 +24,7 @@ import { JwtInterceptorService } from './services/interceptor/jwt-interceptor.se
 import { ConfigService } from './services/config/config.service';
 import { catchError, config, map, Observable, ObservableInput, of, switchMap, tap, timer } from 'rxjs';
 import { IConfig } from './shared/interfaces/config';
+import { TestComponent } from './test/test.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { IConfig } from './shared/interfaces/config';
     SigninComponent,
     HeaderComponent,
     SignupFinishComponent,
-    ErrorPageComponent
+    ErrorPageComponent,
+    TestComponent
   ],
   imports: [
     BrowserModule,
@@ -47,11 +49,11 @@ import { IConfig } from './shared/interfaces/config';
     ReactiveFormsModule
   ],
   providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: JwtInterceptorService,
-      multi: true
-    },
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: JwtInterceptorService,
+    //   multi: true
+    // },
     {
       provide: APP_INITIALIZER,
       useFactory: initializeAppFactory,
