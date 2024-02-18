@@ -1,0 +1,70 @@
+name: Build & Deploy BACKEND NestJs on Railway
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'code/backend/home-expenses-auth/**'
+      - '.github/workflows/build-backend-railway.yml'
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  node-version: 20
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: cschleiden/replace-tokens@v1
+        with:
+          tokenPrefix: '__'
+          tokenSuffix: '__'
+          files: '["code/backend/home-expenses-auth/env_template"]'
+        env:
+          PORT: 3000
+          DB_PORT: ${{ secrets.DB_PORT }}
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          DB_USERNAME: ${{ secrets.DB_USERNAME }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+#          MAIL_SMTP_SERVICE: ${{ env.mailSmtpService }}
+#          MAIL_USER: ${{ env.mailUser }}
+#          MAIL_USER_PASSWORD: ${{ env.mailUserPassword }}
+#          AUTH_AT_SECRET: ${{ env.authATSecret }}
+#          AUTH_RT_SECRET: ${{ env.authRTSecret }}
+
+      - name: Rename env_template to .env
+        shell: bash
+        run: |
+          rm -f .env
+          mv code/backend/home-expenses-auth/env_template code/backend/home-expenses-auth/.env
+
+      - name: Set up Node.js version
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.14.0
+          cache: npm
+          cache-dependency-path: code/backend/home-expenses-auth/package-lock.json
+
+#      - name: npm ci, build, and test
+#        run: |
+#          cd code/backend/home-expenses-auth
+#          npm ci --omit==dev
+#          npm run test --if-present
+#          npm run build --if-present
+
+      - name: Install Railway
+        run: npm i -g @railway/cli
+
+      - name: Deploy
+        run: railway up
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}

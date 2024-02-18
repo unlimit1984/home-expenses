@@ -16,14 +16,56 @@ import { AuthModule } from './modules/auth/auth.module';
 import { expenseProviders } from './modules/database/expense/expense.provider';
 import { ExpenseController } from './controllers/expense/expense.controller';
 import { ExpenseDbService } from './modules/database/expense/service/expense-db.service';
-import {ConfigModule} from "@nestjs/config";
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import configuration from './config/configuration';
+import * as Joi from 'joi';
+import { databaseProviders } from './modules/database/database.providers';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import {User} from "./modules/database/user/entity/user";
+import {ExpenseV2} from "./modules/database/expense/entity/expense";
 
 @Module({
   // imports: [DatabaseModule, MailerModule.forRoot(mailerOptions), AuthModule],
   // controllers: [TestController, UserController, ExpenseController],
   // providers: [UserDbService, ExpenseDbService, ...userProviders, ...expenseProviders, TestService]
-  imports: [ConfigModule.forRoot()],
+  imports: [
+    ConfigModule.forRoot({
+      cache: true,
+      isGlobal: true,
+      load: [configuration],
+      validationSchema: Joi.object({
+        PORT: Joi.number().default(3000),
+        DB_PORT: Joi.number(),
+        DB_HOST: Joi.string(),
+        DB_NAME: Joi.string(),
+        DB_USERNAME: Joi.string(),
+        DB_PASSWORD: Joi.string()
+      }),
+      validationOptions: {
+        allowUnknown: true,
+        abortEarly: true
+      }
+    }),
+    DatabaseModule
+    // TypeOrmModule.forRootAsync({
+    //   inject: [ConfigService],
+    //   useFactory: async (configService: ConfigService) =>({
+    //     type: 'postgres',
+    //     host: configService.get<string>('database.host'),
+    //     port: configService.get<number>('database.port'),
+    //     database: configService.get<string>('database.name'),
+    //     username: configService.get<string>('database.username'),
+    //     password: configService.get<string>('database.password'),
+    //     // entities: [],
+    //     entities: [User, ExpenseV2],
+    //     // migrations: [],
+    //     // logging: false,
+    //     // subscribers: [],
+    //     synchronize: false
+    //   })
+    // })
+  ],
   controllers: [TestController],
-  providers: [ TestService]
+  providers: [TestService]
 })
 export class AppModule {}
