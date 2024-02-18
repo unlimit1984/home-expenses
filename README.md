@@ -86,7 +86,7 @@ You can deploy frontend app on two places: GitHub pages and Azure
 
 #### Deploy to GitHub Pages
 
-1. Locally run `npm run deplloy`
+1. Locally run `npm run deploy`
 2. Do not modify folder `docs` to something else inside angular.json `"outputPath": "docs",`.
    `docs` folder is a requirement for correct GitHub Pages deployment
    (https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site#about-publishing-sources)
@@ -101,7 +101,8 @@ You can deploy frontend app on two places: GitHub pages and Azure
 - Adding Database: https://learn.microsoft.com/en-us/azure/azure-sql/database/single-database-create-quickstart?view=azuresql&tabs=azure-portal
 
 ### Swagger
-- [Swagger API](https://home-expenses-auth.azurewebsites.net/api)
+- DEPRECATED [AZURE] [Swagger API](https://home-expenses-auth.azurewebsites.net/api)
+- [Railway] [Swagger API](https://home-expenses-dev.up.railway.app/api)
 
 ### Architecture
 

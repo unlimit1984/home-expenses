@@ -54,25 +54,12 @@ jobs:
           files: '["code/frontend/home-expenses-ui/src/environments/templates/assets/config/*.json"]'
         env:
           APP_VERSION: ${{ steps.appVersionId.outputs.build-number }}
+          API: https://home-expenses-dev.up.railway.app/api
 
       - name: Display config.json
         run: |
           cat code/frontend/home-expenses-ui/src/environments/templates/assets/config/config.json
         shell: bash
-
-#      - name: "Build"
-#        run: |
-#          cd code/frontend/home-expenses-ui
-#          npm run build --if-present
-
-#      - name: "Add config.json"
-#        run: |
-#          mkdir -p code/frontend/home-expenses-ui/docs/assets/config
-#          cat code/frontend/gh_deployment/dev/assets/config/config.json > code/frontend/home-expenses-ui/docs/assets/config/config.json
-
-#      - name: Print all artifacts
-#        run: |
-#          find code/frontend/home-expenses-ui/docs
 
       - name: "Test"
         run: |
