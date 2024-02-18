@@ -16,10 +16,14 @@ import { AuthModule } from './modules/auth/auth.module';
 import { expenseProviders } from './modules/database/expense/expense.provider';
 import { ExpenseController } from './controllers/expense/expense.controller';
 import { ExpenseDbService } from './modules/database/expense/service/expense-db.service';
+import {ConfigModule} from "@nestjs/config";
 
 @Module({
-  imports: [DatabaseModule, MailerModule.forRoot(mailerOptions), AuthModule],
-  controllers: [TestController, UserController, ExpenseController],
-  providers: [UserDbService, ExpenseDbService, ...userProviders, ...expenseProviders, TestService]
+  // imports: [DatabaseModule, MailerModule.forRoot(mailerOptions), AuthModule],
+  // controllers: [TestController, UserController, ExpenseController],
+  // providers: [UserDbService, ExpenseDbService, ...userProviders, ...expenseProviders, TestService]
+  imports: [ConfigModule.forRoot()],
+  controllers: [TestController],
+  providers: [ TestService]
 })
 export class AppModule {}
