@@ -21,8 +21,9 @@ import configuration from './config/configuration';
 import * as Joi from 'joi';
 import { databaseProviders } from './modules/database/database.providers';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import {User} from "./modules/database/user/entity/user";
-import {ExpenseV2} from "./modules/database/expense/entity/expense";
+import { User } from './modules/database/user/entity/user';
+import { ExpenseV2 } from './modules/database/expense/entity/expense';
+import { UsersModule } from './modules/users/users.module';
 
 @Module({
   // imports: [DatabaseModule, MailerModule.forRoot(mailerOptions), AuthModule],
@@ -46,24 +47,25 @@ import {ExpenseV2} from "./modules/database/expense/entity/expense";
         abortEarly: true
       }
     }),
-    DatabaseModule
-    // TypeOrmModule.forRootAsync({
-    //   inject: [ConfigService],
-    //   useFactory: async (configService: ConfigService) =>({
-    //     type: 'postgres',
-    //     host: configService.get<string>('database.host'),
-    //     port: configService.get<number>('database.port'),
-    //     database: configService.get<string>('database.name'),
-    //     username: configService.get<string>('database.username'),
-    //     password: configService.get<string>('database.password'),
-    //     // entities: [],
-    //     entities: [User, ExpenseV2],
-    //     // migrations: [],
-    //     // logging: false,
-    //     // subscribers: [],
-    //     synchronize: false
-    //   })
-    // })
+    TypeOrmModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => ({
+        type: 'postgres',
+        host: configService.get<string>('database.host'),
+        port: configService.get<number>('database.port'),
+        database: configService.get<string>('database.name'),
+        username: configService.get<string>('database.username'),
+        password: configService.get<string>('database.password'),
+        autoLoadEntities: true,
+        // entities: [],
+        // entities: [User, ExpenseV2],
+        // migrations: [],
+        // logging: false,
+        // subscribers: [],
+        synchronize: false
+      })
+    }),
+    UsersModule
   ],
   controllers: [TestController],
   providers: [TestService]
