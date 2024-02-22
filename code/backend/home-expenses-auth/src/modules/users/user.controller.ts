@@ -15,8 +15,6 @@ import {
   UsePipes,
   ValidationPipe
 } from '@nestjs/common';
-// import { User } from '../../modules/database/user/entity/user';
-// import { ALREADY_REGISTERED_ERROR, USER_NOT_FOUND_ERROR } from '../../modules/database/user/user.constants';
 // import { AccessTokenGuard } from '../../modules/auth/guards/access-token.guard';
 import {
   ApiBadRequestResponse,
@@ -29,6 +27,7 @@ import {
 import { CreateUserDto } from './create.user.dto';
 import { UserDbService } from './user-db.service';
 import { User } from './user.entity';
+import { ALREADY_REGISTERED_ERROR, USER_NOT_FOUND_ERROR } from './user.constants';
 
 // @UseGuards(AccessTokenGuard)
 @ApiBearerAuth()
@@ -52,7 +51,7 @@ export class UserController {
   async create(@Body() dto: CreateUserDto): Promise<User> {
     const isExisted = await this.service.findUser(dto.email);
     if (isExisted) {
-      throw new BadRequestException('ALREADY_REGISTERED_ERROR');
+      throw new BadRequestException(ALREADY_REGISTERED_ERROR);
     }
 
     return this.service.create(dto);
@@ -65,7 +64,7 @@ export class UserController {
   async deleteByEmail(@Param('email') email: string): Promise<any> {
     const isExisted = await this.service.findUser(email);
     if (!isExisted) {
-      throw new NotFoundException('USER_NOT_FOUND_ERROR');
+      throw new NotFoundException(USER_NOT_FOUND_ERROR);
     }
     return this.service.delete(email);
   }

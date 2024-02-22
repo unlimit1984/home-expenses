@@ -1,0 +1,4 @@
+{
+  "APP_VERSION": "DEV_SNAPSHOT",
+  "API": "http://localhost:3000/api"
+}

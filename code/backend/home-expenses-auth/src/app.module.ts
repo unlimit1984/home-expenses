@@ -24,6 +24,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './modules/database/user/entity/user';
 import { ExpenseV2 } from './modules/database/expense/entity/expense';
 import { UsersModule } from './modules/users/users.module';
+import { ExpensesModule } from './modules/expenses/expenses.module';
 
 @Module({
   // imports: [DatabaseModule, MailerModule.forRoot(mailerOptions), AuthModule],
@@ -65,7 +66,8 @@ import { UsersModule } from './modules/users/users.module';
         synchronize: false
       })
     }),
-    UsersModule
+    UsersModule,
+    ExpensesModule
   ],
   controllers: [TestController],
   providers: [TestService]

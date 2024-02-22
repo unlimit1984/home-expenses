@@ -1,3 +1,7 @@
+/*
+ * Author: Vladimir Vysokomornyi
+ */
+
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CredentialsDto {

@@ -1,3 +1,7 @@
+/*
+ * Author: Vladimir Vysokomornyi
+ */
+
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AllExpensesComponent } from './pages/all-expenses/all-expenses.component';
@@ -29,7 +33,7 @@ const routes: Routes = [
       },
       {
         path: 'all-expenses',
-        canActivate: [AtAuthGuard],
+        // canActivate: [AtAuthGuard],
         component: AllExpensesComponent
       },
       {
