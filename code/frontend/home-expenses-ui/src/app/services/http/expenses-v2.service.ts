@@ -1,3 +1,7 @@
+/*
+ * Author: Vladimir Vysokomornyi
+ */
+
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -15,10 +19,10 @@ export class ExpensesV2Service {
   private readonly apiUrl: string;
 
   public getExpenses(): Observable<Expense[]> {
-    return this.httpClient.get<Expense[]>(`${this.apiUrl}/api/expense/findAll`);
+    return this.httpClient.get<Expense[]>(`${this.apiUrl}/expense/findAll`);
   }
 
   public createExpense(expenseBody: Expense): Observable<Expense> {
-    return this.httpClient.post<Expense>(`${this.apiUrl}/api/expense/create`, expenseBody);
+    return this.httpClient.post<Expense>(`${this.apiUrl}/expense/create`, expenseBody);
   }
 }
