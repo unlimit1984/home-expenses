@@ -6,6 +6,16 @@ Authentication JWT service
 
 ## Installation
 
+Create file in the root with db credentials
+`.env`
+```
+PORT=__PORT__
+DB_PORT=__DB_PORT__
+DB_HOST=__DB_HOST__
+DB_NAME=__DB_NAME__
+DB_USERNAME=__DB_USERNAME__
+DB_PASSWORD=__DB_PASSWORD__
+```
 ```bash
 $ npm i
 ```
@@ -13,10 +23,7 @@ $ npm i
 ## Running the app
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
+# development with watch mode
 $ npm run start:dev
 
 # production mode
