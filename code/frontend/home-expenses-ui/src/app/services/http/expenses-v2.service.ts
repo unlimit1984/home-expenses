@@ -13,16 +13,16 @@ import { ConfigService } from '../config/config.service';
 })
 export class ExpensesV2Service {
   constructor(private httpClient: HttpClient, private configService: ConfigService) {
-    this.apiUrl = this.configService.config.API;
+    // this.apiUrl = this.configService.config.API;
   }
 
-  private readonly apiUrl: string;
+  // private readonly apiUrl: string;
 
   public getExpenses(): Observable<Expense[]> {
-    return this.httpClient.get<Expense[]>(`${this.apiUrl}/expense/findAll`);
+    return this.httpClient.get<Expense[]>(`${this.configService.config.API}/expense/findAll`);
   }
 
   public createExpense(expenseBody: Expense): Observable<Expense> {
-    return this.httpClient.post<Expense>(`${this.apiUrl}/expense/create`, expenseBody);
+    return this.httpClient.post<Expense>(`${this.configService.config.API}/expense/create`, expenseBody);
   }
 }
