@@ -3,26 +3,15 @@
  */
 
 import { Module } from '@nestjs/common';
-import { DatabaseModule } from './modules/database/database.module';
-import { userProviders } from './modules/database/user/user.provider';
 import { mailerOptions } from './config/mail';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { TestService } from './services/test/test.service';
-import { UserDbService } from './modules/database/user/service/user-db.service';
 import { TestController } from './controllers/test/test.controller';
-import { UserController } from './controllers/user/user.controller';
 
-import { AuthModule } from './modules/auth/auth.module';
-import { expenseProviders } from './modules/database/expense/expense.provider';
-import { ExpenseController } from './controllers/expense/expense.controller';
-import { ExpenseDbService } from './modules/database/expense/service/expense-db.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import configuration from './config/configuration';
 import * as Joi from 'joi';
-import { databaseProviders } from './modules/database/database.providers';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './modules/database/user/entity/user';
-import { ExpenseV2 } from './modules/database/expense/entity/expense';
 import { UsersModule } from './modules/users/users.module';
 import { ExpensesModule } from './modules/expenses/expenses.module';
 

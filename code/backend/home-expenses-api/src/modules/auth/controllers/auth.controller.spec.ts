@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthController } from './auth.controller';
 import { MailService } from '../../../services/mailer/mail.service';
-import { UserDbService } from '../../database/user/service/user-db.service';
+import { UserDbService } from '../../users/user-db.service';
 import { JwtService } from '@nestjs/jwt';
 
 const MailerServiceStub = {};

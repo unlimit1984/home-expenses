@@ -54,12 +54,11 @@ jobs:
           cache: npm
           cache-dependency-path: code/backend/home-expenses-api/package-lock.json
 
-#      - name: npm ci, build, and test
-#        run: |
-#          cd code/backend/home-expenses-api
-#          npm ci --omit==dev
-#          npm run test --if-present
-#          npm run build --if-present
+      - name: Build and test
+        shell: bash
+        run: |
+          cd code/backend/home-expenses-api
+          npm ci && npm run test
 
       - name: Install Railway
         run: npm i -g @railway/cli

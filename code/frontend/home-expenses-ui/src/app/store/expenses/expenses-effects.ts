@@ -9,18 +9,12 @@ import {
   getExpensesResult
 } from './expenses.actions';
 import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
-import { ExpensesService } from '../../services/http/expenses.service';
 import { Store } from '@ngrx/store';
 import { ExpensesV2Service } from '../../services/http/expenses-v2.service';
 
 @Injectable()
 export class ExpensesEffects {
-  constructor(
-    private actions$: Actions,
-    private expensesService: ExpensesService,
-    private expensesV2Service: ExpensesV2Service,
-    private store: Store
-  ) {}
+  constructor(private actions$: Actions, private expensesV2Service: ExpensesV2Service, private store: Store) {}
 
   getExpenses$ = createEffect(() =>
     this.actions$.pipe(

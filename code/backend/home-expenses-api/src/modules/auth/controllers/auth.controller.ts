@@ -16,7 +16,6 @@ import {
   RecoverCredentialsDto,
   ResetPasswordCredentialsDto
 } from './dto/credentials';
-import { UserDbService } from '../../database/user/service/user-db.service';
 import {
   ACTIVATION_USER_IS_ALREADY_DONE,
   ALREADY_REGISTERED_ERROR,
@@ -28,7 +27,7 @@ import {
   USER_NOT_FOUND_ERROR,
   VERIFICATION_CODE_ERROR,
   WRONG_PASSWORD_ERROR
-} from '../../database/user/user.constants';
+} from '../../users/user.constants';
 import * as argon from 'argon2';
 import { JwtService } from '@nestjs/jwt';
 import {
@@ -38,7 +37,6 @@ import {
   AUTH_REFRESH_TOKEN_SECRET
 } from '../../../config/auth';
 import { RefreshTokenGuard } from '../guards/refresh-token.guard';
-import { User } from '../../database/user/entity/user';
 import { Request } from 'express';
 import { AccessTokenGuard } from '../guards/access-token.guard';
 import { randomUUID } from 'crypto';
@@ -52,6 +50,8 @@ import {
   ApiUnauthorizedResponse
 } from '@nestjs/swagger';
 import { Tokens } from '../interfaces/tokens';
+import { UserDbService } from '../../users/user-db.service';
+import {User} from "../../users/user.entity";
 
 @ApiTags('Auth')
 @Controller('auth')
