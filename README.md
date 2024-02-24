@@ -1,48 +1,70 @@
-Azure:
-[![Build & Deploy BACKEND on Azure](https://github.com/home-expenses-github-username/home-expenses/actions/workflows/build-backend-azure.yml/badge.svg)](https://github.com/home-expenses-github-username/home-expenses/actions/workflows/build-backend-azure.yml)
-[![Build & Deploy UI on Azure](https://github.com/home-expenses-github-username/home-expenses/actions/workflows/build-ui-azure.yml/badge.svg)](https://github.com/home-expenses-github-username/home-expenses/actions/workflows/build-ui-azure.yml)
-
 GitHub Pages:
 [![Build & Deploy UI on Github Pages](https://github.com/home-expenses-github-username/home-expenses/actions/workflows/build-ui-ghpages.yml/badge.svg)](https://github.com/home-expenses-github-username/home-expenses/actions/workflows/build-ui-ghpages.yml)
+
+Railway:
+[![Build & Deploy BACKEND NestJs on Railway](https://github.com/unlimit1984/home-expenses/actions/workflows/build-backend-railway.yml/badge.svg)](https://github.com/unlimit1984/home-expenses/actions/workflows/build-backend-railway.yml)
 
 # Home Expenses App
 
 ## Table of contents
 
-- [Quick Start](#quick-start)
-- [Development](#development)
-  - [Local Setup](#local-setup)
-    - [Backend](#backend)
-    - [Frontend](#frontend)
-  - [Deploy to Azure](#deploy-to-azure)
-    - [Backend Azure](#backend-azure)
-    - [Frontend Azure](#frontend-azure)
-  - [Deploy to GitHub Pages](#deploy-to-github-pages)
-  - [Certificates](#certificates)
-  - [Testing](#testing)
-- [Documentation](#documentation)
-- [Swagger](#swagger)
+- [Local Setup](#local-setup)
+  - [Backend](#backend)
+  - [DB Migration](#db-migration)
+    - [Generate entity diff DB script](#generate-entity-diff-db-script)
+    - [Run code DB script and commit to DB](#run-code-db-script-and-commit-to-db)
+  - [Frontend](#frontend)
+- [Deployment](#deployment)
+  - [Deployment to GitHub pages](#deploy-to-github-pages)
+- [Environments](#environments)
 - [Architecture](#architecture)
-  - [Sending Mail Service](#sending-mail-service)
-    - [User Signup](#user-signup)
-    - [User Signin](#user-signin)
+  - [User Signup](#user-signup)
+  - [User Signin](#user-signin)
 
 ---
 
-### Quick start
+## Local Setup
 
-### Development
+### Backend
 
-#### Local Setup
+1. Create file in the root with db credentials
+    `.env`
+    ```
+    PORT=__PORT__
+    DB_PORT=__DB_PORT__
+    DB_HOST=__DB_HOST__
+    DB_NAME=__DB_NAME__
+    DB_USERNAME=__DB_USERNAME__
+    DB_PASSWORD=__DB_PASSWORD__
+    ```
 
-##### Backend
+2. Install packages   
+    ```bash
+    $ npm i
+    ```
+3. Running the app:
+    ```bash
+    # development with watch mode
+    $ npm run start:dev
+    
+    # production mode
+    $ npm run start:prod
+    ```
 
-1. Install java 17
-2. Set environment variable `JAVA_HOME` to java folder (Example for Windows: `C:\Program Files\Java\jdk-17`)
-3. Add `%JAVA_HOME\bin` to `PATH` variable
-4. For local running use the command `./gradlew bootRun` and check url: `localhost:8080/api`
+### DB Migration
 
-##### Frontend
+#### Generate entity diff DB script
+```bash
+npm run migration:generate -- src/migration/YouSriptFile
+```
+
+#### Run code DB script and commit to DB
+```bash
+npm run migration:run
+```
+
+
+### Frontend
 
 1. Install nodejs version 18.14.0 from [here](https://nodejs.org/download/release/v18.14.0/)
    - You can try the latest version, but there is no guaranty that it will work properly
@@ -54,64 +76,29 @@ GitHub Pages:
    - Run `npm start`
 4. Navigate to: `https://local.home-expenses.com:8443`
 
-#### Deploy to Azure
 
-##### Backend Azure
+## Deployment
 
-- OPTION 1 (Azure CLI):
-  - Install Azure CLI using the following link: https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-windows
-  - Run `az -v` for checking version
-  - Run `az login` and provide Azure credentials in the browser
-  - Run `./gradlew azureWebAppDeploy` from `code/backend/home-expenses-service` folder
-- OPTION 2 (pushing change to `main`)
-  - push new change to `main` branch for triggering [Build & Deploy BACKEND on Azure](https://github.com/home-expenses-github-username/home-expenses/actions/workflows/build-backend-azure.yml)
-- OPTION 3 (triggering GitHub action)
-  - manually trigger [Build & Deploy BACKEND on Azure](https://github.com/home-expenses-github-username/home-expenses/actions/workflows/build-backend-azure.yml)
-- Navigate to: `https://home-expenses-backend.azurewebsites.net/api`
-
-##### Frontend Azure
-
-You can deploy frontend app on two places: GitHub pages and Azure
-
-- GitHub: [Build & Deploy UI on Github Pages](https://github.com/home-expenses-github-username/home-expenses/actions/workflows/build-ui-ghpages.yml)
-  - there is no backend here
-- Azure: [Build & Deploy UI on Azure](https://github.com/home-expenses-github-username/home-expenses/actions/workflows/build-ui-azure.yml)
-  - the entire solution: backend and frontend setup on Azure
-
-1. Pushing change to `main` (the change inside `code/frontend/home-expenses-ui` folder) will trigger both actions:
-   - [Build & Deploy UI on Github Pages](https://github.com/home-expenses-github-username/home-expenses/actions/workflows/build-ui-ghpages.yml)
-   - [Build & Deploy UI on Azure](https://github.com/home-expenses-github-username/home-expenses/actions/workflows/build-ui-azure.yml)
-2. Or trigger manually one of the above:
-3. Navigate to: `https://yellow-bush-03266d003.2.azurestaticapps.net`
-
-#### Deploy to GitHub Pages
+### Deploy to GitHub Pages
 
 1. Locally run `npm run deploy`
 2. Do not modify folder `docs` to something else inside angular.json `"outputPath": "docs",`.
    `docs` folder is a requirement for correct GitHub Pages deployment
    (https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site#about-publishing-sources)
-3. Not every merge to frontend app triggers GitHub Pages deployment. Usually html diff should occur. 
+3. Not every merge to frontend app triggers GitHub Pages deployment. Usually html diff should occur.
 
-#### Certificates
+## Environments
+| Environment | UI     | Backend | Swagger URL | 
+|-|-|-|-|
+| dev        | https://unlimit1984.github.io/home-expenses/all-expenses | https://home-expenses-dev.up.railway.app | https://home-expenses-dev.up.railway.app/api |
+| prod       | - | - | - |
 
-#### Testing
+## Architecture
 
-### Documentation
-
-- Adding Database: https://learn.microsoft.com/en-us/azure/azure-sql/database/single-database-create-quickstart?view=azuresql&tabs=azure-portal
-
-### Swagger
-- DEPRECATED [AZURE] [Swagger API](https://home-expenses-auth.azurewebsites.net/api)
-- [Railway] [Swagger API](https://home-expenses-dev.up.railway.app/api)
-
-### Architecture
-
-#### Sending Mail Service
-
-##### User Signup
+### User Signup
 
 ![](docs/assets/plantuml/mail-service/user-signup.svg)
 
-##### User Signin
+### User Signin
 
 ![](docs/assets/plantuml/mail-service/user-signin.svg)

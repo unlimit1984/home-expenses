@@ -38,10 +38,10 @@ hs_err_pid*
 /code/frontend/home-expenses-ui/dist
 /code/frontend/home-expenses-ui/docs
 
-/code/backend/home-expenses-auth/.angular
-/code/backend/home-expenses-auth/node_modules
-/code/backend/home-expenses-auth/dist
-/code/backend/home-expenses-auth/coverage
+/code/backend/home-expenses-api/.angular
+/code/backend/home-expenses-api/node_modules
+/code/backend/home-expenses-api/dist
+/code/backend/home-expenses-api/coverage
 
 npm-debug.log
 yarn-error.log

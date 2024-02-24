@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'code/backend/home-expenses-auth/**'
+      - 'code/backend/home-expenses-api/**'
       - '.github/workflows/build-backend-railway.yml'
   workflow_dispatch:
 
@@ -27,7 +27,7 @@ jobs:
         with:
           tokenPrefix: '__'
           tokenSuffix: '__'
-          files: '["code/backend/home-expenses-auth/env_template"]'
+          files: '["code/backend/home-expenses-api/env_template"]'
         env:
           PORT: 3000
           DB_PORT: ${{ secrets.DB_PORT }}
@@ -45,18 +45,18 @@ jobs:
         shell: bash
         run: |
           rm -f .env
-          mv code/backend/home-expenses-auth/env_template code/backend/home-expenses-auth/.env
+          mv code/backend/home-expenses-api/env_template code/backend/home-expenses-auth/.env
 
       - name: Set up Node.js version
         uses: actions/setup-node@v3
         with:
           node-version: 18.14.0
           cache: npm
-          cache-dependency-path: code/backend/home-expenses-auth/package-lock.json
+          cache-dependency-path: code/backend/home-expenses-api/package-lock.json
 
 #      - name: npm ci, build, and test
 #        run: |
-#          cd code/backend/home-expenses-auth
+#          cd code/backend/home-expenses-api
 #          npm ci --omit==dev
 #          npm run test --if-present
 #          npm run build --if-present

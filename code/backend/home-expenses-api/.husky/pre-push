@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-cd code/backend/home-expenses-auth
+cd code/backend/home-expenses-api
 npm run test
