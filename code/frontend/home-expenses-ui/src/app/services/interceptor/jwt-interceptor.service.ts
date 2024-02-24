@@ -3,11 +3,12 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/c
 import { Observable } from 'rxjs';
 import { TokenVaultService } from '../token-vault/token-vault.service';
 import { JwtHelper } from '../jwt-helper/jwt-helper';
-import { environment } from '../../../environments/environment';
+import { ConfigService } from '../config/config.service';
 
 @Injectable()
 export class JwtInterceptorService implements HttpInterceptor {
-  private authApiUrl = `${environment.authApiUrl}`;
+  private configService: ConfigService = inject(ConfigService);
+  private authApiUrl = this.configService.config.API;
   private tokenVault = inject(TokenVaultService);
   private jwtHelper = inject(JwtHelper);
 
@@ -16,7 +17,7 @@ export class JwtInterceptorService implements HttpInterceptor {
     let token;
 
     switch (req.url) {
-      case `${this.authApiUrl}/api/auth/refresh-token`:
+      case `${this.authApiUrl}/auth/refresh-token`:
         token = this.tokenVault.getRefreshToken();
         break;
       default:
