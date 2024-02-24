@@ -45,7 +45,7 @@ jobs:
         shell: bash
         run: |
           rm -f .env
-          mv code/backend/home-expenses-api/env_template code/backend/home-expenses-auth/.env
+          mv code/backend/home-expenses-api/env_template code/backend/home-expenses-api/.env
 
       - name: Set up Node.js version
         uses: actions/setup-node@v3
