@@ -10,10 +10,14 @@ Railway:
 
 - [Local Setup](#local-setup)
   - [Backend](#backend)
-  - [DB Migration](#db-migration)
-    - [Generate entity diff DB script](#generate-entity-diff-db-script)
-    - [Run code DB script and commit to DB](#run-code-db-script-and-commit-to-db)
+    - [Install](#install)
+    - [DB Migration](#db-migration)
+      - [Generate entity diff DB script](#generate-entity-diff-db-script)
+      - [Run code DB script and commit to DB](#run-code-db-script-and-commit-to-db)
+    - [Test](#test)
   - [Frontend](#frontend)
+    - [Install](#install-1)
+    - [Test](#test-1)
 - [Deployment](#deployment)
   - [Deployment to GitHub pages](#deploy-to-github-pages)
 - [Environments](#environments)
@@ -27,44 +31,64 @@ Railway:
 
 ### Backend
 
+#### Install
+
 1. Create file in the root with db credentials
-    `.env`
-    ```
-    PORT=__PORT__
-    DB_PORT=__DB_PORT__
-    DB_HOST=__DB_HOST__
-    DB_NAME=__DB_NAME__
-    DB_USERNAME=__DB_USERNAME__
-    DB_PASSWORD=__DB_PASSWORD__
-    ```
+   `.env`
 
-2. Install packages   
-    ```bash
-    $ npm i
-    ```
+   ```
+   PORT=__PORT__
+   DB_PORT=__DB_PORT__
+   DB_HOST=__DB_HOST__
+   DB_NAME=__DB_NAME__
+   DB_USERNAME=__DB_USERNAME__
+   DB_PASSWORD=__DB_PASSWORD__
+   ```
+
+2. Install packages
+   ```bash
+   $ npm i
+   ```
 3. Running the app:
-    ```bash
-    # development with watch mode
-    $ npm run start:dev
-    
-    # production mode
-    $ npm run start:prod
-    ```
 
-### DB Migration
+   ```bash
+   # development with watch mode
+   $ npm run start:dev
 
-#### Generate entity diff DB script
+   # production mode
+   $ npm run start:prod
+   ```
+
+#### DB Migration
+
+##### Generate entity diff DB script
+
 ```bash
 npm run migration:generate -- src/migration/YouSriptFile
 ```
 
-#### Run code DB script and commit to DB
+##### Run code DB script and commit to DB
+
 ```bash
 npm run migration:run
 ```
 
+#### Test
+
+```bash
+# unit tests
+$ npm run test
+
+# e2e tests
+$ npm run test:e2e
+
+# test coverage
+$ npm run test:cov
+```
 
 ### Frontend
+
+#### Install
 
 1. Install nodejs version 18.14.0 from [here](https://nodejs.org/download/release/v18.14.0/)
    - You can try the latest version, but there is no guaranty that it will work properly
@@ -73,9 +97,19 @@ npm run migration:run
 3. For local running open command line and execute following commands:
    - go to `code/frontend/home-expenses-ui` folder
    - Run `npm i`
-   - Run `npm start`
+   - Run `npm start-local` for local UI + local backend
+   - Run `npm start-railway` for local UI + remote backend (railway)
 4. Navigate to: `https://local.home-expenses.com:8443`
 
+#### Test
+
+```bash
+# unit tests via [Karma](https://karma-runner.github.io).
+$ npm run test
+
+# e2e tests to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+$ ng e2e
+```
 
 ## Deployment
 
@@ -88,10 +122,11 @@ npm run migration:run
 3. Not every merge to frontend app triggers GitHub Pages deployment. Usually html diff should occur.
 
 ## Environments
-| Environment | UI     | Backend | Swagger URL | 
-|-|-|-|-|
-| dev        | https://unlimit1984.github.io/home-expenses/all-expenses | https://home-expenses-dev.up.railway.app | https://home-expenses-dev.up.railway.app/api |
-| prod       | - | - | - |
+
+| Environment | UI                                                       | Backend                                  | Swagger URL                                  |
+| ----------- | -------------------------------------------------------- | ---------------------------------------- | -------------------------------------------- |
+| dev         | https://unlimit1984.github.io/home-expenses/all-expenses | https://home-expenses-dev.up.railway.app | https://home-expenses-dev.up.railway.app/api |
+| prod        | -                                                        | -                                        | -                                            |
 
 ## Architecture
 
