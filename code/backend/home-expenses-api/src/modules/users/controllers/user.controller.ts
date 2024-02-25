@@ -24,10 +24,10 @@ import {
   ApiOperation,
   ApiTags
 } from '@nestjs/swagger';
-import { CreateUserDto } from './create.user.dto';
-import { UserDbService } from './user-db.service';
-import { User } from './user.entity';
-import { ALREADY_REGISTERED_ERROR, USER_NOT_FOUND_ERROR } from './user.constants';
+import { CreateUserDto } from '../create.user.dto';
+import { UserDbService } from '../db/user-db.service';
+import { User } from '../db/user.entity';
+import { ALREADY_REGISTERED_ERROR, USER_NOT_FOUND_ERROR } from '../user.constants';
 
 // @UseGuards(AccessTokenGuard)
 @ApiBearerAuth()

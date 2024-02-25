@@ -1,3 +1,7 @@
+/*
+ * Author: Vladimir Vysokomornyi
+ */
+
 import {
   BadRequestException,
   Body,
@@ -50,8 +54,8 @@ import {
   ApiUnauthorizedResponse
 } from '@nestjs/swagger';
 import { Tokens } from '../interfaces/tokens';
-import { UserDbService } from '../../users/user-db.service';
-import {User} from "../../users/user.entity";
+import { UserDbService } from '../../users/db/user-db.service';
+import {User} from "../../users/db/user.entity";
 
 @ApiTags('Auth')
 @Controller('auth')

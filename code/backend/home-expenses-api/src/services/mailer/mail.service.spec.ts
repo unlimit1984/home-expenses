@@ -1,7 +1,11 @@
+/*
+ * Author: Vladimir Vysokomornyi
+ */
+
 import { Test, TestingModule } from '@nestjs/testing';
 import { MailService } from './mail.service';
 import { MailerService } from '@nestjs-modules/mailer';
-import { UserDbService } from '../../modules/users/user-db.service';
+import { UserDbService } from '../../modules/users/db/user-db.service';
 
 const UserDbServiceStub = {};
 

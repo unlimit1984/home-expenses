@@ -14,7 +14,7 @@ import {
   UsePipes,
   ValidationPipe
 } from '@nestjs/common';
-import { AccessTokenGuard } from '../../modules/auth/guards/access-token.guard';
+import { AccessTokenGuard } from '../../auth/guards/access-token.guard';
 import {
   ApiBadRequestResponse,
   ApiBearerAuth,
@@ -23,10 +23,10 @@ import {
   ApiOperation,
   ApiTags
 } from '@nestjs/swagger';
-import { CreateExpenseDto } from './create.expense.dto';
-import { ExpenseDbService } from './expense-db.service';
-import { ExpenseV2 } from './expense.entity';
-import { EXPENSE_NOT_FOUND_ERROR } from './expense.constants';
+import { CreateExpenseDto } from '../create.expense.dto';
+import { ExpenseDbService } from '../db/expense-db.service';
+import { ExpenseV2 } from '../db/expense.entity';
+import { EXPENSE_NOT_FOUND_ERROR } from '../expense.constants';
 
 // @UseGuards(AccessTokenGuard)
 @ApiBearerAuth()

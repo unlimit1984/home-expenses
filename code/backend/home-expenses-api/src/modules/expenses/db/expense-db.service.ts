@@ -5,7 +5,7 @@
 import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { ExpenseV2 } from './expense.entity';
-import { CreateExpenseDto } from './create.expense.dto';
+import { CreateExpenseDto } from '../create.expense.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
