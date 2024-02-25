@@ -14,7 +14,7 @@ import {
   UsePipes,
   ValidationPipe
 } from '@nestjs/common';
-import { AccessTokenGuard } from '../../auth/guards/access-token.guard';
+import { AccessTokenGuard } from '../../users/auth/guards/access-token.guard';
 import {
   ApiBadRequestResponse,
   ApiBearerAuth,

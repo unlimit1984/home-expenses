@@ -3,8 +3,6 @@
  */
 
 import { Module } from '@nestjs/common';
-import { mailerOptions } from './config/mail';
-import { MailerModule } from '@nestjs-modules/mailer';
 import { TestService } from './services/test/test.service';
 import { TestController } from './controllers/test/test.controller';
 
@@ -16,9 +14,6 @@ import { UsersModule } from './modules/users/users.module';
 import { ExpensesModule } from './modules/expenses/expenses.module';
 
 @Module({
-  // imports: [DatabaseModule, MailerModule.forRoot(mailerOptions), AuthModule],
-  // controllers: [TestController, UserController, ExpenseController],
-  // providers: [UserDbService, ExpenseDbService, ...userProviders, ...expenseProviders, TestService]
   imports: [
     ConfigModule.forRoot({
       cache: true,
@@ -26,11 +21,15 @@ import { ExpensesModule } from './modules/expenses/expenses.module';
       load: [configuration],
       validationSchema: Joi.object({
         PORT: Joi.number().default(3000),
+        UI_URL: Joi.string().pattern(new RegExp('^https://unlimit1984.github.io/*$')),
         DB_PORT: Joi.number(),
         DB_HOST: Joi.string(),
         DB_NAME: Joi.string(),
         DB_USERNAME: Joi.string(),
-        DB_PASSWORD: Joi.string()
+        DB_PASSWORD: Joi.string(),
+        MAIL_SMTP_SERVICE: Joi.string(),
+        MAIL_USERNAME: Joi.string(),
+        MAIL_APP_PASSWORD: Joi.string()
       }),
       validationOptions: {
         allowUnknown: true,

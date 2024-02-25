@@ -19,7 +19,7 @@ import {
   ForgotCredentialsDto,
   RecoverCredentialsDto,
   ResetPasswordCredentialsDto
-} from './dto/credentials';
+} from '../credentials';
 import {
   ACTIVATION_USER_IS_ALREADY_DONE,
   ALREADY_REGISTERED_ERROR,
@@ -31,7 +31,7 @@ import {
   USER_NOT_FOUND_ERROR,
   VERIFICATION_CODE_ERROR,
   WRONG_PASSWORD_ERROR
-} from '../../users/user.constants';
+} from '../user.constants';
 import * as argon from 'argon2';
 import { JwtService } from '@nestjs/jwt';
 import {
@@ -40,9 +40,9 @@ import {
   AUTH_REFRESH_TOKEN_EXPIRATION,
   AUTH_REFRESH_TOKEN_SECRET
 } from '../../../config/auth';
-import { RefreshTokenGuard } from '../guards/refresh-token.guard';
+import { RefreshTokenGuard } from '../auth/guards/refresh-token.guard';
 import { Request } from 'express';
-import { AccessTokenGuard } from '../guards/access-token.guard';
+import { AccessTokenGuard } from '../auth/guards/access-token.guard';
 import { randomUUID } from 'crypto';
 import {
   ApiBadRequestResponse,
@@ -53,14 +53,14 @@ import {
   ApiTags,
   ApiUnauthorizedResponse
 } from '@nestjs/swagger';
-import { Tokens } from '../interfaces/tokens';
-import { UserDbService } from '../../users/db/user-db.service';
-import {User} from "../../users/db/user.entity";
+import { Tokens } from '../auth/interfaces/tokens';
+import { UserDbService } from '../db/user-db.service';
+import { User } from '../db/user.entity';
 
 @ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
-  constructor(private mailService: MailService, private userDbService: UserDbService, private jwtService: JwtService) {}
+  constructor(private userDbService: UserDbService, private jwtService: JwtService, private mailService: MailService) {}
 
   @ApiOperation({ summary: 'Start signup process', description: "Don't need to provide any Bearer token here" })
   @ApiOkResponse({ description: 'The user signup process is successfully started' })
@@ -75,6 +75,7 @@ export class AuthController {
 
     const verificationCode = randomUUID();
     this.mailService.sendWelcomeMail(credentials.email, verificationCode);
+    credentials = { ...credentials, verificationCode };
     return this.userDbService.createPreview(credentials);
   }
 

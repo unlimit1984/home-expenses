@@ -1,7 +1,11 @@
+/*
+ * Author: Vladimir Vysokomornyi
+ */
+
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
-import { AUTH_ACCESS_TOKEN_SECRET } from '../../../config/auth';
+import { AUTH_ACCESS_TOKEN_SECRET } from '../../../../config/auth';
 import { ACCESS_TOKEN } from '../guards/token.constants';
 
 @Injectable()
