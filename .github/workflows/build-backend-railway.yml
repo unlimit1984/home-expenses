@@ -1,8 +1,6 @@
 # Author: Vladimir Vysokomornyi
 
-
-
-  name: Build & Deploy BACKEND NestJs on Railway
+name: Build & Deploy BACKEND NestJs on Railway
 
 on:
   push:
