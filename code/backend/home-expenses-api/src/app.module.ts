@@ -21,7 +21,7 @@ import { ExpensesModule } from './modules/expenses/expenses.module';
       load: [configuration],
       validationSchema: Joi.object({
         PORT: Joi.number().default(3000),
-        UI_URL: Joi.string().pattern(new RegExp('^https:\\/\\/[^\\/]+\\.unlimit1984\\.main\\.io\\/.*$')),
+        UI_URL: Joi.string().pattern(new RegExp('^https:\\/\\/unlimit1984\\.github\\.io\\/.*$')),
         DB_PORT: Joi.number(),
         DB_HOST: Joi.string(),
         DB_NAME: Joi.string(),
