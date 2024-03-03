@@ -1,3 +1,7 @@
+/*
+ * Author: Vladimir Vysokomornyi
+ */
+
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -22,7 +26,7 @@ import { ErrorPageComponent } from './pages/error-page/error-page.component';
 import { AuthEffects } from './store/auth/auth.effects';
 import { JwtInterceptorService } from './services/interceptor/jwt-interceptor.service';
 import { ConfigService } from './services/config/config.service';
-import { catchError, config, map, Observable, ObservableInput, of, switchMap, tap, timer } from 'rxjs';
+import { Observable } from 'rxjs';
 import { IConfig } from './shared/interfaces/config';
 import { TestComponent } from './test/test.component';
 
@@ -49,11 +53,11 @@ import { TestComponent } from './test/test.component';
     ReactiveFormsModule
   ],
   providers: [
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: JwtInterceptorService,
-    //   multi: true
-    // },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptorService,
+      multi: true
+    },
     {
       provide: APP_INITIALIZER,
       useFactory: initializeAppFactory,

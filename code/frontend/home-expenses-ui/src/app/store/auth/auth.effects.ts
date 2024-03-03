@@ -1,3 +1,7 @@
+/*
+ * Author: Vladimir Vysokomornyi
+ */
+
 import { inject, Injectable, OnDestroy } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, fromEvent, map, of, switchMap, tap } from 'rxjs';
@@ -19,25 +23,24 @@ import {
   signupStartFailure,
   signupStartSuccess
 } from './auth.actions';
-import { AuthService } from '../../services/http/auth.service';
+import { AuthApiService } from '../../services/http/auth-api.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
-import { TokenVaultService } from '../../services/token-vault/token-vault.service';
-import { AuthenticatedService } from '../../services/isAuthenticated/authenticated.service';
+import { TokenAuthService } from '../../services/token-vault/token-auth.service';
+import { broadCastChannel } from '../../app.component';
 
 @Injectable()
 export class AuthEffects implements OnDestroy {
   private refreshTokensTimer;
 
-  private authenticatedService = inject(AuthenticatedService);
+  private tokenAuthService = inject(TokenAuthService);
 
   constructor(
     private actions$: Actions,
     private store: Store,
-    private authService: AuthService,
-    private router: Router,
-    private tokenVault: TokenVaultService
+    private authService: AuthApiService,
+    private router: Router
   ) {}
 
   signupStart$ = createEffect(() =>
@@ -131,10 +134,9 @@ export class AuthEffects implements OnDestroy {
             action.tokens.access_token.length &&
             action.tokens.refresh_token.length
           ) {
-            this.authenticatedService.isAuthenticated = true;
-            this.tokenVault.saveAccessToken(action.tokens.access_token);
-            this.tokenVault.saveRefreshToken(action.tokens.refresh_token);
-            // this.store.dispatch(refreshTokensStart());
+            this.tokenAuthService.saveAccessToken(action.tokens.access_token);
+            this.tokenAuthService.saveRefreshToken(action.tokens.refresh_token);
+            this.store.dispatch(refreshTokensStart());
             this.router.navigate(['/']);
           } else {
             this.router.navigate(['/401']);
@@ -177,12 +179,11 @@ export class AuthEffects implements OnDestroy {
       this.actions$.pipe(
         ofType(signoutSuccess),
         tap(() => {
-          this.authenticatedService.isAuthenticated = false;
-          this.tokenVault.clearAllTokens();
+          this.tokenAuthService.clearAllTokens();
           if (this.refreshTokensTimer) {
             clearInterval(this.refreshTokensTimer);
           }
-
+          broadCastChannel.postMessage('Logout');
           this.router.navigate(['/auth/signin']);
         })
       ),
@@ -209,9 +210,12 @@ export class AuthEffects implements OnDestroy {
           if (this.refreshTokensTimer) {
             clearInterval(this.refreshTokensTimer);
           }
-          this.refreshTokensTimer = setInterval(() => {
-            this.store.dispatch(refreshTokensTick());
-          }, 5 * 60 * 1000);
+          if (this.tokenAuthService.isValidRefreshToken()) {
+            const timeoutInterval = 5 * 60 * 1000;
+            this.refreshTokensTimer = setInterval(() => {
+              this.store.dispatch(refreshTokensTick());
+            }, timeoutInterval);
+          }
         })
       ),
     { dispatch: false }
@@ -221,6 +225,7 @@ export class AuthEffects implements OnDestroy {
     this.actions$.pipe(
       ofType(refreshTokensTick),
       switchMap(() => {
+        console.log('==refreshTokensTick')
         return this.authService.refreshTokens().pipe(
           map((tokens) => refreshTokensSuccess({ tokens })),
           catchError((errorResponse: HttpErrorResponse) => of(refreshTokensFailed(errorResponse)))
@@ -240,8 +245,8 @@ export class AuthEffects implements OnDestroy {
             action.tokens.access_token.length &&
             action.tokens.refresh_token.length
           ) {
-            this.tokenVault.saveAccessToken(action.tokens.access_token);
-            this.tokenVault.saveRefreshToken(action.tokens.refresh_token);
+            this.tokenAuthService.saveAccessToken(action.tokens.access_token);
+            this.tokenAuthService.saveRefreshToken(action.tokens.refresh_token);
           }
         })
       ),

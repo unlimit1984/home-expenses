@@ -1,3 +1,7 @@
+/*
+ * Author: Vladimir Vysokomornyi
+ */
+
 import { createAction, props } from '@ngrx/store';
 import { Credentials } from '../../shared/interfaces/credentials';
 import { Tokens } from '../../interfaces/tokens';

@@ -1,31 +1,34 @@
+/*
+ * Author: Vladimir Vysokomornyi
+ */
+
 import { inject, Injectable } from '@angular/core';
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { TokenVaultService } from '../token-vault/token-vault.service';
+import { TokenAuthService } from '../token-vault/token-auth.service';
 import { JwtHelper } from '../jwt-helper/jwt-helper';
 import { ConfigService } from '../config/config.service';
 
 @Injectable()
 export class JwtInterceptorService implements HttpInterceptor {
   private configService: ConfigService = inject(ConfigService);
-  private authApiUrl = this.configService.config.API;
-  private tokenVault = inject(TokenVaultService);
+  private tokenAuthService = inject(TokenAuthService);
   private jwtHelper = inject(JwtHelper);
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log('=intercept');
-    let token;
+    console.log('=intercept, req', req.url);
+    let token: string;
 
     switch (req.url) {
-      case `${this.authApiUrl}/auth/refresh-token`:
-        token = this.tokenVault.getRefreshToken();
+      case `${this.configService.config.API}/auth/refresh-token`:
+        token = this.tokenAuthService.getRefreshToken();
         break;
       default:
-        token = this.tokenVault.getAccessToken();
+        token = this.tokenAuthService.getAccessToken();
         break;
     }
 
-    if (token && token.length && !this.jwtHelper.tokenExpired(token)) {
+    if (this.jwtHelper.isValidToken(token)) {
       req = req.clone({
         setHeaders: { Authorization: `Bearer ${token}` }
       });

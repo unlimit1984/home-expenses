@@ -33,7 +33,7 @@ const routes: Routes = [
       },
       {
         path: 'all-expenses',
-        // canActivate: [AtAuthGuard],
+        canActivate: [AtAuthGuard],
         component: AllExpensesComponent
       },
       {

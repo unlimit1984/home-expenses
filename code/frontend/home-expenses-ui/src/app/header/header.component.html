@@ -17,27 +17,11 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav w-100">
-        <a
-          *ngIf="authenticatedService.isAuthenticated"
-          class="nav-link"
-          routerLinkActive="active"
-          routerLink="/all-expenses"
-        >
-          All expenses
-        </a>
-        <a
-          *ngIf="authenticatedService.isAuthenticated"
-          class="nav-link"
-          routerLinkActive="active"
-          routerLink="/expenses"
-        >
-          Expenses (Simple)
-        </a>
+      <div class="navbar-nav w-100" *ngIf="tokenAuthService.isValidAccessToken()">
+        <a class="nav-link" routerLinkActive="active" routerLink="/all-expenses"> All expenses </a>
+        <a class="nav-link" routerLinkActive="active" routerLink="/expenses"> Expenses (Simple) </a>
         <div class="d-flex flex-grow-1 justify-content-end">
-          <button *ngIf="authenticatedService.isAuthenticated" type="button" class="btn btn-dark" (click)="signout()">
-            Sign out
-          </button>
+          <button type="button" class="btn btn-dark" (click)="signout()">Sign out</button>
         </div>
       </div>
     </div>

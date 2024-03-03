@@ -1,8 +1,12 @@
+/*
+ * Author: Vladimir Vysokomornyi
+ */
+
 import { Component, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { signout } from '../store/auth/auth.actions';
-import { AuthenticatedService } from '../services/isAuthenticated/authenticated.service';
 import { ConfigService } from '../services/config/config.service';
+import { TokenAuthService } from '../services/token-vault/token-auth.service';
 
 @Component({
   selector: 'app-header',
@@ -10,7 +14,7 @@ import { ConfigService } from '../services/config/config.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  public authenticatedService = inject(AuthenticatedService);
+  public tokenAuthService = inject(TokenAuthService);
 
   constructor(private store: Store, public configService: ConfigService) {}
 

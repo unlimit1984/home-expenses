@@ -1,5 +1,7 @@
+/*
+ * Author: Vladimir Vysokomornyi
+ */
+
 export const environment = {
-  prod: false,
-  backendUrl: 'http://localhost:8080',
-  authApiUrl: 'http://localhost:3000'
+  prod: false
 };

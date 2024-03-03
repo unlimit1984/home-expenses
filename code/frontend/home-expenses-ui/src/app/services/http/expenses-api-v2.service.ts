@@ -11,12 +11,9 @@ import { ConfigService } from '../config/config.service';
 @Injectable({
   providedIn: 'root'
 })
-export class ExpensesV2Service {
+export class ExpensesApiV2Service {
   constructor(private httpClient: HttpClient, private configService: ConfigService) {
-    // this.apiUrl = this.configService.config.API;
   }
-
-  // private readonly apiUrl: string;
 
   public getExpenses(): Observable<Expense[]> {
     return this.httpClient.get<Expense[]>(`${this.configService.config.API}/expense/findAll`);

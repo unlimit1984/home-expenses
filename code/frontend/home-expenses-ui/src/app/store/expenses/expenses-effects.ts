@@ -1,3 +1,7 @@
+/*
+ * Author: Vladimir Vysokomornyi
+ */
+
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
@@ -8,13 +12,13 @@ import {
   getExpensesError,
   getExpensesResult
 } from './expenses.actions';
-import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
+import { catchError, map, of, switchMap } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { ExpensesV2Service } from '../../services/http/expenses-v2.service';
+import { ExpensesApiV2Service } from '../../services/http/expenses-api-v2.service';
 
 @Injectable()
 export class ExpensesEffects {
-  constructor(private actions$: Actions, private expensesV2Service: ExpensesV2Service, private store: Store) {}
+  constructor(private actions$: Actions, private expensesV2Service: ExpensesApiV2Service, private store: Store) {}
 
   getExpenses$ = createEffect(() =>
     this.actions$.pipe(

@@ -1,3 +1,7 @@
+/*
+ * Author: Vladimir Vysokomornyi
+ */
+
 import { inject, Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
@@ -8,32 +12,26 @@ import {
   UrlTree
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { TokenVaultService } from '../services/token-vault/token-vault.service';
-import { JwtHelper } from '../services/jwt-helper/jwt-helper';
-import { AuthenticatedService } from '../services/isAuthenticated/authenticated.service';
+import { TokenAuthService } from '../services/token-vault/token-auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AtAuthGuard implements CanActivate, CanActivateChild {
-  private authenticatedService = inject(AuthenticatedService);
   private router = inject(Router);
-  private tokenVault = inject(TokenVaultService);
-  private jwtHelper = inject(JwtHelper);
+  private tokenAuthService = inject(TokenAuthService);
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     console.log('canActivate');
-    const at = this.tokenVault.getAccessToken();
-    if (at && at.length && !this.jwtHelper.tokenExpired(at)) {
-      this.authenticatedService.isAuthenticated = true;
 
+    if (this.tokenAuthService.isValidAccessToken()) {
       return true;
     }
-    this.authenticatedService.isAuthenticated = false;
-    this.tokenVault.clearAccessToken();
+
+    this.tokenAuthService.clearAccessToken();
     return this.router.parseUrl(`/auth/signin`);
   }
 
