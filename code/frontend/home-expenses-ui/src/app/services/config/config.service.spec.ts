@@ -1,15 +1,20 @@
+/*
+ * Author: Vladimir Vysokomornyi
+ */
+
 import { TestBed } from '@angular/core/testing';
 
 import { ConfigService } from './config.service';
-import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideMockStore } from '@ngrx/store/testing';
 
 describe('ConfigService', () => {
   let service: ConfigService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule]
+      imports: [HttpClientTestingModule],
+      providers: [provideMockStore({})]
     });
     service = TestBed.inject(ConfigService);
   });

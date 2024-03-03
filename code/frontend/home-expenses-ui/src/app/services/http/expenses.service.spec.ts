@@ -1,13 +1,22 @@
+/*
+ * Author: Vladimir Vysokomornyi
+ */
+
 import { TestBed } from '@angular/core/testing';
 
 import { ExpensesService } from './expenses.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ConfigService } from '../config/config.service';
+import { provideMockStore } from '@ngrx/store/testing';
 
 describe('ExpensesService', () => {
   let service: ExpensesService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({ imports: [HttpClientTestingModule], providers: [] });
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+      providers: [ConfigService, provideMockStore({})]
+    });
     service = TestBed.inject(ExpensesService);
   });
 
