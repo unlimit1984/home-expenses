@@ -16,8 +16,6 @@ enum TokenType {
 export class TokenAuthService {
   private jwtHelper = inject(JwtHelper);
 
-  constructor() {}
-
   public saveAccessToken(at: string) {
     localStorage.setItem(TokenType.AT, at);
   }
