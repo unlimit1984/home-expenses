@@ -7,7 +7,7 @@ import { IConfig } from '../../shared/interfaces/config';
 import { catchError, Observable, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
-import { refreshTokensStart } from '../../store/auth/auth.actions';
+import { refreshTokensTick } from '../../store/auth/auth.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -35,7 +35,7 @@ export class ConfigService {
     return this.http.get('./assets/config/config.json').pipe(
       tap((response: IConfig) => {
         this._initialize(response);
-        this.store.dispatch(refreshTokensStart());
+        this.store.dispatch(refreshTokensTick());
       }),
       catchError((err) => {
         console.warn(`Can't load config`);

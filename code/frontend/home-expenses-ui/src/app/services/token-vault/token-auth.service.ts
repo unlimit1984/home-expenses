@@ -16,9 +16,7 @@ enum TokenType {
 export class TokenAuthService {
   private jwtHelper = inject(JwtHelper);
 
-  constructor() {
-    console.log('==constructor TokenAuthService');
-  }
+  constructor() {}
 
   public saveAccessToken(at: string) {
     localStorage.setItem(TokenType.AT, at);
@@ -40,17 +38,19 @@ export class TokenAuthService {
     localStorage.removeItem(TokenType.AT);
   }
 
+  public clearRefreshToken() {
+    localStorage.removeItem(TokenType.RT);
+  }
+
   public clearAllTokens() {
     localStorage.removeItem(TokenType.AT);
     localStorage.removeItem(TokenType.RT);
   }
 
   public isValidAccessToken(): boolean {
-    console.log('==isValidAccessToken');
     return this.jwtHelper.isValidToken(this.getAccessToken());
   }
   public isValidRefreshToken(): boolean {
-    console.log('==isValidRefreshToken');
     return this.jwtHelper.isValidToken(this.getRefreshToken());
   }
 }

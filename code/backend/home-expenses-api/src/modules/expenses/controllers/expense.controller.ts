@@ -28,7 +28,7 @@ import { ExpenseDbService } from '../db/expense-db.service';
 import { ExpenseV2 } from '../db/expense.entity';
 import { EXPENSE_NOT_FOUND_ERROR } from '../expense.constants';
 
-// @UseGuards(AccessTokenGuard)
+@UseGuards(AccessTokenGuard)
 @ApiBearerAuth()
 @ApiTags('Expense')
 @Controller('expense')

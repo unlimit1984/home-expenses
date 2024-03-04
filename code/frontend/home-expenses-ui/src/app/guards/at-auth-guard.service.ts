@@ -13,6 +13,7 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { TokenAuthService } from '../services/token-vault/token-auth.service';
+import { broadCastChannel } from '../app.component';
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +32,8 @@ export class AtAuthGuard implements CanActivate, CanActivateChild {
       return true;
     }
 
-    this.tokenAuthService.clearAccessToken();
+    this.tokenAuthService.clearAllTokens();
+    broadCastChannel.postMessage('Logout');
     return this.router.parseUrl(`/auth/signin`);
   }
 

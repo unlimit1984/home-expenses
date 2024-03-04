@@ -136,6 +136,7 @@ export class AuthController {
     return newTokens;
   }
 
+  // TODO: there is an issue for multiple tabs behavior https://github.com/users/home-expenses-github-username/projects/2/views/1?pane=issue&itemId=30463114
   @UseGuards(AccessTokenGuard)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Sign out', description: 'Use access token as Bearer during signing out' })
@@ -143,7 +144,7 @@ export class AuthController {
   @ApiUnauthorizedResponse({ description: 'Error during sign out' })
   @ApiBadRequestResponse({ description: 'Error during  sign out' })
   @Get('signout')
-  async signout(@Req() req: Request): Promise<true> {
+  async signout(@Req() req: Request): Promise<boolean> {
     const email = req.user['email'];
     const existedUser = await this.userDbService.findUser(email);
     if (!existedUser) {
@@ -260,10 +261,12 @@ export class AuthController {
       throw new UnauthorizedException(AUTH_ACCESS_DENIED);
     }
 
-    const isCorrectRefreshToken = await argon.verify(existedUser.refreshTokenHash, req.user['refreshToken']);
-    if (!isCorrectRefreshToken) {
-      throw new UnauthorizedException(AUTH_REFRESH_TOKEN_ERROR);
-    }
+    // TODO: Prepare BlackList of inactive tokens (after user logout token is still valid if token is not expired) and update user table
+
+    // const isCorrectRefreshToken = await argon.verify(existedUser.refreshTokenHash, req.user['refreshToken']);
+    // if (!isCorrectRefreshToken) {
+    //   throw new UnauthorizedException(AUTH_REFRESH_TOKEN_ERROR);
+    // }
 
     const newTokens = this.getTokens(existedUser);
     await this.userDbService.updateRefreshToken(existedUser, newTokens.refresh_token);

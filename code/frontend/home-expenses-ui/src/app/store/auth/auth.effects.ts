@@ -6,8 +6,8 @@ import { inject, Injectable, OnDestroy } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, fromEvent, map, of, switchMap, tap } from 'rxjs';
 import {
+  noOpAction,
   refreshTokensFailed,
-  refreshTokensStart,
   refreshTokensSuccess,
   refreshTokensTick,
   signin,
@@ -136,7 +136,6 @@ export class AuthEffects implements OnDestroy {
           ) {
             this.tokenAuthService.saveAccessToken(action.tokens.access_token);
             this.tokenAuthService.saveRefreshToken(action.tokens.refresh_token);
-            this.store.dispatch(refreshTokensStart());
             this.router.navigate(['/']);
           } else {
             this.router.navigate(['/401']);
@@ -161,6 +160,7 @@ export class AuthEffects implements OnDestroy {
     this.actions$.pipe(
       ofType(signout),
       switchMap(() => {
+        this.tokenAuthService.clearRefreshToken();
         return this.authService.signout().pipe(
           map((isLogouted) => {
             if (isLogouted) {
@@ -180,9 +180,6 @@ export class AuthEffects implements OnDestroy {
         ofType(signoutSuccess),
         tap(() => {
           this.tokenAuthService.clearAllTokens();
-          if (this.refreshTokensTimer) {
-            clearInterval(this.refreshTokensTimer);
-          }
           broadCastChannel.postMessage('Logout');
           this.router.navigate(['/auth/signin']);
         })
@@ -202,34 +199,37 @@ export class AuthEffects implements OnDestroy {
     { dispatch: false }
   );
 
-  refreshTokensStart$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(refreshTokensStart),
-        tap(() => {
-          if (this.refreshTokensTimer) {
-            clearInterval(this.refreshTokensTimer);
-          }
-          if (this.tokenAuthService.isValidRefreshToken()) {
-            const timeoutInterval = 5 * 60 * 1000;
-            this.refreshTokensTimer = setInterval(() => {
-              this.store.dispatch(refreshTokensTick());
-            }, timeoutInterval);
-          }
-        })
-      ),
-    { dispatch: false }
-  );
-
   refreshTokensTick$ = createEffect(() =>
     this.actions$.pipe(
       ofType(refreshTokensTick),
       switchMap(() => {
-        console.log('==refreshTokensTick')
-        return this.authService.refreshTokens().pipe(
-          map((tokens) => refreshTokensSuccess({ tokens })),
-          catchError((errorResponse: HttpErrorResponse) => of(refreshTokensFailed(errorResponse)))
-        );
+        if (this.refreshTokensTimer) {
+          clearTimeout(this.refreshTokensTimer);
+        }
+
+        const setTimerForRefreshTokens = () => {
+          this.refreshTokensTimer = setTimeout(() => {
+            this.store.dispatch(refreshTokensTick());
+          }, 5 * 60 * 1000);
+        };
+        if (this.tokenAuthService.isValidRefreshToken()) {
+          return this.authService.refreshTokens().pipe(
+            tap((value) => {
+              setTimerForRefreshTokens();
+            }),
+            map((tokens) => {
+              return refreshTokensSuccess({ tokens });
+            }),
+            catchError((errorResponse: HttpErrorResponse) => {
+              setTimerForRefreshTokens();
+              return of(refreshTokensFailed(errorResponse));
+            })
+          );
+        } else {
+          this.router.navigate(['/auth/signin']);
+          setTimerForRefreshTokens();
+          return of(noOpAction());
+        }
       })
     )
   );
@@ -253,6 +253,7 @@ export class AuthEffects implements OnDestroy {
     { dispatch: false }
   );
 
+  // TODO: What is it? Check
   storageEvent$ = createEffect(() =>
     fromEvent<StorageEvent>(window, 'storage').pipe(
       tap((value) => {
