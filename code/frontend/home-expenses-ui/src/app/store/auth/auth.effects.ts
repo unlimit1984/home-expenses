@@ -28,7 +28,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { TokenAuthService } from '../../services/token-vault/token-auth.service';
-import { broadCastChannel } from '../../app.component';
+import { bcc, BCCMessageType } from '../../broadcast-channel/broadcast-channel';
 
 @Injectable()
 export class AuthEffects implements OnDestroy {
@@ -180,7 +180,7 @@ export class AuthEffects implements OnDestroy {
         ofType(signoutSuccess),
         tap(() => {
           this.tokenAuthService.clearAllTokens();
-          broadCastChannel.postMessage('Logout');
+          bcc.postMessage(BCCMessageType.Logout);
           this.router.navigate(['/auth/signin']);
         })
       ),
