@@ -18,6 +18,10 @@ export class CreateExpenseDto {
   @IsNotEmpty()
   date: string;
 
+  @ApiProperty()
+  @IsNotEmpty()
+  email: string;
+
   @ApiProperty({ required: false })
   comment: string;
 }

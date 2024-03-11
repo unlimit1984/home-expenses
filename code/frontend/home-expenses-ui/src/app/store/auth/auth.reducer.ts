@@ -1,3 +1,7 @@
+/*
+ * Author: Vladimir Vysokomornyi
+ */
+
 import { Action, createReducer, on } from '@ngrx/store';
 
 import { HttpErrorResponse } from '@angular/common/http';

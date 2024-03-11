@@ -2,7 +2,8 @@
  * Author: Vladimir Vysokomornyi
  */
 
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { User } from '../../users/db/user.entity';
 
 @Entity()
 export class ExpenseV2 {
@@ -20,4 +21,7 @@ export class ExpenseV2 {
 
   @Column({ type: 'bigint' })
   date: string;
+
+  @ManyToOne(() => User, (user) => user.expenses)
+  user: User;
 }

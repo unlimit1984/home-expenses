@@ -12,11 +12,10 @@ import { ConfigService } from '../config/config.service';
   providedIn: 'root'
 })
 export class ExpensesApiV2Service {
-  constructor(private httpClient: HttpClient, private configService: ConfigService) {
-  }
+  constructor(private httpClient: HttpClient, private configService: ConfigService) {}
 
   public getExpenses(): Observable<Expense[]> {
-    return this.httpClient.get<Expense[]>(`${this.configService.config.API}/expense/findAll`);
+    return this.httpClient.get<Expense[]>(`${this.configService.config.API}/expense/findByUser`);
   }
 
   public createExpense(expenseBody: Expense): Observable<Expense> {
