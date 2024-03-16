@@ -45,11 +45,28 @@ Railway:
    DB_PASSWORD=__DB_PASSWORD__
    ```
 
-2. Install packages
+2. Fulfill `code/backend/home-expenses-api/src/datasource.ts` for db and migration
+    ```ts
+    import { DataSource, DataSourceOptions } from 'typeorm';
+    
+    export const datasourceOptions: DataSourceOptions = {
+      type: 'mssql',
+      host: 'DB_HOST',
+      username: 'DB_USERNAME',
+      password: 'DB_PASSWORD',
+      database: 'DB_NAME',
+      entities: ['dist/modules/database/**/entity/*.js'],
+      migrations: ['dist/migration/*.js']
+    };
+    const dataSource = new DataSource(datasourceOptions);
+    export default dataSource;
+    
+    ```
+3. Install packages
    ```bash
    $ npm i
    ```
-3. Running the app:
+4. Running the app:
 
    ```bash
    # development with watch mode
