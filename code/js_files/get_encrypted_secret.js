@@ -1,6 +1,4 @@
 const sodium = require("libsodium-wrappers");
-// const secret = '1234'
-// const key = 'aayvtq0H0LYlRLEPMKVBIPeLRPmNwFAEUgTxo+orCTw='
 
 const secret = process.argv[2];
 const key = process.argv[3];
