@@ -7,6 +7,7 @@ import { AuthController } from './auth.controller';
 import { MailService } from '../../../services/mailer/mail.service';
 import { UserDbService } from '../db/user-db.service';
 import { JwtService } from '@nestjs/jwt';
+import { ConfigService } from '@nestjs/config';
 
 const MailerServiceStub = {};
 
@@ -21,6 +22,7 @@ describe('AuthController', () => {
       providers: [
         { provide: MailService, useValue: MailerServiceStub },
         { provide: UserDbService, useValue: UserDbServiceStub },
+        ConfigService,
         JwtService
       ]
     }).compile();
