@@ -18,5 +18,9 @@ export default () => ({
     host: process.env.MAIL_SMTP_SERVICE,
     username: process.env.MAIL_USERNAME,
     appPassword: process.env.MAIL_APP_PASSWORD
+  },
+  auth: {
+    at_secret: process.env.AUTH_AT_SECRET,
+    rt_secret: process.env.AUTH_RT_SECRET
   }
 });

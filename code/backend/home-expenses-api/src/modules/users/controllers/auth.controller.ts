@@ -36,9 +36,9 @@ import * as argon from 'argon2';
 import { JwtService } from '@nestjs/jwt';
 import {
   AUTH_ACCESS_TOKEN_EXPIRATION,
-  AUTH_ACCESS_TOKEN_SECRET,
+  // AUTH_ACCESS_TOKEN_SECRET,
   AUTH_REFRESH_TOKEN_EXPIRATION,
-  AUTH_REFRESH_TOKEN_SECRET
+  // AUTH_REFRESH_TOKEN_SECRET
 } from '../../../config/auth';
 import { RefreshTokenGuard } from '../auth/guards/refresh-token.guard';
 import { Request } from 'express';
@@ -56,11 +56,17 @@ import {
 import { Tokens } from '../auth/interfaces/tokens';
 import { UserDbService } from '../db/user-db.service';
 import { User } from '../db/user.entity';
+import { ConfigService } from '@nestjs/config';
 
 @ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
-  constructor(private userDbService: UserDbService, private jwtService: JwtService, private mailService: MailService) {}
+  constructor(
+    private userDbService: UserDbService,
+    private jwtService: JwtService,
+    private mailService: MailService,
+    private readonly configService: ConfigService
+  ) {}
 
   @ApiOperation({ summary: 'Start signup process', description: "Don't need to provide any Bearer token here" })
   @ApiOkResponse({ description: 'The user signup process is successfully started' })
@@ -280,7 +286,8 @@ export class AuthController {
           email: existedUser.email
         },
         {
-          secret: AUTH_ACCESS_TOKEN_SECRET,
+          // secret: AUTH_ACCESS_TOKEN_SECRET,
+          secret: this.configService.get<string>('auth.at_secret'),
           expiresIn: AUTH_ACCESS_TOKEN_EXPIRATION
         }
       ),
@@ -289,7 +296,8 @@ export class AuthController {
           email: existedUser.email
         },
         {
-          secret: AUTH_REFRESH_TOKEN_SECRET,
+          // secret: AUTH_REFRESH_TOKEN_SECRET,
+          secret: this.configService.get<string>('auth.rt_secret'),
           expiresIn: AUTH_REFRESH_TOKEN_EXPIRATION
         }
       )

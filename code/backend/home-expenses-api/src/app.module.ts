@@ -30,7 +30,9 @@ import { ExpensesModule } from './modules/expenses/expenses.module';
         DB_PASSWORD: Joi.string(),
         MAIL_SMTP_SERVICE: Joi.string(),
         MAIL_USERNAME: Joi.string(),
-        MAIL_APP_PASSWORD: Joi.string()
+        MAIL_APP_PASSWORD: Joi.string(),
+        AUTH_AT_SECRET: Joi.string(),
+        AUTH_RT_SECRET: Joi.string(),
       }),
       validationOptions: {
         allowUnknown: true,
