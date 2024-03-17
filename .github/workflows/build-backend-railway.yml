@@ -41,11 +41,8 @@ jobs:
           MAIL_SMTP_SERVICE: ${{ secrets.MAIL_SMTP_SERVICE }}
           MAIL_USERNAME: ${{ secrets.MAIL_USERNAME }}
           MAIL_APP_PASSWORD: ${{ secrets.MAIL_APP_PASSWORD }}
-#          MAIL_SMTP_SERVICE: ${{ env.mailSmtpService }}
-#          MAIL_USER: ${{ env.mailUser }}
-#          MAIL_USER_PASSWORD: ${{ env.mailUserPassword }}
-#          AUTH_AT_SECRET: ${{ env.authATSecret }}
-#          AUTH_RT_SECRET: ${{ env.authRTSecret }}
+          AUTH_AT_SECRET: ${{ secrets.AUTH_AT_SECRET }}
+          AUTH_RT_SECRET: ${{ secrets.AUTH_RT_SECRET }}
 
       - name: Rename env_template to .env
         shell: bash
