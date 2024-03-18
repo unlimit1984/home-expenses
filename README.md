@@ -115,6 +115,11 @@ $ npm run test:cov
    - go to `code/frontend/home-expenses-ui` folder
    - Run `npm i`
    - Run `npm start-local` for local UI + local backend
+   - Run in a lightweight nodejs mode:
+     - `npm i -g http-server`
+     - `npm run build-local`
+     - `cd docs`
+     - `http-server --p 8081`
    - Run `npm start-railway` for local UI + remote backend (railway)
 4. Navigate to: `https://local.home-expenses.com:8443`
 
