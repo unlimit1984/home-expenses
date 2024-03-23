@@ -13,7 +13,9 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { TokenAuthService } from '../services/token-vault/token-auth.service';
-import { bcc, BCCMessageType } from '../broadcast-channel/broadcast-channel';
+// import { bcc, BCCMessageType } from '../broadcast-channel/broadcast-channel';
+import { BCCMessageType } from '../broadcast-channel/broadcast-channel';
+import { BroadcastService } from '../services/broadcast-channel/broadcast.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +23,8 @@ import { bcc, BCCMessageType } from '../broadcast-channel/broadcast-channel';
 export class AtAuthGuard implements CanActivate, CanActivateChild {
   private router = inject(Router);
   private tokenAuthService = inject(TokenAuthService);
+
+  constructor(private broadcastService: BroadcastService) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -33,7 +37,8 @@ export class AtAuthGuard implements CanActivate, CanActivateChild {
     }
 
     this.tokenAuthService.clearAllTokens();
-    bcc.postMessage(BCCMessageType.Logout);
+    // bcc.postMessage(BCCMessageType.Logout);
+    this.broadcastService.sendMessage(BCCMessageType.Logout);
     return this.router.parseUrl(`/auth/signin`);
   }
 

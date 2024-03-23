@@ -11,7 +11,7 @@
     </ng-container>
 
     <div *ngSwitchCase="false">
-      <p>WARNING: Multi tab usage is not allowed.</p>
+      <p data-test-id="warning">WARNING: Multi tab usage is not allowed.</p>
       <p>You can see that warning because you are trying to open App in another tab.</p>
       <p>If you are sure there is no any opened tab you will be reloaded in {{ timeLeft }}s...</p>
     </div>

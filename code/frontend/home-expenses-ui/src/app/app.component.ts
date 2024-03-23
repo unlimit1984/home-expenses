@@ -3,9 +3,6 @@
  */
 
 import { Component, inject, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
-import { TokenAuthService } from './services/token-vault/token-auth.service';
-import { bcc, BCCMessageType } from './broadcast-channel/broadcast-channel';
 import { ConfigService } from './services/config/config.service';
 
 @Component({
@@ -13,8 +10,6 @@ import { ConfigService } from './services/config/config.service';
   templateUrl: './app.component.html'
 })
 export class AppComponent implements OnDestroy {
-  private router = inject(Router);
-  private tokenAuthService = inject(TokenAuthService);
   public configService = inject(ConfigService);
 
   private syncTabsInterval;
@@ -23,13 +18,6 @@ export class AppComponent implements OnDestroy {
   public isAppAvailable: boolean = false;
 
   constructor() {
-    bcc.onmessage = (event: MessageEvent<BCCMessageType>) => {
-      if (event.data === BCCMessageType.Logout) {
-        this.tokenAuthService.clearAllTokens();
-        this.router.navigate(['/auth/signin']);
-      }
-    };
-
     if (this.configService.config.featureFlags.multiTabMode) {
       this.removeOldAgeTab();
       this.makeAppCurrentOrBlockWithReloadTimer();

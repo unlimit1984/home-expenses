@@ -28,7 +28,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { TokenAuthService } from '../../services/token-vault/token-auth.service';
-import { bcc, BCCMessageType } from '../../broadcast-channel/broadcast-channel';
+import { BCCMessageType } from '../../broadcast-channel/broadcast-channel';
+import { BroadcastService } from '../../services/broadcast-channel/broadcast.service';
 
 @Injectable()
 export class AuthEffects implements OnDestroy {
@@ -40,7 +41,8 @@ export class AuthEffects implements OnDestroy {
     private actions$: Actions,
     private store: Store,
     private authService: AuthApiService,
-    private router: Router
+    private router: Router,
+    private broadcastService: BroadcastService
   ) {}
 
   signupStart$ = createEffect(() =>
@@ -180,7 +182,7 @@ export class AuthEffects implements OnDestroy {
         ofType(signoutSuccess),
         tap(() => {
           this.tokenAuthService.clearAllTokens();
-          bcc.postMessage(BCCMessageType.Logout);
+          this.broadcastService.sendMessage(BCCMessageType.Logout)
           this.router.navigate(['/auth/signin']);
         })
       ),

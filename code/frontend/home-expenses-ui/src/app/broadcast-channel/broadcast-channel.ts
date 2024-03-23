@@ -1,12 +1,8 @@
 /*
- * COPYRIGHT Motorola Solutions, INC.
- * ALL RIGHTS RESERVED.
- * MOTOROLA SOLUTIONS CONFIDENTIAL RESTRICTED
+ * Author: Vladimir Vysokomornyi
  */
 
-const AUTH_CHANNEL = 'AUTH';
+export const CHANNEL_NAME = 'HE_CHANNEL';
 export enum BCCMessageType {
   'Logout' = 'Logout'
 }
-
-export const bcc = new BroadcastChannel(AUTH_CHANNEL);
