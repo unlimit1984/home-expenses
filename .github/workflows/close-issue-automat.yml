@@ -1,15 +1,26 @@
 name: Close Issue
 
 on:
-  project_card:
-    types: [moved]
+  issues:
+    types: [opened, edited, milestoned]
 
 jobs:
   close-issue:
     runs-on: ubuntu-latest
     steps:
+      - name: print some details
+        shell: bash
+        run: |
+          echo "Issue Event: ${{ github.event_name }}"
+          echo "Issue Action: ${{ github.event.action }}"
+          echo "Issue Number: ${{ github.event.issue.number }}"
+          echo "Issue Title: ${{ github.event.issue.title }}"
+          echo "Issue State: ${{ github.event.issue.state }}"
+          echo "Issue Assignee: ${{ github.event.issue.assignee.login }}"
+          echo "Issue Labels: ${{ join(github.event.issue.labels.*.name, ', ') }}"
+          echo "Issue Milestone: ${{ github.event.issue.milestone.title }}"
+
       - name: Close Issue
-        if: startsWith(github.event.project_card.note, 'automove') && github.event.project_card.column_name == 'Done'
         uses: actions/github-script@v4
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -27,3 +38,6 @@ jobs:
 #                state: 'closed'
 #              });
 #            }
+
+
+# if: startsWith(github.event.project_card.note, 'automove') && github.event.project_card.column_name == 'Done'
