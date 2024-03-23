@@ -3,7 +3,8 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/spec",
-    "types": ["jasmine", "@angular/localize", "node"]
+    "types": ["jest", "@angular/localize", "node"]
   },
+  "files": ["src/setup.jest.ts"],
   "include": ["src/**/*.spec.ts", "src/**/*.d.ts"]
 }
