@@ -2,7 +2,7 @@ name: Close Issue
 
 on:
   issues:
-    types: [opened, edited, milestoned]
+    types: [ assigned, unassigned, labeled, unlabeled, opened, edited, closed, reopened, milestoned, demilestoned ]
 
 jobs:
   close-issue:
