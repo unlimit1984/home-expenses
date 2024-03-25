@@ -1,3 +1,5 @@
+# Author: Vladimir Vysokomornyi
+
 name: Test CRON Scheduler
 
 on:

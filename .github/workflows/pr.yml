@@ -1,0 +1,29 @@
+# Author: Vladimir Vysokomornyi
+
+name: PR Validation
+
+on:
+  pull_request:
+    branches: [main]
+
+  workflow_dispatch:
+
+jobs:
+  check_ab:
+    name: "🔗 Check GitHub reference"
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Check
+        uses: .github/actions/check_ab@main
+        with:
+          prDescription: ${{ github.event.pull_request.body }}
+
+#  jest_tests:
+#    name: 🧪 Install and Tests
+#    uses: .github/workflows/install-and-tests-parallel.yml
+#    secrets:
+#      npmToken: ${{ secrets.NPM_TOKEN }}
+#      azureCredentials: ${{ secrets.AZURE_CREDENTIALS_PRIMARY }}
+#    with:
+#      workingDirectory: ./

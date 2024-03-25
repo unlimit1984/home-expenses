@@ -1,3 +1,5 @@
+# Author: Vladimir Vysokomornyi
+
 name: Render all plantuml diagrams
 
 on:
