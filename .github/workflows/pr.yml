@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Check
-        uses: .github/actions/check_ab@main
+        uses: .github/actions/check_ab
         with:
           prDescription: ${{ github.event.pull_request.body }}
 
