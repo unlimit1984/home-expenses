@@ -23,7 +23,6 @@ describe('AppComponent', () => {
   let componentRender: HTMLElement;
 
   beforeEach(async () => {
-    // jest.mock('BroadcastChannel')
     await TestBed.configureTestingModule({
       declarations: [AppComponent, HeaderComponent],
       imports: [RouterTestingModule, ReactiveFormsModule, HttpClientTestingModule],
