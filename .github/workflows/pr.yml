@@ -38,17 +38,21 @@ jobs:
       - name: 🛠️ Install
         shell: bash
         run: |
+          pwd
           cd code/frontend/home-expenses-ui
           npm i
+          pwd
 
       - name: 🧪 Test
         shell: bash
         run: |
+          pwd
           npm run test
 
       - name: 💾 Lint
         shell: bash
         run: |
+          pwd
           npm run lint
 
   backend_tests:
