@@ -14,16 +14,65 @@ jobs:
     if: github.event.pull_request.draft == false
     runs-on: ubuntu-20.04
     steps:
+      - uses: actions/checkout@v4
+
       - name: Check
         uses: .github/actions/check_ab@main
         with:
           prDescription: ${{ github.event.pull_request.body }}
 
-#  jest_tests:
-#    name: 🧪 Install and Tests
-#    uses: .github/workflows/install-and-tests-parallel.yml
-#    secrets:
-#      npmToken: ${{ secrets.NPM_TOKEN }}
-#      azureCredentials: ${{ secrets.AZURE_CREDENTIALS_PRIMARY }}
-#    with:
-#      workingDirectory: ./
+  frontend_tests:
+    needs: [check_ab]
+    name: Install and test (UI)
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          cache: "npm"
+          cache-dependency-path: code/frontend/home-expenses-ui/package-lock.json
+          node-version: 20
+
+      - name: 🛠️ Install
+        shell: bash
+        run: |
+          cd code/frontend/home-expenses-ui
+          npm i
+
+      - name: 🧪 Test
+        shell: bash
+        run: |
+          npm run test
+
+      - name: 💾 Lint
+        shell: bash
+        run: |
+          npm run lint
+
+  backend_tests:
+    needs: [check_ab]
+    name: Install and test (NestJs)
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          cache: "npm"
+          cache-dependency-path: code/backend/home-expenses-api/package-lock.json
+          node-version: 20
+
+      - name: 🛠️ Install
+        shell: bash
+        run: |
+          cd code/backend/home-expenses-api
+          npm i
+
+      - name: 🧪 Test (Backend)
+        shell: bash
+        run: |
+          cd code/backend/home-expenses-api
+          npm run test
