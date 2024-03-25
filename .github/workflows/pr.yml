@@ -35,24 +35,12 @@ jobs:
           cache-dependency-path: code/frontend/home-expenses-ui/package-lock.json
           node-version: 20
 
-      - name: 🛠️ Install
+      - name: 🛠️ - Install, 🧪 - Test and 💾 - Lint
         shell: bash
         run: |
-          pwd
           cd code/frontend/home-expenses-ui
           npm i
-          pwd
-
-      - name: 🧪 Test
-        shell: bash
-        run: |
-          pwd
           npm run test
-
-      - name: 💾 Lint
-        shell: bash
-        run: |
-          pwd
           npm run lint
 
   backend_tests:
