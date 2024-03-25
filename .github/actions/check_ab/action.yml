@@ -1,0 +1,28 @@
+name: Check GitHub reference
+description: Check GitHub reference to issue
+
+inputs:
+  prDescription:
+    description: PR description
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Run check
+      shell: bash
+      run: |
+        DESCRIPTION=$(cat << END
+          ${{ inputs.prDescription }}
+        END
+        )
+
+        echo "The descriptions is:"
+        echo $DESCRIPTION
+
+        if [[ "$DESCRIPTION" =~ AB\#[0-9]{8} ]]; then
+          echo "Description is OK"
+        else
+          echo "Check failed. Description does not contain AB#[number]. You need to REOPEN this PR! Description edition does not make eny effect!"
+          exit -1
+        fi
