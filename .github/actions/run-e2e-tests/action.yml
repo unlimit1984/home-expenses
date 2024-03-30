@@ -1,0 +1,17 @@
+# Author: Vladimir Vysokomornyi
+
+name: Run e2e tests
+description: Run Cypress E2E tests
+
+inputs:
+  someParameter:
+    description: Some input parameter for E2E Cypress tests
+    required: false
+
+runs:
+  using: composite
+  steps:
+    - name: Run check
+      shell: bash
+      run: |
+        echo "Run E2E placeholder tests in Cypress"

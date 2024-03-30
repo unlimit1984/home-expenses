@@ -1,0 +1,23 @@
+# Author: Vladimir Vysokomornyi
+
+name: Run E2E tests in Cypress
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+env:
+  node-version: 20
+
+jobs:
+  e2e_tests:
+    name: Run E2E tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Cypress E2E tests
+        uses: ./.github/actions/run-e2e-tests
+        with:
+          someParameter: test
