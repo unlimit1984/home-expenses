@@ -43,6 +43,11 @@ jobs:
           npm run test
           npm run lint
 
+      - name: Run Cypress E2E tests
+        uses: ./.github/actions/run-e2e-tests
+        with:
+          someParameter: test
+
   backend_tests:
     needs: [check_ab]
     name: Install and test (NestJs)
