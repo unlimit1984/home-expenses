@@ -146,7 +146,11 @@ export class AuthController {
   @ApiBadRequestResponse({ description: 'Error during  sign out' })
   @Get('signout')
   async signout(@Req() req: Request): Promise<boolean> {
-    const email = req.body['email'];
+    const email = req?.user?.['email'];
+    if (!email) {
+      throw new BadRequestException(USER_NOT_FOUND_ERROR);
+    }
+
     const existedUser = await this.userDbService.findUser(email);
     if (!existedUser) {
       throw new BadRequestException(USER_NOT_FOUND_ERROR);
@@ -223,7 +227,11 @@ export class AuthController {
   @HttpCode(200)
   @Post('reset-password')
   async resetPassword(@Req() req: Request, @Body() credentials: ResetPasswordCredentialsDto) {
-    const email = req.body['email'];
+    const email = req?.user?.['email'];
+    if (!email) {
+      throw new BadRequestException(USER_NOT_FOUND_ERROR);
+    }
+
     const existedUser = await this.userDbService.findUser(email);
     if (!existedUser) {
       throw new BadRequestException(USER_NOT_FOUND_ERROR);
