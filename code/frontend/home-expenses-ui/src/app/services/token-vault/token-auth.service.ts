@@ -51,4 +51,8 @@ export class TokenAuthService {
   public isValidRefreshToken(): boolean {
     return this.jwtHelper.isValidToken(this.getRefreshToken());
   }
+
+  public getEmail(): string {
+    return this.jwtHelper.getEmail(this.getAccessToken());
+  }
 }

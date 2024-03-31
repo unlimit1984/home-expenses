@@ -34,12 +34,7 @@ import {
 } from '../user.constants';
 import * as argon from 'argon2';
 import { JwtService } from '@nestjs/jwt';
-import {
-  AUTH_ACCESS_TOKEN_EXPIRATION,
-  // AUTH_ACCESS_TOKEN_SECRET,
-  AUTH_REFRESH_TOKEN_EXPIRATION,
-  // AUTH_REFRESH_TOKEN_SECRET
-} from '../../../config/auth';
+import { AUTH_ACCESS_TOKEN_EXPIRATION, AUTH_REFRESH_TOKEN_EXPIRATION } from '../../../config/auth';
 import { RefreshTokenGuard } from '../auth/guards/refresh-token.guard';
 import { Request } from 'express';
 import { AccessTokenGuard } from '../auth/guards/access-token.guard';
@@ -151,7 +146,7 @@ export class AuthController {
   @ApiBadRequestResponse({ description: 'Error during  sign out' })
   @Get('signout')
   async signout(@Req() req: Request): Promise<boolean> {
-    const email = req.user['email'];
+    const email = req.body['email'];
     const existedUser = await this.userDbService.findUser(email);
     if (!existedUser) {
       throw new BadRequestException(USER_NOT_FOUND_ERROR);
@@ -228,7 +223,7 @@ export class AuthController {
   @HttpCode(200)
   @Post('reset-password')
   async resetPassword(@Req() req: Request, @Body() credentials: ResetPasswordCredentialsDto) {
-    const email = req.user['email'];
+    const email = req.body['email'];
     const existedUser = await this.userDbService.findUser(email);
     if (!existedUser) {
       throw new BadRequestException(USER_NOT_FOUND_ERROR);
@@ -262,7 +257,12 @@ export class AuthController {
   @ApiUnauthorizedResponse({ description: 'Error during refresh tokens process' })
   @Post('refresh-token')
   async refreshToken(@Req() req: Request) {
-    const existedUser = await this.userDbService.findUser(req.user['email']);
+    const email = req?.user?.['email'];
+    if (!email) {
+      throw new UnauthorizedException(AUTH_ACCESS_DENIED);
+    }
+
+    const existedUser = await this.userDbService.findUser(email);
     if (!existedUser || !existedUser.refreshTokenHash) {
       throw new UnauthorizedException(AUTH_ACCESS_DENIED);
     }
@@ -286,7 +286,6 @@ export class AuthController {
           email: existedUser.email
         },
         {
-          // secret: AUTH_ACCESS_TOKEN_SECRET,
           secret: this.configService.get<string>('auth.at_secret'),
           expiresIn: AUTH_ACCESS_TOKEN_EXPIRATION
         }
@@ -296,7 +295,6 @@ export class AuthController {
           email: existedUser.email
         },
         {
-          // secret: AUTH_REFRESH_TOKEN_SECRET,
           secret: this.configService.get<string>('auth.rt_secret'),
           expiresIn: AUTH_REFRESH_TOKEN_EXPIRATION
         }

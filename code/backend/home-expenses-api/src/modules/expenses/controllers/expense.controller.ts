@@ -57,6 +57,7 @@ export class ExpenseController {
   //   }
   //   return this.service.findByUserEmail(email);
   // }
+
   @ApiOperation({
     summary: 'Find expenses by user email',
     description: 'Use access token as Bearer during getting expenses'
@@ -64,7 +65,7 @@ export class ExpenseController {
   @ApiOkResponse({ description: 'All expenses by user email are found' })
   @Get('findByUser')
   async findByUser(@Request() req): Promise<ExpenseV2[]> {
-    const email = this.tokenService.getEmailFromToken(req.headers.authorization);
+    const email = req?.user?.email;
     if (!email) {
       throw new ForbiddenException(EXPENSE_FORBIDDEN_ERROR);
     }
@@ -93,5 +94,15 @@ export class ExpenseController {
       throw new NotFoundException(EXPENSE_NOT_FOUND_ERROR);
     }
     return this.service.delete(id);
+  }
+
+  @ApiOperation({
+    summary: 'Find expenses by user email',
+    description: 'Use access token as Bearer during getting expenses'
+  })
+  @ApiOkResponse({ description: 'All expenses by user email are found' })
+  @Get('findByUserEmail/:email')
+  async findByUserEmail(@Param('email') email: string): Promise<ExpenseV2[]> {
+    return this.service.findByUserEmail(email);
   }
 }

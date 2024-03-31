@@ -15,7 +15,7 @@ import {
   UsePipes,
   ValidationPipe
 } from '@nestjs/common';
-// import { AccessTokenGuard } from '../../modules/auth/guards/access-token.guard';
+import { AccessTokenGuard } from '../auth/guards/access-token.guard';
 import {
   ApiBadRequestResponse,
   ApiBearerAuth,
@@ -29,9 +29,9 @@ import { UserDbService } from '../db/user-db.service';
 import { User } from '../db/user.entity';
 import { ALREADY_REGISTERED_ERROR, USER_NOT_FOUND_ERROR } from '../user.constants';
 
-// @UseGuards(AccessTokenGuard)
 @ApiBearerAuth()
 @ApiTags('User')
+@UseGuards(AccessTokenGuard)
 @Controller('user')
 export class UserController {
   constructor(private readonly service: UserDbService) {}

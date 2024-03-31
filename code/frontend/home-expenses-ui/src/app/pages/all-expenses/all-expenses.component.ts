@@ -4,7 +4,7 @@
 
 import { Component, Inject, LOCALE_ID, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Expense } from '../../interfaces/Expense';
+import { ExpenseCreateForm, ExpenseResponse } from '../../interfaces/Expense';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { selectExpenses, selectIsLoading } from '../../store/expenses/expenses.selectors';
@@ -19,7 +19,7 @@ import { formatDate } from '@angular/common';
 export class AllExpensesComponent implements OnInit {
   public form: FormGroup;
 
-  public expenses$: Observable<Expense[]>;
+  public expenses$: Observable<ExpenseResponse[]>;
   public isLoading$: Observable<boolean>;
 
   constructor(private fb: FormBuilder, private store: Store, @Inject(LOCALE_ID) private locale: string) {
@@ -44,7 +44,7 @@ export class AllExpensesComponent implements OnInit {
     }
   }
 
-  private mapFormToRequestBody(): Expense {
+  private mapFormToRequestBody(): ExpenseCreateForm {
     const rawValue = this.form.getRawValue();
 
     const date = new Date(rawValue.date);
