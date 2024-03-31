@@ -12,8 +12,8 @@ import { ConfigService } from './services/config/config.service';
 export class AppComponent implements OnDestroy {
   public configService = inject(ConfigService);
 
-  private syncTabsInterval;
-  private autoReloadTimer: NodeJS.Timer;
+  private syncTabsInterval: string | number | NodeJS.Timeout;
+  private autoReloadTimer: string | number | NodeJS.Timeout;
   public timeLeft = 3;
   public isAppAvailable = false;
 
