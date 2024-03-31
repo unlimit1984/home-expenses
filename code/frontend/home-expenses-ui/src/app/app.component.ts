@@ -15,7 +15,7 @@ export class AppComponent implements OnDestroy {
   private syncTabsInterval;
   private autoReloadTimer: NodeJS.Timer;
   public timeLeft = 3;
-  public isAppAvailable: boolean = false;
+  public isAppAvailable = false;
 
   constructor() {
     if (this.configService.config.featureFlags.multiTabMode) {

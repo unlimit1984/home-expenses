@@ -13,7 +13,7 @@ import { BroadcastService } from '../services/broadcast-channel/broadcast.servic
 @Injectable({
   providedIn: 'root'
 })
-export class AtAuthGuard  {
+export class AtAuthGuard {
   private router = inject(Router);
   private tokenAuthService = inject(TokenAuthService);
 
