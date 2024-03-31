@@ -48,7 +48,7 @@ import { TestComponent } from './test/test.component';
     AppRoutingModule,
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot([ExpensesEffects, AuthEffects]),
-    StoreDevtoolsModule.instrument({ logOnly: environment.prod , connectInZone: true}),
+    StoreDevtoolsModule.instrument({ logOnly: environment.prod, connectInZone: true }),
     NgbModule,
     ReactiveFormsModule
   ],
