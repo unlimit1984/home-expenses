@@ -182,7 +182,7 @@ export class AuthEffects implements OnDestroy {
         ofType(signoutSuccess),
         tap(() => {
           this.tokenAuthService.clearAllTokens();
-          this.broadcastService.sendMessage(BCCMessageType.Logout)
+          this.broadcastService.sendMessage(BCCMessageType.Logout);
           this.router.navigate(['/auth/signin']);
         })
       ),

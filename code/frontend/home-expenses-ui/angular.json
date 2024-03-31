@@ -127,21 +127,21 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "home-expenses-ui:build",
-            "proxyConfig": "./proxy.conf.json"
+            "proxyConfig": "./proxy.conf.json",
+            "buildTarget": "home-expenses-ui:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "home-expenses-ui:build:production"
+              "buildTarget": "home-expenses-ui:build:production"
             },
             "development": {
-              "browserTarget": "home-expenses-ui:build:development"
+              "buildTarget": "home-expenses-ui:build:development"
             },
             "dev": {
-              "browserTarget": "home-expenses-ui:build:dev"
+              "buildTarget": "home-expenses-ui:build:dev"
             },
             "local": {
-              "browserTarget": "home-expenses-ui:build:local"
+              "buildTarget": "home-expenses-ui:build:local"
             }
           },
           "defaultConfiguration": "development"
@@ -149,7 +149,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "home-expenses-ui:build"
+            "buildTarget": "home-expenses-ui:build"
           }
         },
         "lint": {

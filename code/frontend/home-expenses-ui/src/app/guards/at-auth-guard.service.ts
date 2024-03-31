@@ -3,14 +3,7 @@
  */
 
 import { inject, Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  CanActivate,
-  CanActivateChild,
-  Router,
-  RouterStateSnapshot,
-  UrlTree
-} from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { TokenAuthService } from '../services/token-vault/token-auth.service';
 // import { bcc, BCCMessageType } from '../broadcast-channel/broadcast-channel';
@@ -20,7 +13,7 @@ import { BroadcastService } from '../services/broadcast-channel/broadcast.servic
 @Injectable({
   providedIn: 'root'
 })
-export class AtAuthGuard implements CanActivate, CanActivateChild {
+export class AtAuthGuard {
   private router = inject(Router);
   private tokenAuthService = inject(TokenAuthService);
 
