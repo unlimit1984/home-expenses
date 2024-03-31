@@ -62,7 +62,7 @@
     "libsodium-wrappers": "^0.7.13",
     "prettier": "^2.8.3",
     "prettier-eslint": "^15.0.1",
-    "typescript": "~5.4.3"
+    "typescript": "~5.3.3"
   },
   "jest": {
     "preset": "jest-preset-angular",
