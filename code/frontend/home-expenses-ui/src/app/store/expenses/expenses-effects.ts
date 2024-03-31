@@ -13,18 +13,23 @@ import {
   getExpensesResult
 } from './expenses.actions';
 import { catchError, map, of, switchMap } from 'rxjs';
-import { Store } from '@ngrx/store';
 import { ExpensesApiV2Service } from '../../services/http/expenses-api-v2.service';
+import { TokenAuthService } from '../../services/token-vault/token-auth.service';
+import { ExpenseDto } from '../../interfaces/Expense';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
 export class ExpensesEffects {
-  constructor(private actions$: Actions, private expensesV2Service: ExpensesApiV2Service, private store: Store) {}
+  constructor(
+    private actions$: Actions,
+    private expensesV2Service: ExpensesApiV2Service,
+    private tokenAuthService: TokenAuthService
+  ) {}
 
   getExpenses$ = createEffect(() =>
     this.actions$.pipe(
       ofType(getExpenses),
       switchMap((action) => {
-        // return this.expensesService.getExpenses().pipe(
         return this.expensesV2Service.getExpenses().pipe(
           map((expenses) => getExpensesResult({ expenses: expenses })),
           catchError((error) => of(getExpensesError({ error })))
@@ -37,10 +42,21 @@ export class ExpensesEffects {
     this.actions$.pipe(
       ofType(createExpense),
       switchMap((action) => {
-        // return this.expensesService.createExpense(action.expense).pipe(
-        return this.expensesV2Service.createExpense(action.expense).pipe(
-          map((response) => createExpensesResult({ expense: response })),
-          catchError((error) => of(createExpensesError({ error })))
+        const email = this.tokenAuthService.getEmail();
+        if (email) {
+          const expense: ExpenseDto = { ...action.expense, email };
+          return this.expensesV2Service.createExpense(expense).pipe(
+            map((response) => createExpensesResult({ expense: response })),
+            catchError((error) => of(createExpensesError({ error })))
+          );
+        }
+        return of(
+          createExpensesError({
+            error: new HttpErrorResponse({
+              error: 'Email is skipped',
+              status: 400
+            })
+          })
         );
       })
     )

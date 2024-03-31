@@ -12,10 +12,10 @@ import {
   getExpensesResult
 } from './expenses.actions';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Expense } from '../../interfaces/Expense';
+import { ExpenseResponse } from '../../interfaces/Expense';
 
 export interface ExpensesState {
-  expenses: Expense[];
+  expenses: ExpenseResponse[];
   isLoading: boolean;
   error: HttpErrorResponse;
   // isMockedData: boolean;
