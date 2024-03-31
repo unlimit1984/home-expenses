@@ -51,7 +51,7 @@ jobs:
           mv code/backend/home-expenses-api/env_template code/backend/home-expenses-api/.env
 
       - name: Set up Node.js version
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ env.node-version }}
           cache: npm
