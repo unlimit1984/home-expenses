@@ -29,6 +29,8 @@ import { ConfigService } from './services/config/config.service';
 import { Observable } from 'rxjs';
 import { IConfig } from './shared/interfaces/config';
 import { TestComponent } from './test/test.component';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { RouterSerializer } from './store/router/router.reducer';
 
 @NgModule({
   declarations: [
@@ -49,6 +51,9 @@ import { TestComponent } from './test/test.component';
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot([ExpensesEffects, AuthEffects]),
     StoreDevtoolsModule.instrument({ logOnly: environment.prod, connectInZone: true }),
+    StoreRouterConnectingModule.forRoot({
+      serializer: RouterSerializer
+    }),
     NgbModule,
     ReactiveFormsModule
   ],

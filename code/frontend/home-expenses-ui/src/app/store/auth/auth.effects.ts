@@ -4,7 +4,7 @@
 
 import { inject, Injectable, OnDestroy } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, fromEvent, map, of, switchMap, tap } from 'rxjs';
+import { catchError, fromEvent, map, of, switchMap, tap, withLatestFrom } from 'rxjs';
 import {
   noOpAction,
   refreshTokensFailed,
@@ -30,6 +30,7 @@ import { Router } from '@angular/router';
 import { TokenAuthService } from '../../services/token-vault/token-auth.service';
 import { BCCMessageType } from '../../broadcast-channel/broadcast-channel';
 import { BroadcastService } from '../../services/broadcast-channel/broadcast.service';
+import { selectRouterUrl } from '../router/router.selectors';
 
 @Injectable()
 export class AuthEffects implements OnDestroy {
@@ -204,7 +205,8 @@ export class AuthEffects implements OnDestroy {
   refreshTokensTick$ = createEffect(() =>
     this.actions$.pipe(
       ofType(refreshTokensTick),
-      switchMap(() => {
+      withLatestFrom(this.store.select(selectRouterUrl)),
+      switchMap(([action, url]) => {
         if (this.refreshTokensTimer) {
           clearTimeout(this.refreshTokensTimer);
         }
@@ -215,6 +217,7 @@ export class AuthEffects implements OnDestroy {
           }, 5 * 60 * 1000);
         };
         if (this.tokenAuthService.isValidRefreshToken()) {
+          console.log('===token is VALID');
           return this.authService.refreshTokens().pipe(
             tap((value) => {
               setTimerForRefreshTokens();
@@ -228,7 +231,10 @@ export class AuthEffects implements OnDestroy {
             })
           );
         } else {
-          this.router.navigate(['/auth/signin']);
+          console.log('===token is INVALID');
+          if (url && !url.includes('/auth/')) {
+            this.router.navigate(['/auth/signin']);
+          }
           setTimerForRefreshTokens();
           return of(noOpAction());
         }

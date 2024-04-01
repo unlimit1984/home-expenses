@@ -28,6 +28,9 @@ import { CreateUserDto } from '../create.user.dto';
 import { UserDbService } from '../db/user-db.service';
 import { User } from '../db/user.entity';
 import { ALREADY_REGISTERED_ERROR, USER_NOT_FOUND_ERROR } from '../user.constants';
+import { Roles } from '../../../shared/decorators/roles.decorator';
+import { RoleGuard } from '../../../shared/roles-guards/role.guard';
+import { Role } from '../../../shared/interfaces/role.enum';
 
 @ApiBearerAuth()
 @ApiTags('User')
@@ -39,6 +42,8 @@ export class UserController {
   @ApiOperation({ summary: 'Find all users', description: 'Use access token as Bearer during getting users' })
   @ApiOkResponse({ description: 'All users are found' })
   @Get('findAll')
+  @UseGuards(RoleGuard)
+  @Roles([Role.Admin])
   async findAll(): Promise<User[]> {
     return this.service.findAll();
   }
@@ -46,6 +51,8 @@ export class UserController {
   @ApiOperation({ summary: 'Create user', description: 'Use access token as Bearer during creating user' })
   @ApiCreatedResponse({ description: 'The user has been successfully created' })
   @ApiBadRequestResponse({ description: 'The user is already registered' })
+  @UseGuards(RoleGuard)
+  @Roles([Role.Admin])
   @Post('create')
   @UsePipes(new ValidationPipe())
   async create(@Body() dto: CreateUserDto): Promise<User> {
@@ -60,6 +67,8 @@ export class UserController {
   @ApiOperation({ summary: 'Delete user', description: 'Use access token as Bearer during user removal' })
   @ApiCreatedResponse({ description: 'The user has been successfully created' })
   @ApiBadRequestResponse({ description: 'The user is already registered' })
+  @UseGuards(RoleGuard)
+  @Roles([Role.Admin])
   @Delete('delete/:email')
   async deleteByEmail(@Param('email') email: string): Promise<any> {
     const isExisted = await this.service.findUser(email);

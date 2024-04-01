@@ -82,6 +82,7 @@ export class UserDbService {
 
   async finishRecover(user: User, newPassword: string): Promise<User> {
     user.passwordHash = await argon.hash(newPassword);
+    user.preview = false;
     user.pendingRecover = false;
     user.verificationCodeHash = null;
     return this.userRepository.save(user);

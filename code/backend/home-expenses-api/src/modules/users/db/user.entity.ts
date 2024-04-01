@@ -41,4 +41,7 @@ export class User {
 
   @OneToMany(() => ExpenseV2, (expense) => expense.user)
   expenses: ExpenseV2[];
+
+  @Column({ nullable: true })
+  role: string
 }

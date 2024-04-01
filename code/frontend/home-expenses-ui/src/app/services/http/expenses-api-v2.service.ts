@@ -15,7 +15,7 @@ export class ExpensesApiV2Service {
   constructor(private httpClient: HttpClient, private configService: ConfigService) {}
 
   public getExpenses(): Observable<ExpenseResponse[]> {
-    return this.httpClient.get<ExpenseResponse[]>(`${this.configService.config.API}/expense/findByUser`);
+    return this.httpClient.get<ExpenseResponse[]>(`${this.configService.config.API}/expense/findMine`);
   }
 
   public createExpense(expenseBody: ExpenseDto): Observable<any> {
