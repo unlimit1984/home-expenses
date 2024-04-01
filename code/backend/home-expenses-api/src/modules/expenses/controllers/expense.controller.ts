@@ -30,6 +30,9 @@ import { ExpenseDbService } from '../db/expense-db.service';
 import { ExpenseV2 } from '../db/expense.entity';
 import { EXPENSE_FORBIDDEN_ERROR, EXPENSE_NOT_FOUND_ERROR } from '../expense.constants';
 import { TokenService } from '../../../services/token-service/token.service';
+import { RoleGuard } from '../../../shared/roles-guards/role.guard';
+import { Roles } from '../../../shared/decorators/roles.decorator';
+import { Role } from '../../../shared/interfaces/role.enum';
 
 @UseGuards(AccessTokenGuard)
 @ApiBearerAuth()
@@ -40,6 +43,8 @@ export class ExpenseController {
 
   @ApiOperation({ summary: 'Find all expenses', description: 'Use access token as Bearer during getting expenses' })
   @ApiOkResponse({ description: 'All expenses are found' })
+  @UseGuards(RoleGuard)
+  @Roles([Role.Admin])
   @Get('findAll')
   async findAll(): Promise<ExpenseV2[]> {
     return this.service.findAll();
@@ -63,8 +68,8 @@ export class ExpenseController {
     description: 'Use access token as Bearer during getting expenses'
   })
   @ApiOkResponse({ description: 'All expenses by user email are found' })
-  @Get('findByUser')
-  async findByUser(@Request() req): Promise<ExpenseV2[]> {
+  @Get('findMine')
+  async findMine(@Request() req): Promise<ExpenseV2[]> {
     const email = req?.user?.email;
     if (!email) {
       throw new ForbiddenException(EXPENSE_FORBIDDEN_ERROR);
@@ -87,6 +92,8 @@ export class ExpenseController {
   @ApiOperation({ summary: 'Delete expenseV2', description: 'Use access token as Bearer during expenseV2 removal' })
   @ApiCreatedResponse({ description: 'The expenseV2 has been successfully created' })
   @ApiBadRequestResponse({ description: 'The expenseV2 is already registered' })
+  @UseGuards(RoleGuard)
+  @Roles([Role.Admin])
   @Delete('delete/:id')
   async deleteById(@Param('id') id: number): Promise<any> {
     const isExisted = await this.service.findById(id);
@@ -101,6 +108,8 @@ export class ExpenseController {
     description: 'Use access token as Bearer during getting expenses'
   })
   @ApiOkResponse({ description: 'All expenses by user email are found' })
+  @UseGuards(RoleGuard)
+  @Roles([Role.Admin])
   @Get('findByUserEmail/:email')
   async findByUserEmail(@Param('email') email: string): Promise<ExpenseV2[]> {
     return this.service.findByUserEmail(email);

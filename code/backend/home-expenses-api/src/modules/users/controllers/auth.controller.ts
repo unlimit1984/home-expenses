@@ -176,10 +176,6 @@ export class AuthController {
       throw new BadRequestException(USER_NOT_FOUND_ERROR);
     }
 
-    if (existedUser.preview) {
-      throw new UnauthorizedException(EXPECTED_ACTIVATION_ERROR);
-    }
-
     const verificationCode = randomUUID();
     this.mailService.sendRecoverPasswordMail(existedUser.email, verificationCode);
     return this.userDbService.pendingRecover(existedUser, verificationCode);
@@ -197,10 +193,6 @@ export class AuthController {
     const existedUser = await this.userDbService.findUser(newCredentials.email);
     if (!existedUser) {
       throw new UnauthorizedException(USER_NOT_FOUND_ERROR);
-    }
-
-    if (existedUser.preview) {
-      throw new UnauthorizedException(ACTIVATION_USER_IS_ALREADY_DONE);
     }
 
     if (!existedUser.pendingRecover) {
@@ -291,7 +283,8 @@ export class AuthController {
     return {
       access_token: this.jwtService.sign(
         {
-          email: existedUser.email
+          email: existedUser.email,
+          role: existedUser.role ? existedUser.role : undefined
         },
         {
           secret: this.configService.get<string>('auth.at_secret'),
