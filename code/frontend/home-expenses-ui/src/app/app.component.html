@@ -1,19 +1,81 @@
-<ng-container *ngIf="!configService.config.featureFlags.multiTabMode; else multiTabSolution">
-  <app-header></app-header>
-  <router-outlet></router-outlet>
+<ng-container *ngIf="layoutVersion === LayoutVersion.AngularMaterial">
+  <mat-toolbar color="primary">
+    <a class="navbar-brand" routerLinkActive="active" routerLink="/">Home Expenses</a>
+    <div *ngIf="tokenAuthService.isValidAccessToken()" class="d-flex flex-grow-1 justify-content-end">
+      <button type="button" class="btn btn-danger" (click)="signout()">Sign out</button>
+    </div>
+  </mat-toolbar>
+
+  <mat-sidenav-container
+    *ngLet="tokenAuthService.isValidAccessToken(); let isValidAccessToken"
+    class="sidenav-container"
+  >
+    <mat-sidenav
+      mode="side"
+      [opened]="true"
+      [autoFocus]="false"
+      [style.width.px]="isSidenavCollapsed ? collapsedWidth : expandedWidth"
+    >
+      <mat-nav-list class="nav-list">
+        <a
+          mat-list-item
+          routerLinkActive="active-link"
+          [routerLink]="isValidAccessToken ? ['/all-expenses'] : null"
+          [disabled]="!isValidAccessToken"
+        >
+          <mat-icon>payments</mat-icon>
+          <span *ngIf="!isSidenavCollapsed">All expenses</span>
+        </a>
+
+        <a
+          mat-list-item
+          routerLinkActive="active-link"
+          [routerLink]="isValidAccessToken ? ['/expenses'] : null"
+          [disabled]="!isValidAccessToken"
+        >
+          <mat-icon>paid</mat-icon>
+          <span *ngIf="!isSidenavCollapsed">Expenses (Simple)</span>
+        </a>
+
+        <a mat-list-item (click)="toggleSidenav()" class="justify-content-end">
+          <mat-icon *ngIf="isSidenavCollapsed">keyboard_double_arrow_right</mat-icon>
+          <ng-container *ngIf="!isSidenavCollapsed">
+            <mat-icon>keyboard_double_arrow_left</mat-icon>
+            <span>Collapse</span>
+          </ng-container>
+        </a>
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content
+      class="sidenav-content"
+      [style.margin-left.px]="isSidenavCollapsed ? collapsedWidth : expandedWidth"
+    >
+      <div class="main-content">
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
 </ng-container>
 
-<ng-template #multiTabSolution>
-  <ng-container [ngSwitch]="isAppAvailable">
-    <ng-container *ngSwitchCase="true">
-      <app-header></app-header>
-      <router-outlet></router-outlet>
-    </ng-container>
-
-    <div *ngSwitchCase="false">
-      <p data-test-id="warning">WARNING: Multi tab usage is not allowed.</p>
-      <p>You can see that warning because you are trying to open App in another tab.</p>
-      <p>If you are sure there is no any opened tab you will be reloaded in {{ timeLeft }}s...</p>
-    </div>
+<ng-container *ngIf="layoutVersion === LayoutVersion.Standard">
+  <ng-container *ngIf="!configService.config.featureFlags.multiTabMode; else multiTabSolution">
+    <app-header></app-header>
+    <router-outlet></router-outlet>
   </ng-container>
-</ng-template>
+
+  <ng-template #multiTabSolution>
+    <ng-container [ngSwitch]="isAppAvailable">
+      <ng-container *ngSwitchCase="true">
+        <app-header></app-header>
+        <router-outlet></router-outlet>
+      </ng-container>
+
+      <div *ngSwitchCase="false">
+        <p data-test-id="warning">WARNING: Multi tab usage is not allowed.</p>
+        <p>You can see that warning because you are trying to open App in another tab.</p>
+        <p>If you are sure there is no any opened tab you will be reloaded in {{ timeLeft }}s...</p>
+      </div>
+    </ng-container>
+  </ng-template>
+</ng-container>

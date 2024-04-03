@@ -31,6 +31,36 @@ import { IConfig } from './shared/interfaces/config';
 import { TestComponent } from './test/test.component';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { RouterSerializer } from './store/router/router.reducer';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatMenuModule } from '@angular/material/menu';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatInputModule } from '@angular/material/input';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatTreeModule } from '@angular/material/tree';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { CommonModule } from '@angular/common';
+import { NgLetModule } from 'ng-let';
 
 @NgModule({
   declarations: [
@@ -46,6 +76,7 @@ import { RouterSerializer } from './store/router/router.reducer';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
     StoreModule.forRoot(reducers),
@@ -55,7 +86,34 @@ import { RouterSerializer } from './store/router/router.reducer';
       serializer: RouterSerializer
     }),
     NgbModule,
-    ReactiveFormsModule
+    NgLetModule,
+    ReactiveFormsModule,
+    MatMenuModule,
+    MatButtonModule,
+    MatIconModule,
+    MatCardModule,
+    MatTabsModule,
+    MatSidenavModule,
+    MatListModule,
+    MatToolbarModule,
+    MatTooltipModule,
+    MatInputModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatProgressSpinnerModule,
+    MatStepperModule,
+    MatDialogModule,
+    MatSelectModule,
+    MatCheckboxModule,
+    DragDropModule,
+    MatRadioModule,
+    MatSliderModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatGridListModule,
+    MatTreeModule,
+    ScrollingModule
   ],
   providers: [
     {
@@ -68,7 +126,8 @@ import { RouterSerializer } from './store/router/router.reducer';
       useFactory: initializeAppFactory,
       multi: true,
       deps: [ConfigService]
-    }
+    },
+    provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]
 })
