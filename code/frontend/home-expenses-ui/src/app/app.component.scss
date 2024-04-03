@@ -1,0 +1,33 @@
+.active-link {
+  background-color: #ccc; /* Change to desired highlight color */
+}
+
+.sidenav-container {
+  display: flex;
+  flex-direction: column;
+  //flex-grow: 1;
+  //height: 50vh;
+  height: calc(100vh - 64px);
+}
+
+.nav-list {
+  display: flex;
+  flex-direction: column;
+  //height: 100vh;
+  //flex-grow: 1;
+}
+
+.nav-list a:nth-child(3) {
+  margin-top: auto; /* Move the third item to the bottom */
+}
+
+.sidenav-content {
+  display: flex;
+  flex: 1; /* Fill remaining space */
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 1; /* Fill remaining space */
+  overflow-y: auto; /* Enable scrolling if content exceeds available height */
+}

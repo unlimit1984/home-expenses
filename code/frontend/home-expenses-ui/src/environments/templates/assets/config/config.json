@@ -2,6 +2,7 @@
   "APP_VERSION": "__APP_VERSION__",
   "API": "__API__",
   "featureFlags": {
-    "multiTabMode": __MULTI_TAB_MODE__
+    "multiTabMode": __MULTI_TAB_MODE__,
+    "layoutVersion": "__LAYOUT_VERSION__"
   }
 }

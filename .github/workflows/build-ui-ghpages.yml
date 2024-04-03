@@ -58,6 +58,7 @@ jobs:
           APP_VERSION: ${{ steps.appVersionId.outputs.build-number }}
           API: https://home-expenses-dev.up.railway.app/api
           MULTI_TAB_MODE: false
+          LAYOUT_VERSION: AngularMaterial
 
       - name: Display config.json
         run: |

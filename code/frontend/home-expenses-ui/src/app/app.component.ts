@@ -4,12 +4,23 @@
 
 import { Component, inject, OnDestroy } from '@angular/core';
 import { ConfigService } from './services/config/config.service';
+import { LayoutVersion } from './shared/interfaces/layout.version';
+import { TokenAuthService } from './services/token-vault/token-auth.service';
+import { Store } from '@ngrx/store';
+import { signout } from './store/auth/auth.actions';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html'
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnDestroy {
+  protected readonly layoutVersion: LayoutVersion;
+  protected readonly LayoutVersion = LayoutVersion;
+  isSidenavCollapsed = false;
+  collapsedWidth = 64; // Adjust as needed
+  expandedWidth = 200; // Adjust as needed
+
   public configService = inject(ConfigService);
 
   private syncTabsInterval: string | number | NodeJS.Timeout;
@@ -17,11 +28,18 @@ export class AppComponent implements OnDestroy {
   public timeLeft = 3;
   public isAppAvailable = false;
 
-  constructor() {
+  public tokenAuthService = inject(TokenAuthService);
+
+  constructor(private store: Store) {
+    this.layoutVersion = this.configService.config.featureFlags.layoutVersion;
+
     if (this.configService.config.featureFlags.multiTabMode) {
       this.removeOldAgeTab();
       this.makeAppCurrentOrBlockWithReloadTimer();
     }
+  }
+  signout() {
+    this.store.dispatch(signout());
   }
 
   private removeOldAgeTab() {
@@ -67,5 +85,9 @@ export class AppComponent implements OnDestroy {
     localStorage.removeItem('tab');
     clearInterval(this.syncTabsInterval);
     clearInterval(this.autoReloadTimer);
+  }
+
+  toggleSidenav() {
+    this.isSidenavCollapsed = !this.isSidenavCollapsed;
   }
 }
