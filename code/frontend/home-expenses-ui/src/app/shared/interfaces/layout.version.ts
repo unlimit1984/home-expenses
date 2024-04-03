@@ -3,6 +3,6 @@
  */
 
 export enum LayoutVersion {
-  'Standard'='Standard',
-  'AngularMaterial'='AngularMaterial'
+  'Standard' = 'Standard',
+  'AngularMaterial' = 'AngularMaterial'
 }
