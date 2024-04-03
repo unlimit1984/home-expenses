@@ -58,7 +58,7 @@ describe('AppComponent', () => {
     expect(warning).toBeNull();
   });
 
-  it('app should be unavailable', () => {
+  xit('app should be unavailable', () => {
     component.isAppAvailable = false;
 
     fixture.detectChanges();

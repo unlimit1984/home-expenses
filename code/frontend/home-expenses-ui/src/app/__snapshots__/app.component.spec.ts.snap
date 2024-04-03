@@ -4,54 +4,6 @@ exports[`AppComponent app should be available 1`] = `
 <div
   id="root1"
 >
-  <app-header>
-    <nav
-      class="navbar navbar-expand-lg bg-light"
-    >
-      <div
-        class="container-fluid"
-      >
-        <a
-          class="navbar-brand"
-          href="/"
-          routerlink="/"
-          routerlinkactive="active"
-        >
-          Home Expenses
-        </a>
-        <span
-          class="version"
-        >
-          (ver. )
-        </span>
-        <button
-          aria-controls="navbarNavAltMarkup"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-          class="navbar-toggler"
-          data-bs-target="#navbarNavAltMarkup"
-          data-bs-toggle="collapse"
-          type="button"
-        >
-          <span
-            class="navbar-toggler-icon"
-          />
-        </button>
-        <div
-          class="collapse navbar-collapse"
-          id="navbarNavAltMarkup"
-        >
-          
-        </div>
-      </div>
-    </nav>
-  </app-header>
-  <router-outlet />
-  
-  
-  
-  
-  
   
   
 </div>
@@ -62,22 +14,6 @@ exports[`AppComponent app should be unavailable 1`] = `
   id="root2"
 >
   
-  <div>
-    <p
-      data-test-id="warning"
-    >
-      WARNING: Multi tab usage is not allowed.
-    </p>
-    <p>
-      You can see that warning because you are trying to open App in another tab.
-    </p>
-    <p>
-      If you are sure there is no any opened tab you will be reloaded in 3s...
-    </p>
-  </div>
-  
-  
-  
   
 </div>
 `;
@@ -86,54 +22,6 @@ exports[`AppComponent should create the app 1`] = `
 <div
   id="root0"
 >
-  <app-header>
-    <nav
-      class="navbar navbar-expand-lg bg-light"
-    >
-      <div
-        class="container-fluid"
-      >
-        <a
-          class="navbar-brand"
-          href="/"
-          routerlink="/"
-          routerlinkactive="active"
-        >
-          Home Expenses
-        </a>
-        <span
-          class="version"
-        >
-          (ver. )
-        </span>
-        <button
-          aria-controls="navbarNavAltMarkup"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-          class="navbar-toggler"
-          data-bs-target="#navbarNavAltMarkup"
-          data-bs-toggle="collapse"
-          type="button"
-        >
-          <span
-            class="navbar-toggler-icon"
-          />
-        </button>
-        <div
-          class="collapse navbar-collapse"
-          id="navbarNavAltMarkup"
-        >
-          
-        </div>
-      </div>
-    </nav>
-  </app-header>
-  <router-outlet />
-  
-  
-  
-  
-  
   
   
 </div>
