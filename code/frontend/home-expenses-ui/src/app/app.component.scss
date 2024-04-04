@@ -5,20 +5,7 @@
 .sidenav-container {
   display: flex;
   flex-direction: column;
-  //flex-grow: 1;
-  //height: 50vh;
   height: calc(100vh - 64px);
-}
-
-.nav-list {
-  display: flex;
-  flex-direction: column;
-  //height: 100vh;
-  //flex-grow: 1;
-}
-
-.nav-list a:nth-child(3) {
-  margin-top: auto; /* Move the third item to the bottom */
 }
 
 .sidenav-content {
