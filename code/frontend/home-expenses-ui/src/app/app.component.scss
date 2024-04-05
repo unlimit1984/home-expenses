@@ -1,20 +1,72 @@
+/*
+ * Author: Vladimir Vysokomornyi
+ */
+
 .active-link {
   background-color: #ccc; /* Change to desired highlight color */
-}
-
-.sidenav-container {
-  display: flex;
-  flex-direction: column;
-  height: calc(100vh - 64px);
-}
-
-.sidenav-content {
-  display: flex;
-  flex: 1; /* Fill remaining space */
-  flex-direction: column;
 }
 
 .main-content {
   flex: 1; /* Fill remaining space */
   overflow-y: auto; /* Enable scrolling if content exceeds available height */
+}
+
+.mobile-nav-list {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  .sidenav-container {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 128px);
+  }
+
+  .collapsed-sidenav-content,
+  .expanded-sidenav-content {
+    display: flex;
+    flex: 1; /* Fill remaining space */
+    flex-direction: column;
+    margin-left: 0;
+  }
+
+  .collapsed-desktop-view,
+  .expanded-desktop-view {
+    width: 0;
+  }
+
+  .mobile-toolbar {
+    width: 100%;
+  }
+}
+@media screen and (min-width: 769px) {
+  .sidenav-container {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 64px);
+  }
+  .collapsed-sidenav-content {
+    display: flex;
+    flex: 1; /* Fill remaining space */
+    flex-direction: column;
+    margin-left: 64px;
+  }
+  .expanded-sidenav-content {
+    display: flex;
+    flex: 1; /* Fill remaining space */
+    flex-direction: column;
+    margin-left: 200px;
+  }
+
+  .collapsed-desktop-view {
+    width: 64px;
+  }
+  .expanded-desktop-view {
+    width: 200px;
+  }
+  .mobile-toolbar {
+    display: none;
+  }
 }

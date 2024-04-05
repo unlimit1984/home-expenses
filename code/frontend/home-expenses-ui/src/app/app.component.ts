@@ -2,24 +2,26 @@
  * Author: Vladimir Vysokomornyi
  */
 
-import { Component, inject, OnDestroy } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ConfigService } from './services/config/config.service';
 import { LayoutVersion } from './shared/interfaces/layout.version';
 import { TokenAuthService } from './services/token-vault/token-auth.service';
 import { Store } from '@ngrx/store';
 import { signout } from './store/auth/auth.actions';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnDestroy {
+export class AppComponent implements OnInit, OnDestroy {
   protected readonly layoutVersion: LayoutVersion;
   protected readonly LayoutVersion = LayoutVersion;
   isSidenavCollapsed = false;
   collapsedWidth = 64; // Adjust as needed
   expandedWidth = 200; // Adjust as needed
+  isMobile: boolean = false;
 
   public configService = inject(ConfigService);
 
@@ -30,7 +32,7 @@ export class AppComponent implements OnDestroy {
 
   public tokenAuthService = inject(TokenAuthService);
 
-  constructor(private store: Store) {
+  constructor(private store: Store, private breakpointObserver: BreakpointObserver) {
     this.layoutVersion = this.configService.config.featureFlags.layoutVersion;
 
     if (this.configService.config.featureFlags.multiTabMode) {
@@ -38,6 +40,13 @@ export class AppComponent implements OnDestroy {
       this.makeAppCurrentOrBlockWithReloadTimer();
     }
   }
+
+  ngOnInit(): void {
+    this.breakpointObserver.observe(['(max-width: 768px)']).subscribe((result) => {
+      this.isMobile = result.matches;
+    });
+  }
+
   signout() {
     this.store.dispatch(signout());
   }
