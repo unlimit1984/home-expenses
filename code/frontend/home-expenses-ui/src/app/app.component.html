@@ -11,10 +11,11 @@
     class="sidenav-container"
   >
     <mat-sidenav
+      [ngClass]="isSidenavCollapsed ? 'collapses-desktop-view' : 'expanded-desktop-view'"
+      class="desktop-toolbar"
       mode="side"
       [opened]="true"
       [autoFocus]="false"
-      [style.width.px]="isSidenavCollapsed ? collapsedWidth : expandedWidth"
     >
       <mat-nav-list class="nav-list">
         <a
@@ -68,15 +69,36 @@
       </mat-nav-list>
     </mat-sidenav>
 
-    <mat-sidenav-content
-      class="sidenav-content"
-      [style.margin-left.px]="isSidenavCollapsed ? collapsedWidth : expandedWidth"
-    >
+    <mat-sidenav-content [ngClass]="isSidenavCollapsed ? 'collapsed-sidenav-content' : 'expanded-sidenav-content'">
       <div class="main-content">
         <router-outlet></router-outlet>
       </div>
     </mat-sidenav-content>
   </mat-sidenav-container>
+
+  <mat-toolbar class="mobile-toolbar">
+    <mat-nav-list class="mobile-nav-list">
+      <a
+        class="flex-grow-1"
+        mat-list-item
+        routerLinkActive="active-link"
+        [routerLink]="tokenAuthService.isValidAccessToken() ? ['/all-expenses'] : null"
+        [disabled]="!tokenAuthService.isValidAccessToken()"
+      >
+        <mat-icon>payments</mat-icon>
+        <span>All expenses</span>
+      </a>
+      <a
+        mat-list-item
+        routerLinkActive="active-link"
+        [routerLink]="tokenAuthService.isValidAccessToken() ? ['/expenses'] : null"
+        [disabled]="!tokenAuthService.isValidAccessToken()"
+      >
+        <mat-icon>paid</mat-icon>
+        <span>Expenses (Simple)</span>
+      </a>
+    </mat-nav-list>
+  </mat-toolbar>
 </ng-container>
 
 <ng-container *ngIf="layoutVersion === LayoutVersion.Standard">
