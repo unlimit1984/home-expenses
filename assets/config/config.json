@@ -1,5 +1,5 @@
 {
-  "APP_VERSION": "20240404.33",
+  "APP_VERSION": "20240405.34",
   "API": "https://home-expenses-dev.up.railway.app/api",
   "featureFlags": {
     "multiTabMode": false,
