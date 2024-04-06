@@ -59,14 +59,15 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatTreeModule } from '@angular/material/tree';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { CommonModule } from '@angular/common';
 import { NgLetModule } from 'ng-let';
+import { SettingsComponent } from './pages/settings/settings.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ExpensesComponent,
     AllExpensesComponent,
+    SettingsComponent,
     SignupComponent,
     SigninComponent,
     HeaderComponent,
