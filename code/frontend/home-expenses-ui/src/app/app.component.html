@@ -1,6 +1,5 @@
 <ng-container *ngIf="layoutVersion === LayoutVersion.AngularMaterial">
   <div class="page-wrapper">
-
     <mat-toolbar color="primary" class="desktop-toolbar">
       <a class="navbar-brand" routerLinkActive="active" routerLink="/">Home Expenses</a>
       <div *ngIf="tokenAuthService.isValidAccessToken()" class="d-flex flex-grow-1 justify-content-end">
