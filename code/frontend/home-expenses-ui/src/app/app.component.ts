@@ -18,7 +18,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 export class AppComponent implements OnInit, OnDestroy {
   protected readonly layoutVersion: LayoutVersion;
   protected readonly LayoutVersion = LayoutVersion;
-  isSidenavCollapsed = false;
+  isSidenavCollapsed = true;
   collapsedWidth = 64; // Adjust as needed
   expandedWidth = 200; // Adjust as needed
   isMobile: boolean = false;
