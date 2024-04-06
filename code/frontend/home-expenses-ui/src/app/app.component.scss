@@ -2,12 +2,45 @@
  * Author: Vladimir Vysokomornyi
  */
 
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  //height: calc(100% - 50px);
+  height: 100%;
+
+  .desktop-toolbar {
+    height: 50px;
+  }
+
+  .desktop-sidenav-container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+
+    .desktop-sidenav {
+      .nav-list {
+        padding: 0;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+
+        .last-menu-div {
+          display: flex;
+          flex-direction: column;
+          justify-content: end;
+          height: calc(100% - 50px);
+        }
+      }
+    }
+  }
+}
+
 .active-link {
   background-color: #ccc; /* Change to desired highlight color */
 }
 
-.main-content {
-  flex: 1; /* Fill remaining space */
+.router-outlet-wrapper {
+  flex-grow: 1; /* Fill remaining space */
   overflow-y: auto; /* Enable scrolling if content exceeds available height */
 }
 
@@ -15,23 +48,10 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
+  padding-bottom: 0;
 }
 
 @media screen and (max-width: 768px) {
-  .sidenav-container {
-    display: flex;
-    flex-direction: column;
-    height: calc(100vh - 128px);
-  }
-
-  .collapsed-sidenav-content,
-  .expanded-sidenav-content {
-    display: flex;
-    flex: 1; /* Fill remaining space */
-    flex-direction: column;
-    margin-left: 0;
-  }
-
   .collapsed-desktop-view,
   .expanded-desktop-view {
     width: 0;
@@ -42,30 +62,13 @@
   }
 }
 @media screen and (min-width: 769px) {
-  .sidenav-container {
-    display: flex;
-    flex-direction: column;
-    height: calc(100vh - 64px);
-  }
-  .collapsed-sidenav-content {
-    display: flex;
-    flex: 1; /* Fill remaining space */
-    flex-direction: column;
-    margin-left: 64px;
-  }
-  .expanded-sidenav-content {
-    display: flex;
-    flex: 1; /* Fill remaining space */
-    flex-direction: column;
-    margin-left: 200px;
-  }
-
   .collapsed-desktop-view {
     width: 64px;
   }
   .expanded-desktop-view {
     width: 200px;
   }
+
   .mobile-toolbar {
     display: none;
   }
