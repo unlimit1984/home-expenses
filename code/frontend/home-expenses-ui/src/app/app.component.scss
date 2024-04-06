@@ -2,15 +2,25 @@
  * Author: Vladimir Vysokomornyi
  */
 
+.desktop-toolbar {
+  display: flex;
+  align-items: center;
+  height: 50px;
+
+  .desktop-settings-link {
+    text-decoration: none; /* Remove underline for the link */
+    display: flex;
+    color: white;
+  }
+  .desktop-settings-link.active mat-icon {
+    filter: grayscale(100%); /* Apply grayscale filter to the mat-icon when link is active */
+  }
+}
+
 .page-wrapper {
   display: flex;
   flex-direction: column;
-  //height: calc(100% - 50px);
-  height: 100%;
-
-  .desktop-toolbar {
-    height: 50px;
-  }
+  height: calc(100% - 50px);
 
   .desktop-sidenav-container {
     display: flex;
@@ -23,6 +33,11 @@
         height: 100%;
         display: flex;
         flex-direction: column;
+
+        .menu-item-content-expanded-desktop {
+          display: flex;
+          align-items: center;
+        }
 
         .last-menu-div {
           display: flex;
@@ -40,35 +55,29 @@
 }
 
 .router-outlet-wrapper {
-  flex-grow: 1; /* Fill remaining space */
-  overflow-y: auto; /* Enable scrolling if content exceeds available height */
+  //height: 100%;
+  //flex-grow: 1; /* Fill remaining space */
+  //overflow-y: auto; /* Enable scrolling if content exceeds available height */
 }
 
 .mobile-nav-list {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  padding-bottom: 0;
+  padding: 0;
+
+  span {
+    font-size: small;
+  }
 }
 
 @media screen and (max-width: 768px) {
-  .collapsed-desktop-view,
-  .expanded-desktop-view {
-    width: 0;
-  }
-
   .mobile-toolbar {
-    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 @media screen and (min-width: 769px) {
-  .collapsed-desktop-view {
-    width: 64px;
-  }
-  .expanded-desktop-view {
-    width: 200px;
-  }
-
   .mobile-toolbar {
     display: none;
   }

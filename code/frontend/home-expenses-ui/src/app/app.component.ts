@@ -8,7 +8,7 @@ import { LayoutVersion } from './shared/interfaces/layout.version';
 import { TokenAuthService } from './services/token-vault/token-auth.service';
 import { Store } from '@ngrx/store';
 import { signout } from './store/auth/auth.actions';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-root',
