@@ -54,12 +54,6 @@
   background-color: #ccc; /* Change to desired highlight color */
 }
 
-.router-outlet-wrapper {
-  //height: 100%;
-  //flex-grow: 1; /* Fill remaining space */
-  //overflow-y: auto; /* Enable scrolling if content exceeds available height */
-}
-
 .mobile-nav-list {
   display: flex;
   justify-content: space-between;
@@ -71,10 +65,15 @@
   }
 }
 
+.mobile-toolbar {
+  padding-left: 0;
+  padding-right: 0;
+  height: 50px;
+}
+
 @media screen and (max-width: 768px) {
-  .mobile-toolbar {
-    padding-left: 0;
-    padding-right: 0;
+  .page-wrapper {
+    height: calc(100% - 100px);
   }
 }
 @media screen and (min-width: 769px) {
