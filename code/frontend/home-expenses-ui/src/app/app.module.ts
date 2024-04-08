@@ -10,7 +10,7 @@ import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { ExpensesEffects } from './store/expenses/expenses-effects';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
 import { reducers } from './store/reducers';
@@ -61,6 +61,13 @@ import { MatTreeModule } from '@angular/material/tree';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { NgLetModule } from 'ng-let';
 import { SettingsComponent } from './pages/settings/settings.component';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+// AoT requires an exported function for factories
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 @NgModule({
   declarations: [
@@ -85,6 +92,13 @@ import { SettingsComponent } from './pages/settings/settings.component';
     StoreDevtoolsModule.instrument({ logOnly: environment.prod, connectInZone: true }),
     StoreRouterConnectingModule.forRoot({
       serializer: RouterSerializer
+    }),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
     }),
     NgbModule,
     NgLetModule,

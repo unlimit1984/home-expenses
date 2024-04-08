@@ -52,6 +52,11 @@
                   "glob": "**/*",
                   "input": "src/environments/templates/assets",
                   "output": "assets"
+                },
+                {
+                  "glob": "**/*",
+                  "input": "src/assets/",
+                  "output": "./assets/"
                 }
               ],
               "budgets": [
@@ -108,6 +113,11 @@
                 {
                   "glob": "**/*",
                   "input": "src/environments/local/assets/",
+                  "output": "./assets/"
+                },
+                {
+                  "glob": "**/*",
+                  "input": "src/assets/",
                   "output": "./assets/"
                 }
               ],

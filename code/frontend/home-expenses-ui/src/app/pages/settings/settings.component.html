@@ -1,16 +1,19 @@
 <div class="p-3 h-100">
-  <h1>Settings</h1>
-  <p>TBD</p>
-  <p>TBD</p>
-  <p>TBD</p>
-  <p>TBD</p>
-  <p>TBD</p>
-  <p>TBD</p>
-  <p>TBD</p>
-  <p>TBD</p>
-  <p>TBD</p>
-  <p>TBD</p>
-  <p>TBD</p>
-  <p>TBD</p>
-  <p>TBD</p>
+  <h1>{{ 'settings' | translate }}</h1>
+
+  <form [formGroup]="form" class="form">
+    <label for="language" class="form-label">{{ 'language' | translate }}:</label>
+
+    <select id="language" class="form-select" formControlName="lang">
+      <option [value]="'en'">English</option>
+      <option [value]="'ru'">Русский</option>
+      <option [value]="'pl'">Polski</option>
+    </select>
+
+    <div class="mt-2 d-flex justify-content-between form-direction actions-container">
+      <div class="action-buttons">
+        <button (click)="save()" type="button" class="btn btn-primary">{{ 'save' | translate }}</button>
+      </div>
+    </div>
+  </form>
 </div>

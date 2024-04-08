@@ -1,0 +1,26 @@
+.form {
+  width: 25%;
+}
+
+.action-buttons {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+@media screen and (max-width: 768px) {
+  .form {
+    width: 100%;
+  }
+  .form-direction {
+    flex-direction: column;
+  }
+  .actions-container {
+    width: 100%;
+    .action-buttons {
+      button {
+        flex-grow: 1;
+      }
+    }
+  }
+}
