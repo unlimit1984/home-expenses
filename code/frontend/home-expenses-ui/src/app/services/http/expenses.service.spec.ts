@@ -8,13 +8,14 @@ import { ExpensesService } from './expenses.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ConfigService } from '../config/config.service';
 import { provideMockStore } from '@ngrx/store/testing';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('ExpensesService', () => {
   let service: ExpensesService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
+      imports: [HttpClientTestingModule, TranslateModule.forRoot()],
       providers: [ConfigService, provideMockStore({})]
     });
     service = TestBed.inject(ExpensesService);

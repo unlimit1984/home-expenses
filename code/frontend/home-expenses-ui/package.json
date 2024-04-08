@@ -8,6 +8,7 @@
     "start-railway": "ng serve -c dev --ssl true --host local.home-expenses.com --port 8445",
     "build-local": "ng build -c local",
     "build-dev": "ng build -c dev",
+    "build-gh-pages": "ng build -c gh-pages",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test-original": "ng test --no-watch",
@@ -33,6 +34,8 @@
     "@ngrx/effects": "^17.1.1",
     "@ngrx/router-store": "^17.1.1",
     "@ngrx/store": "^17.1.1",
+    "@ngx-translate/core": "^15.0.0",
+    "@ngx-translate/http-loader": "^8.0.0",
     "@popperjs/core": "^2.11.6",
     "bootstrap": "^5.2.3",
     "buffer": "^6.0.3",
@@ -42,7 +45,7 @@
     "zone.js": "~0.14.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^17.3.2",
+    "@angular-devkit/build-angular": "^17.0.10",
     "@angular-eslint/builder": "17.3.0",
     "@angular-eslint/eslint-plugin": "17.3.0",
     "@angular-eslint/eslint-plugin-template": "17.3.0",

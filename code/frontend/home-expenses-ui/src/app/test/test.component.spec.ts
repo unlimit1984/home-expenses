@@ -8,6 +8,7 @@ import { TestComponent } from './test.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ConfigService } from '../services/config/config.service';
 import { provideMockStore } from '@ngrx/store/testing';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('TestComponent', () => {
   let component: TestComponent;
@@ -16,7 +17,7 @@ describe('TestComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [TestComponent],
-      imports: [HttpClientTestingModule],
+      imports: [HttpClientTestingModule, TranslateModule.forRoot()],
       providers: [ConfigService, provideMockStore({})]
     }).compileComponents();
 

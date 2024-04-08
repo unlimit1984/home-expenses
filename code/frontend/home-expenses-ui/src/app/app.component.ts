@@ -9,6 +9,7 @@ import { TokenAuthService } from './services/token-vault/token-auth.service';
 import { Store } from '@ngrx/store';
 import { signout } from './store/auth/auth.actions';
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -31,6 +32,7 @@ export class AppComponent implements OnInit, OnDestroy {
   public isAppAvailable = false;
 
   public tokenAuthService = inject(TokenAuthService);
+  public translateService = inject(TranslateService);
 
   constructor(private store: Store, private breakpointObserver: BreakpointObserver) {
     this.layoutVersion = this.configService.config.featureFlags.layoutVersion;
@@ -39,6 +41,8 @@ export class AppComponent implements OnInit, OnDestroy {
       this.removeOldAgeTab();
       this.makeAppCurrentOrBlockWithReloadTimer();
     }
+
+    this.translateService.use(this.configService.getSelectedLanguage());
   }
 
   ngOnInit(): void {

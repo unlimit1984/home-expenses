@@ -1,5 +1,3 @@
-//@import 'node_modules/bootstrap/scss/variables';
-
 .action-buttons {
   width: 100%;
   display: flex;
@@ -14,10 +12,7 @@
   }
 }
 
-@media only screen and (max-width: 600px) {
-  .mock-toggler {
-    width: 100%;
-  }
+@media screen and (max-width: 768px) {
   .form-direction {
     flex-direction: column;
   }

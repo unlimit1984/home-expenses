@@ -1,16 +1,16 @@
 <ng-container *ngIf="layoutVersion === LayoutVersion.AngularMaterial">
   <mat-toolbar color="primary" class="desktop-toolbar">
-    <a class="navbar-brand" routerLinkActive="active" routerLink="/">Home Expenses</a>
+    <a class="navbar-brand" routerLinkActive="active" routerLink="/">{{ 'app_name' | translate }}</a>
     <div
       *ngIf="tokenAuthService.isValidAccessToken()"
       class="d-flex flex-grow-1 align-items-center justify-content-end"
     >
       <a *ngIf="!isMobile" routerLinkActive="active" [routerLink]="['/settings']" class="desktop-settings-link me-2">
         <div class="d-flex flex-column align-items-center">
-          <mat-icon matTooltip="Settings" [matTooltipPosition]="'below'">settings</mat-icon>
+          <mat-icon matTooltip="{{ 'settings' | translate }}" [matTooltipPosition]="'below'">settings</mat-icon>
         </div>
       </a>
-      <button type="button" class="btn btn-danger" (click)="signout()">Sign out</button>
+      <button type="button" class="btn btn-danger" (click)="signout()">{{ 'signOut' | translate }}</button>
     </div>
   </mat-toolbar>
 
@@ -37,13 +37,15 @@
               <ng-container *ngSwitchCase="false">
                 <div class="menu-item-content-expanded-desktop">
                   <mat-icon>payments</mat-icon>
-                  <span class="ps-2">All expenses</span>
+                  <span class="ps-2">{{ 'allExpenses' | translate }}</span>
                 </div>
               </ng-container>
 
               <ng-container *ngSwitchCase="true">
                 <div class="menu-item-content-expanded-desktop">
-                  <mat-icon matTooltip="All expenses" [matTooltipPosition]="'right'">payments</mat-icon>
+                  <mat-icon matTooltip="{{ 'allExpenses' | translate }}" [matTooltipPosition]="'right'"
+                    >payments</mat-icon
+                  >
                 </div>
               </ng-container>
             </ng-container>
@@ -59,13 +61,13 @@
               <ng-container *ngSwitchCase="false">
                 <div class="menu-item-content-expanded-desktop">
                   <mat-icon>paid</mat-icon>
-                  <span class="ps-2">Expenses</span>
+                  <span class="ps-2">{{ 'expenses' | translate }}</span>
                 </div>
               </ng-container>
 
               <ng-container *ngSwitchCase="true">
                 <div class="menu-item-content-expanded-desktop">
-                  <mat-icon matTooltip="Expenses (Simple)" [matTooltipPosition]="'right'">paid</mat-icon>
+                  <mat-icon matTooltip="{{ 'expenses' | translate }}" [matTooltipPosition]="'right'">paid</mat-icon>
                 </div>
               </ng-container>
             </ng-container>
@@ -77,12 +79,14 @@
                 <ng-container *ngSwitchCase="false">
                   <div class="menu-item-content-expanded-desktop">
                     <mat-icon>keyboard_double_arrow_left</mat-icon>
-                    <span class="ps-2">Collapse</span>
+                    <span class="ps-2">{{ 'collapse' | translate }}</span>
                   </div>
                 </ng-container>
 
                 <ng-container *ngSwitchCase="true">
-                  <mat-icon matTooltip="Expand" [matTooltipPosition]="'right'">keyboard_double_arrow_right</mat-icon>
+                  <mat-icon matTooltip="{{ 'expand' | translate }}" [matTooltipPosition]="'right'"
+                    >keyboard_double_arrow_right</mat-icon
+                  >
                 </ng-container>
               </ng-container>
             </a>
@@ -107,7 +111,7 @@
       >
         <div class="d-flex flex-column align-items-center">
           <mat-icon>payments</mat-icon>
-          <span>All expenses</span>
+          <span>{{ 'allExpenses' | translate }}</span>
         </div>
       </a>
       <a
@@ -119,7 +123,7 @@
       >
         <div class="d-flex flex-column align-items-center">
           <mat-icon>paid</mat-icon>
-          <span>Expenses (Simple)</span>
+          <span>{{ 'expenses' | translate }}</span>
         </div>
       </a>
       <a
@@ -131,7 +135,7 @@
       >
         <div class="d-flex flex-column align-items-center">
           <mat-icon>settings</mat-icon>
-          <span>Settings</span>
+          <span>{{ 'settings' | translate }}</span>
         </div>
       </a>
     </mat-nav-list>
