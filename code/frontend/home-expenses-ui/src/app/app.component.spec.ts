@@ -11,11 +11,14 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ConfigService } from './services/config/config.service';
 import { HeaderComponent } from './header/header.component';
 import { By } from '@angular/platform-browser';
+import { TranslateModule } from '@ngx-translate/core';
 
 const mockConfigService: any = {
   config: {
-    featureFlags: { multiTabMode: true }
-  }
+    featureFlags: { multiTabMode: false }
+  },
+  setSelectedLanguage: (lang: string) => jest.fn(),
+  getSelectedLanguage: jest.fn()
 };
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -25,7 +28,7 @@ describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [AppComponent, HeaderComponent],
-      imports: [RouterTestingModule, ReactiveFormsModule, HttpClientTestingModule],
+      imports: [RouterTestingModule, ReactiveFormsModule, HttpClientTestingModule, TranslateModule.forRoot()],
       providers: [
         {
           provide: ConfigService,

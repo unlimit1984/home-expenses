@@ -4,7 +4,6 @@
 
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { TranslateService } from '@ngx-translate/core';
 import { ConfigService } from '../../services/config/config.service';
 
 @Component({
@@ -15,7 +14,6 @@ import { ConfigService } from '../../services/config/config.service';
 export class SettingsComponent implements OnInit {
   public form: FormGroup;
   public configService = inject(ConfigService);
-  public translateService = inject(TranslateService);
 
   constructor(private fb: FormBuilder) {}
   ngOnInit(): void {
