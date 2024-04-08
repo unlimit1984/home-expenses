@@ -1,0 +1,17 @@
+{
+  "app_name": "Home Expenses",
+  "signOut": "Sign out",
+  "allExpenses": "All expenses",
+  "expenses": "Expenses",
+  "collapse": "Collapse",
+  "expand": "Expand",
+  "date": "Date",
+  "category": "Category",
+  "cost": "Cost",
+  "comment": "Comment",
+  "add": "Add",
+  "showing_records": "Showing records: {{ count }}",
+  "settings": "Settings",
+  "language": "Language",
+  "save": "Save"
+}

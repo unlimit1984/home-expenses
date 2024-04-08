@@ -1,0 +1,17 @@
+{
+  "app_name": "Домашние Расходы",
+  "signOut": "Выйти",
+  "allExpenses": "Все расходы",
+  "expenses": "Расходы",
+  "collapse": "Сверни",
+  "expand": "Разверни",
+  "date": "Дата",
+  "category": "Категория",
+  "cost": "Цена",
+  "comment": "Комментарий",
+  "add": "Добавить",
+  "showing_records": "Показано записей: {{ count }}",
+  "settings": "Настройки",
+  "language": "Язык",
+  "save": "Сохранить"
+}

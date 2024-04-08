@@ -1,0 +1,17 @@
+{
+  "app_name": "Domowe Wydatki",
+  "signOut": "Wyloguj się",
+  "allExpenses": "Wszystkie wydatki",
+  "expenses": "Wydatki",
+  "collapse": "Zwiń",
+  "expand": "Rozwiń",
+  "date": "Data",
+  "category": "Typ",
+  "cost": "Wartość",
+  "comment": "Komentarz",
+  "add": "Dodaj",
+  "showing_records": "Wyświetlano zapisów: {{ count }}",
+  "settings": "Ustawienia",
+  "language": "Język",
+  "save": "Zapisz"
+}
