@@ -10,7 +10,7 @@
   "cost": "Wartość",
   "comment": "Komentarz",
   "add": "Dodaj",
-  "showing_records": "Wyświetlano zapisów: {{ count }}",
+  "showing_records": "Wyświetlono rekordów: {{ count }}",
   "settings": "Ustawienia",
   "language": "Język",
   "save": "Zapisz"
