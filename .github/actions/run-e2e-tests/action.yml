@@ -4,9 +4,6 @@ name: Run e2e tests
 description: Run Cypress E2E tests
 
 inputs:
-  someParameter:
-    description: Some input parameter for E2E Cypress tests
-    required: false
   username:
     description: user email
     required: true
@@ -17,16 +14,11 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Run check
-      shell: bash
-      run: |
-        echo "Run E2E placeholder tests in Cypress"
-
     - uses: actions/setup-node@v4
       with:
         cache: "npm"
         cache-dependency-path: code/frontend/home-expenses-ui/package-lock.json
-        node-version: ${{ env.node-version }}
+        node-version: 20
 
     - name: Run e2e tests
       shell: bash
