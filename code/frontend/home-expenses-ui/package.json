@@ -16,7 +16,12 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "lint": "ng lint --fix",
-    "deploy": "ng deploy"
+    "deploy": "ng deploy",
+    "e2e": "playwright test",
+    "e2e:trace": "playwright test --trace on",
+    "e2e:debug": "playwright test --project chromium --headed",
+    "e2e:show-report": "playwright show-report",
+    "e2e-ui": "playwright test --ui"
   },
   "private": true,
   "dependencies": {
@@ -56,6 +61,7 @@
     "@angular/localize": "^17.3.2",
     "@ngrx/eslint-plugin": "^17.1.1",
     "@ngrx/store-devtools": "^17.1.1",
+    "@playwright/test": "^1.43.1",
     "@types/jest": "^29.5.12",
     "@types/node": "^18.13.0",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
@@ -78,7 +84,8 @@
     ],
     "testPathIgnorePatterns": [
       "<rootDir>/node_modules/",
-      "<rootDir>/docs/"
+      "<rootDir>/docs/",
+      "<rootDir>/e2e/"
     ]
   }
 }

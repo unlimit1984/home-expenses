@@ -5,7 +5,7 @@
       *ngIf="tokenAuthService.isValidAccessToken()"
       class="d-flex flex-grow-1 align-items-center justify-content-end"
     >
-      <a *ngIf="!isMobile" routerLinkActive="active" [routerLink]="['/settings']" class="desktop-settings-link me-2">
+      <a data-test-id="settings-link-desktop" *ngIf="!isMobile" routerLinkActive="active" [routerLink]="['/settings']" class="desktop-settings-link me-2">
         <div class="d-flex flex-column align-items-center">
           <mat-icon matTooltip="{{ 'settings' | translate }}" [matTooltipPosition]="'below'">settings</mat-icon>
         </div>

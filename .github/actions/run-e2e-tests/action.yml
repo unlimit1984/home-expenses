@@ -1,17 +1,32 @@
 # Author: Vladimir Vysokomornyi
 
 name: Run e2e tests
-description: Run Cypress E2E tests
+description: Run Playwright E2E tests
 
 inputs:
-  someParameter:
-    description: Some input parameter for E2E Cypress tests
-    required: false
+  username:
+    description: user email
+    required: true
+  password:
+    description: user password
+    required: true
 
 runs:
   using: composite
   steps:
-    - name: Run check
+    - uses: actions/setup-node@v4
+      with:
+        cache: "npm"
+        cache-dependency-path: code/frontend/home-expenses-ui/package-lock.json
+        node-version: 20
+
+    - name: Run e2e tests
       shell: bash
       run: |
-        echo "Run E2E placeholder tests in Cypress"
+        cd code/frontend/home-expenses-ui
+        npm ci
+        npx playwright install --with-deps
+        npm run e2e -- login.spec.ts
+      env:
+        USERNAME: ${{ inputs.username }}
+        PASSWORD: ${{ inputs.password }}

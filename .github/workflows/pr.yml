@@ -43,10 +43,18 @@ jobs:
           npm run test
           npm run lint
 
-      - name: Run Cypress E2E tests
+  e2e_tests:
+    needs: [frontend_tests]
+    name: Install and run e2e tests (Playwright)
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Playwright E2E tests
         uses: ./.github/actions/run-e2e-tests
         with:
-          someParameter: test
+          username: ${{ secrets.PLAYWRIGHT_USERNAME }}
+          password: ${{ secrets.PLAYWRIGHT_PASSWORD }}
 
   backend_tests:
     needs: [check_ab]
