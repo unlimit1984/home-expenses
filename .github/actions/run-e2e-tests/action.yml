@@ -25,6 +25,7 @@ runs:
       run: |
         cd code/frontend/home-expenses-ui
         npm ci
+        npx playwright install --with-deps
         npm run e2e -- login.spec.ts
       env:
         USERNAME: ${{ inputs.username }}
