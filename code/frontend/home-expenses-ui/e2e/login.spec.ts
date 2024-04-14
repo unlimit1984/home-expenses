@@ -8,8 +8,7 @@ const { chromium } = require('playwright');
 test.describe('login', () => {
   test.beforeAll(async () => {
     await chromium.launch({
-      ignoreHTTPSErrors: true,
-      headless: true
+      ignoreHTTPSErrors: true
     });
   });
   test.beforeEach(() => {});
