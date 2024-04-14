@@ -15,8 +15,13 @@ export class SigninComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      email: this.fb.control('', [Validators.required, Validators.email, Validators.min(3), Validators.max(32)]),
-      password: this.fb.control('', [Validators.required, Validators.max(32)])
+      email: this.fb.control('', [
+        Validators.required,
+        Validators.email,
+        Validators.minLength(5),
+        Validators.maxLength(100)
+      ]),
+      password: this.fb.control('', [Validators.required, Validators.minLength(1), Validators.maxLength(100)])
     });
   }
 
@@ -32,6 +37,7 @@ export class SigninComponent implements OnInit {
       );
     } else {
       console.log('Form invalid', this.form);
+      console.log('Form invalid', this.form.get('password'));
     }
   }
 }

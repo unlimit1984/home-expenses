@@ -17,18 +17,18 @@
         <form>
           <!-- Email input -->
           <div class="form-outline mb-4">
-            <input id="loginName" class="form-control" type="email" formControlName="email" />
+            <input id="loginName" class="form-control" type="email" formControlName="email" minlength="5" maxlength="100" />
             <label class="form-label" for="loginName">Email</label>
           </div>
 
           <!-- Password input -->
           <div class="form-outline mb-3">
-            <input id="loginPassword" class="form-control" type="password" formControlName="password" />
+            <input id="loginPassword" class="form-control" type="password" formControlName="password" minlength="1" maxlength="100"/>
             <label class="form-label" for="loginPassword">Password</label>
           </div>
 
           <!-- Submit button -->
-          <button (click)="login()" type="button" class="btn btn-primary btn-block mb-4">Sign in</button>
+          <button (click)="login()" data-test-id="loginBtn" type="button" class="btn btn-primary btn-block mb-4">Sign in</button>
         </form>
       </div>
     </div>
