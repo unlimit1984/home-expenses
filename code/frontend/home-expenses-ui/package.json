@@ -84,7 +84,8 @@
     ],
     "testPathIgnorePatterns": [
       "<rootDir>/node_modules/",
-      "<rootDir>/docs/"
+      "<rootDir>/docs/",
+      "<rootDir>/e2e/"
     ]
   }
 }
