@@ -20,13 +20,27 @@ runs:
         cache-dependency-path: code/frontend/home-expenses-ui/package-lock.json
         node-version: 20
 
-    - name: Run e2e tests
+    - name: Run e2e tests on local env
       shell: bash
       run: |
         cd code/frontend/home-expenses-ui
         npm ci
+        sudo echo "127.0.0.1 local.home-expenses.com" | sudo tee -a /etc/hosts
         npx playwright install --with-deps
-        npm run e2e -- login.spec.ts
+        npm run e2e-local:ci
       env:
-        USERNAME: ${{ inputs.username }}
-        PASSWORD: ${{ inputs.password }}
+        PLAYWRIGHT_USERNAME: ${{ inputs.username }}
+        PLAYWRIGHT_PASSWORD: ${{ inputs.password }}
+
+#        npm run e2e -- login.spec.ts
+
+#    - name: Run e2e tests on DEV
+#      shell: bash
+#      run: |
+#        cd code/frontend/home-expenses-ui
+#        npm ci
+#        npx playwright install --with-deps
+#        npm run e2e -- login.spec.ts
+#      env:
+#        PLAYWRIGHT_USERNAME: ${{ inputs.username }}
+#        PLAYWRIGHT_PASSWORD: ${{ inputs.password }}

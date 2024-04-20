@@ -38,10 +38,15 @@ hs_err_pid*
 /code/frontend/home-expenses-ui/dist
 /code/frontend/home-expenses-ui/docs
 
-/code/backend/home-expenses-api/.angular
 /code/backend/home-expenses-api/node_modules
 /code/backend/home-expenses-api/dist
 /code/backend/home-expenses-api/coverage
+
+# Playwright framework
+/code/frontend/home-expenses-ui/test-results/
+/code/frontend/home-expenses-ui/playwright-report/
+/code/frontend/home-expenses-ui/blob-report/
+/code/frontend/home-expenses-ui/playwright/.cache/
 
 npm-debug.log
 yarn-error.log
