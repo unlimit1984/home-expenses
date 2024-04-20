@@ -26,7 +26,7 @@ runs:
         cd code/frontend/home-expenses-ui
         npm ci
         sudo echo "127.0.0.1 local.home-expenses.com" | sudo tee -a /etc/hosts
-        npx playwright install --with-deps
+        npx playwright install --with-deps --with=chromium
         npm run e2e-local:ci
       env:
         PLAYWRIGHT_USERNAME: ${{ inputs.username }}
