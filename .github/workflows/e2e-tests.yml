@@ -28,8 +28,8 @@ env:
   node-version: 20
 
 jobs:
-  e2e_tests:
-    name: Run E2E tests
+  e2e_tests_local:
+    name: Run E2E tests for local
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -40,6 +40,12 @@ jobs:
         with:
           username: ${{ secrets.PLAYWRIGHT_USERNAME }}
           password: ${{ secrets.PLAYWRIGHT_PASSWORD }}
+
+  e2e_tests_dev:
+    name: Run E2E tests for dev
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
 
       - name: Run Playwright E2E tests for DEV env
         if: github.event.inputs.dev == 'true'
