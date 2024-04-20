@@ -1,6 +1,6 @@
 # Author: Vladimir Vysokomornyi
 
-name: Run E2E tests in Cypress
+name: Run E2E tests
 
 on:
   push:
