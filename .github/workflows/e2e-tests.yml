@@ -26,9 +26,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Prepare action path
+        shell: bash
+        run: |
+          echo pipelinePath=./.github/actions/run-e2e-${{ github.event.inputs.env }}-tests >> $GITHUB_ENV
+
       - name: Run Playwright E2E tests
-        uses: ./.github/actions/run-e2e-${{ github.event.inputs.env }}-tests
+        uses: ${{ env.pipelinePath }}
         with:
           username: ${{ secrets.PLAYWRIGHT_USERNAME }}
           password: ${{ secrets.PLAYWRIGHT_PASSWORD }}
           envInstance: ${{ inputs.env }}
+
+#        uses: ./.github/actions/run-e2e-${{ github.event.inputs.env }}-tests
