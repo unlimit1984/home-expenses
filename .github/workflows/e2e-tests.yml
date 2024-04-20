@@ -27,7 +27,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Run Playwright E2E tests
-        uses: ./.github/actions/run-e2e-${{ inputs.env }}-tests
+        uses: ./.github/actions/run-e2e-${{ github.event.inputs.env }}-tests
         with:
           username: ${{ secrets.PLAYWRIGHT_USERNAME }}
           password: ${{ secrets.PLAYWRIGHT_PASSWORD }}
