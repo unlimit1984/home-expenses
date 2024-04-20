@@ -18,7 +18,7 @@ test.describe('login', () => {
 
   test('has correct title', async ({ page }) => {
     await page.goto(appUrl);
-    await expect(page).toHaveTitle(/Home Expenses1/);
+    await expect(page).toHaveTitle(/Home Expenses/);
   });
 
   test('redirected to login page', async ({ page }) => {
