@@ -7,14 +7,22 @@ on:
 #    branches: ["main"]
   workflow_dispatch:
     inputs:
-      env:
+      local:
         type: choice
-        description: What environment to run.
+        description: Should we run LOCAL e2e tests
         required: true
-        default: dev
+        default: true
         options:
-          - dev
-          - local
+          - true
+          - false
+      dev:
+        type: choice
+        description: Should we run DEV e2e tests
+        required: true
+        default: false
+        options:
+          - true
+          - false
 
 env:
   node-version: 20
@@ -26,16 +34,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Prepare action path
-        shell: bash
-        run: |
-          echo pipelinePath=./.github/actions/run-e2e-${{ github.event.inputs.env }}-tests >> $GITHUB_ENV
-
-      - name: Run Playwright E2E tests
-        uses: ${{ env.pipelinePath }}
+      - name: Run Playwright E2E tests for LOCAL env
+        if: github.event.inputs.local == 'true'
+        uses: ./.github/actions/run-e2e-local-tests
         with:
           username: ${{ secrets.PLAYWRIGHT_USERNAME }}
           password: ${{ secrets.PLAYWRIGHT_PASSWORD }}
-          envInstance: ${{ inputs.env }}
 
-#        uses: ./.github/actions/run-e2e-${{ github.event.inputs.env }}-tests
+      - name: Run Playwright E2E tests for DEV env
+        if: github.event.inputs.dev == 'true'
+        uses: ./.github/actions/run-e2e-dev-tests
+        with:
+          username: ${{ secrets.PLAYWRIGHT_USERNAME }}
+          password: ${{ secrets.PLAYWRIGHT_PASSWORD }}
+          envInstance: ${{ github.event.inputs.env }}
+
