@@ -1,0 +1,44 @@
+# Author: Vladimir Vysokomornyi
+
+name: Run e2e tests
+description: Run Playwright E2E tests
+
+inputs:
+  username:
+    description: user email
+    required: true
+  password:
+    description: user password
+    required: true
+  envInstance:
+    description: test <env> app instance
+    required: false
+    default: 'dev'
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-node@v4
+      with:
+        cache: "npm"
+        cache-dependency-path: code/frontend/home-expenses-ui/package-lock.json
+        node-version: 20
+
+    - name: Run e2e tests on ${{ inputs.envInstance }}
+      shell: bash
+      run: |
+        cd code/frontend/home-expenses-ui
+        npm ci
+        npx playwright install --with-deps chromium
+        npm run e2e-${{ inputs.envInstance }}:ci
+      env:
+        PLAYWRIGHT_USERNAME: ${{ inputs.username }}
+        PLAYWRIGHT_PASSWORD: ${{ inputs.password }}
+        APP_URL: https://unlimit1984.github.io/home-expenses
+
+    - uses: actions/upload-artifact@v4
+      if: failure()
+      with:
+        name: playwright-report
+        path: code/frontend/home-expenses-ui/playwright-report/
+        retention-days: 30
