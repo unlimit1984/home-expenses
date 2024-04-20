@@ -47,5 +47,5 @@ jobs:
         with:
           username: ${{ secrets.PLAYWRIGHT_USERNAME }}
           password: ${{ secrets.PLAYWRIGHT_PASSWORD }}
-          envInstance: ${{ github.event.inputs.env }}
+          envInstance: dev
 
