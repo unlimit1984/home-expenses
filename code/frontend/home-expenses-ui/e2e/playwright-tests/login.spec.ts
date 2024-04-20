@@ -8,7 +8,7 @@ const { chromium } = require('playwright');
 test.describe('login', () => {
   let username = process.env.PLAYWRIGHT_USERNAME;
   let password = process.env.PLAYWRIGHT_PASSWORD;
-  let appUrl = process.env.APP_URL ? process.env.APP_URL : 'https://local.home-expenses.com:8444';
+  let appUrl = process.env.APP_URL;
 
   test.beforeAll(async () => {
     await chromium.launch({

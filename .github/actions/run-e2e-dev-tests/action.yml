@@ -10,6 +10,10 @@ inputs:
   password:
     description: user password
     required: true
+  envInstance:
+    description: test <env> app instance
+    required: false
+    default: 'dev'
 
 runs:
   using: composite
@@ -20,20 +24,17 @@ runs:
         cache-dependency-path: code/frontend/home-expenses-ui/package-lock.json
         node-version: 20
 
-    - name: Run e2e tests on local env
+    - name: Run e2e tests on ${{ inputs.envInstance }}
       shell: bash
       run: |
         cd code/frontend/home-expenses-ui
         npm ci
-        sudo echo "127.0.0.1 local.home-expenses.com" | sudo tee -a /etc/hosts
         npx playwright install --with-deps chromium
-        npm run e2e-local:ci
+        npm run e2e-${{ inputs.envInstance }}:ci
       env:
         PLAYWRIGHT_USERNAME: ${{ inputs.username }}
         PLAYWRIGHT_PASSWORD: ${{ inputs.password }}
-
-#  npx playwright install --with-deps
-#    PLAYWRIGHT_BROWSERS=chromium npx playwright install
+        APP_URL: https://unlimit1984.github.io/home-expenses
 
     - uses: actions/upload-artifact@v4
       if: failure()
