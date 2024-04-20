@@ -37,5 +37,5 @@ runs:
       if: failure()
       with:
         name: playwright-report-local
-        path: code/frontend/home-expenses-ui/playwright-report-local/
+        path: code/frontend/home-expenses-ui/playwright-report/
         retention-days: 30
