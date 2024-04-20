@@ -5,6 +5,10 @@ name: Run E2E tests
 on:
 #  push:
 #    branches: ["main"]
+# Runs every day at 0:10 AM UTC
+  schedule:
+    - cron: '10 0 * * *'
+
   workflow_dispatch:
     inputs:
       local:
