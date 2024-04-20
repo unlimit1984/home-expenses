@@ -13,16 +13,16 @@ on:
         required: true
         default: true
         options:
-          - true
-          - false
+          - 'true'
+          - 'false'
       dev:
         type: choice
         description: Should we run DEV e2e tests
         required: true
         default: false
         options:
-          - true
-          - false
+          - 'true'
+          - 'false'
 
 env:
   node-version: 20
