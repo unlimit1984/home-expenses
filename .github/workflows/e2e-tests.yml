@@ -15,7 +15,7 @@ on:
         type: choice
         description: Should we run LOCAL e2e tests
         required: true
-        default: true
+        default: false
         options:
           - 'true'
           - 'false'
@@ -23,7 +23,7 @@ on:
         type: choice
         description: Should we run DEV e2e tests
         required: true
-        default: false
+        default: true
         options:
           - 'true'
           - 'false'
