@@ -1,0 +1,28 @@
+# Author: Vladimir Vysokomornyi
+
+name: TEST Check GH Pages APP_VERSION
+
+on:
+  workflow_dispatch:
+    inputs:
+      expectedAppVersion:
+        type: string
+        required: true
+        description: Expected APP_VERSION
+      configJsonUrl:
+        type: string
+        required: true
+        description: 'Expected URL for .../assets/config.json=>APP_VERSION'
+        default: https://unlimit1984.github.io/home-expenses/assets/config/config.json
+
+jobs:
+  displaySecret:
+    runs-on: ubuntu-latest
+    environment: dev
+
+    steps:
+      - name: Wait for config.json APP_VERSION
+        uses: ./githib/actions/wait-ghpages-app-version
+        with:
+          expectedAppVersion: ${{ inputs.expectedAppVersion }}
+          configJsonUrl: ${{ inputs.configJsonUrl }}

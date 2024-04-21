@@ -1,0 +1,37 @@
+# Author: Vladimir Vysokomornyi
+
+name: Wait GH Pages to be deployed
+description: Action is trying to get expected APP_VERSION in config.json for newly deployed app
+
+inputs:
+  expectedAppVersion:
+    description: APP_VERSION to be deployed
+    required: true
+  configJsonUrl:
+    description: config.json app URL
+    required: true
+    default: https://unlimit1984.github.io/home-expenses/assets/config/config.json
+
+runs:
+  using: composite
+  steps:
+    - name: Wait for expected APP_VERSION
+      run: |
+        duration=300
+        start=$SECONDS
+        actualAppVersion=""
+        while [ "$actualAppVersion" != "${{ inputs.expectedAppVersion }}" ] && (( SECONDS - start < duration )); do
+          echo "try to get newly deployed configResponse - loop. Time Left (seconds): $((duration - SECONDS + start))"
+          actualAppVersion=$(echo $(curl -sS ${{ inputs.configJsonUrl }}) | jq -r '.APP_VERSION')
+          echo "Pending APP_VERSION: $actualAppVersion"
+          echo "Pending APP_VERSION length: ${#configResponse}"
+          sleep 10
+        done
+        
+        echo "Actual App Version: $actualAppVersion"
+        
+        if [ "$actualAppVersion" != "${{ inputs.expectedAppVersion }}" ]; then
+            echo "For some reason app version ${{ inputs.expectedAppVersion }} was not deployed. Exiting with error."
+            exit 1          
+        fi
+      shell: bash
