@@ -11,13 +11,7 @@ on:
     paths:
       - 'code/frontend/**'
       - '.github/workflows/build-ui-ghpages.yml'
-#  pull_request:
-#    branches: ["main"]
   workflow_dispatch:
-
-#Could be main config
-#env:
-#  GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
 env:
   node-version: 20
@@ -65,17 +59,17 @@ jobs:
           cat code/frontend/home-expenses-ui/src/environments/templates/assets/config/config.json
         shell: bash
 
-      - name: "Test"
+      - name: Test
         run: |
           cd code/frontend/home-expenses-ui
           npm test
 
-      - name: "Lint"
+      - name: Lint
         run: |
           cd code/frontend/home-expenses-ui
           npm run lint
 
-      - name: "Deploy to Github Pages"
+      - name: Deploy to Github Pages
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         run: |

@@ -3,11 +3,9 @@
 name: Run E2E tests
 
 on:
-#  push:
-#    branches: ["main"]
 # Runs every day at 0:10 AM UTC
-  schedule:
-    - cron: '10 0 * * *'
+#  schedule:
+#    - cron: '10 0 * * *'
 
   workflow_dispatch:
     inputs:
@@ -15,7 +13,7 @@ on:
         type: choice
         description: Should we run LOCAL e2e tests
         required: true
-        default: false
+        default: 'false'
         options:
           - 'true'
           - 'false'
@@ -23,7 +21,7 @@ on:
         type: choice
         description: Should we run DEV e2e tests
         required: true
-        default: true
+        default: 'true'
         options:
           - 'true'
           - 'false'
@@ -53,7 +51,7 @@ jobs:
 
       - name: Run Playwright E2E tests for DEV env
         if: github.event.inputs.dev == 'true'
-        uses: ./.github/actions/run-e2e-dev-tests
+        uses: ./.github/actions/run-e2e-env-tests
         with:
           username: ${{ secrets.PLAYWRIGHT_USERNAME }}
           password: ${{ secrets.PLAYWRIGHT_PASSWORD }}
