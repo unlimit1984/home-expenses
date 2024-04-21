@@ -13,7 +13,7 @@ on:
         type: choice
         description: Should we run LOCAL e2e tests
         required: true
-        default: false
+        default: 'false'
         options:
           - 'true'
           - 'false'
@@ -21,7 +21,7 @@ on:
         type: choice
         description: Should we run DEV e2e tests
         required: true
-        default: true
+        default: 'true'
         options:
           - 'true'
           - 'false'
@@ -31,6 +31,18 @@ env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
+  print_input_parameters:
+    name: Print input parameters
+    runs-on: ubuntu-latest
+    steps:
+    - name: Print input variables
+      shell: bash
+      run: |
+        echo "github.event.inputs.local: ${{ github.event.inputs.local }}"
+        echo "github.event.inputs.dev: ${{ github.event.inputs.dev }}"
+        echo "inputs.local: ${{ inputs.local }}"
+        echo "inputs.dev: ${{ inputs.dev }}"
+
   e2e_tests_local:
     name: Run E2E tests for local
     runs-on: ubuntu-latest
@@ -39,6 +51,13 @@ jobs:
 
       - name: Run Playwright E2E tests for LOCAL env
         if: github.event.inputs.local == 'true'
+        uses: ./.github/actions/run-e2e-local-tests
+        with:
+          username: ${{ secrets.PLAYWRIGHT_USERNAME }}
+          password: ${{ secrets.PLAYWRIGHT_PASSWORD }}
+
+      - name: Run Playwright E2E tests for LOCAL env
+        if: ${{ github.event.inputs.local == 'true' }}
         uses: ./.github/actions/run-e2e-local-tests
         with:
           username: ${{ secrets.PLAYWRIGHT_USERNAME }}
@@ -58,3 +77,30 @@ jobs:
           password: ${{ secrets.PLAYWRIGHT_PASSWORD }}
           envInstance: dev
 
+      - name: Run Playwright E2E tests for DEV env
+        if: ${{ github.event.inputs.dev == 'true' }}
+        uses: ./.github/actions/run-e2e-dev-tests
+        with:
+          username: ${{ secrets.PLAYWRIGHT_USERNAME }}
+          password: ${{ secrets.PLAYWRIGHT_PASSWORD }}
+          envInstance: dev
+
+      - name: Run Playwright E2E tests for DEV env
+        if: github.event.inputs.dev == 'true'
+        uses: ./.github/actions/run-e2e-dev-tests
+        with:
+          username: ${{ secrets.PLAYWRIGHT_USERNAME }}
+          password: ${{ secrets.PLAYWRIGHT_PASSWORD }}
+          envInstance: dev
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run Playwright E2E tests for DEV env
+        if: ${{ github.event.inputs.dev == 'true' }}
+        uses: ./.github/actions/run-e2e-dev-tests
+        with:
+          username: ${{ secrets.PLAYWRIGHT_USERNAME }}
+          password: ${{ secrets.PLAYWRIGHT_PASSWORD }}
+          envInstance: dev
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
