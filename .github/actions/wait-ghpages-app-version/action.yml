@@ -17,7 +17,7 @@ runs:
   steps:
     - name: Wait for expected APP_VERSION
       run: |
-        duration=300
+        duration=60
         start=$SECONDS
         actualAppVersion=""
         while [ "$actualAppVersion" != "${{ inputs.expectedAppVersion }}" ] && (( SECONDS - start < duration )); do
