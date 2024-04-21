@@ -21,8 +21,10 @@ jobs:
     environment: dev
 
     steps:
+      - uses: actions/checkout@v4
+
       - name: Wait for config.json APP_VERSION
-        uses: ./githib/actions/wait-ghpages-app-version
+        uses: ./github/actions/wait-ghpages-app-version
         with:
           expectedAppVersion: ${{ inputs.expectedAppVersion }}
           configJsonUrl: ${{ inputs.configJsonUrl }}
