@@ -23,8 +23,8 @@ runs:
         while [ "$actualAppVersion" != "${{ inputs.expectedAppVersion }}" ] && (( SECONDS - start < duration )); do
           echo "try to get newly deployed configResponse - loop. Time Left (seconds): $((duration - SECONDS + start))"
           actualAppVersion=$(echo $(curl -sS ${{ inputs.configJsonUrl }}) | jq -r '.APP_VERSION')
-          echo "Pending APP_VERSION: $actualAppVersion"
-          echo "Pending APP_VERSION length: ${#configResponse}"
+          echo "APP_VERSION from response: $actualAppVersion"
+          echo "APP_VERSION length from response: ${#actualAppVersion}"
           sleep 10
         done
         
