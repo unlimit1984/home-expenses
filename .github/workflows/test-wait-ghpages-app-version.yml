@@ -12,7 +12,7 @@ on:
       configJsonUrl:
         type: string
         required: true
-        description: 'Expected URL for .../assets/config.json=>APP_VERSION'
+        description: 'Provide full config.json path URL'
         default: https://unlimit1984.github.io/home-expenses/assets/config/config.json
 
 jobs:
