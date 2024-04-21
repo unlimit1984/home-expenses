@@ -1,6 +1,6 @@
 # Author: Vladimir Vysokomornyi
 
-name: Run E2E tests
+name: Run E2E tests each 30 minutes
 
 on:
 # Runs every day at X:30
@@ -28,6 +28,7 @@ on:
 
 env:
   node-version: 20
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
   e2e_tests_local:
