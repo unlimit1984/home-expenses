@@ -85,3 +85,22 @@ jobs:
           password: ${{ secrets.PLAYWRIGHT_PASSWORD }}
           envInstance: dev
 
+      - name: Run Playwright E2E tests for DEV env
+        if: github.event.inputs.dev == 'true'
+        uses: ./.github/actions/run-e2e-dev-tests
+        with:
+          username: ${{ secrets.PLAYWRIGHT_USERNAME }}
+          password: ${{ secrets.PLAYWRIGHT_PASSWORD }}
+          envInstance: dev
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run Playwright E2E tests for DEV env
+        if: ${{ github.event.inputs.dev == 'true' }}
+        uses: ./.github/actions/run-e2e-dev-tests
+        with:
+          username: ${{ secrets.PLAYWRIGHT_USERNAME }}
+          password: ${{ secrets.PLAYWRIGHT_PASSWORD }}
+          envInstance: dev
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
