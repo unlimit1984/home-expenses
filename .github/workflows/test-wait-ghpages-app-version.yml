@@ -16,7 +16,7 @@ on:
         default: https://unlimit1984.github.io/home-expenses/assets/config/config.json
 
 jobs:
-  displaySecret:
+  test_Wait_ghpages_app_version:
     runs-on: ubuntu-latest
     environment: dev
 
