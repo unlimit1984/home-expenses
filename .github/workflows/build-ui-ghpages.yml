@@ -75,3 +75,16 @@ jobs:
         run: |
           cd code/frontend/home-expenses-ui
           npm run deploy
+
+      - name: Wait for config.json APP_VERSION
+        uses: ./.github/actions/wait-ghpages-app-version
+        with:
+          expectedAppVersion: ${{ steps.appVersionId.outputs.build-number }}
+          configJsonUrl: https://unlimit1984.github.io/home-expenses/assets/config/config.json
+
+      - name: Run Playwright E2E tests for DEV env
+        uses: ./.github/actions/run-e2e-env-tests
+        with:
+          username: ${{ secrets.PLAYWRIGHT_USERNAME }}
+          password: ${{ secrets.PLAYWRIGHT_PASSWORD }}
+          envInstance: dev

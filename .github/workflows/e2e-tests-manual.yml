@@ -1,6 +1,6 @@
 # Author: Vladimir Vysokomornyi
 
-name: Run E2E tests
+name: Run E2E tests Manual
 
 on:
 # Runs every day at 0:10 AM UTC

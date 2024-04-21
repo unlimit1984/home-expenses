@@ -12,17 +12,19 @@ on:
       configJsonUrl:
         type: string
         required: true
-        description: 'Expected URL for .../assets/config.json=>APP_VERSION'
+        description: 'Provide full config.json path URL'
         default: https://unlimit1984.github.io/home-expenses/assets/config/config.json
 
 jobs:
-  displaySecret:
+  test_Wait_ghpages_app_version:
     runs-on: ubuntu-latest
     environment: dev
 
     steps:
+      - uses: actions/checkout@v4
+
       - name: Wait for config.json APP_VERSION
-        uses: ./githib/actions/wait-ghpages-app-version
+        uses: ./.github/actions/wait-ghpages-app-version
         with:
           expectedAppVersion: ${{ inputs.expectedAppVersion }}
           configJsonUrl: ${{ inputs.configJsonUrl }}
