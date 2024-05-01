@@ -17,7 +17,8 @@ Railway:
     - [Test](#test)
   - [Frontend](#frontend)
     - [Install](#install-1)
-    - [Test](#test-1)
+    - [Unit tests](#unit-tests)
+    - [E2E tests](#e2e---playwright-tests)
 - [Deployment](#deployment)
   - [Deployment to GitHub pages](#deploy-to-github-pages)
 - [Environments](#environments)
@@ -121,17 +122,30 @@ $ npm run test:cov
      - `cd docs`
      - `http-server --p 8081`
    - Run `npm start-railway` for local UI + remote backend (railway)
-4. Navigate to: `https://local.home-expenses.com:8443`
+4. Navigate to: `https://local.home-expenses.com:8444`
 
-#### Test
+#### Unit Tests
 
 ```bash
-# unit tests via [Karma](https://karma-runner.github.io).
-$ npm run test
-
-# e2e tests to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-$ ng e2e
+cd code/frontend/home-expenses-ui
+npm run test
 ```
+
+#### E2E - Playwright tests
+- Configure `.env` file with following content:
+  ```
+  PLAYWRIGHT_USERNAME=<ASK TEAM>
+  PLAYWRIGHT_PASSWORD=<ASK TEAM>
+  APP_URL=https://local.home-expenses.com:8444
+  ```
+- Provide `APP_URL` for the app which you want to test locally
+- Run tests locally:
+    - start app and run tests
+        - `npm run start-local` (with running local backend) or just `npm run start-railway` (with remote backend)
+        - `npm run e2e` or `npm run e2e-ui` with UI mode
+    - run tests for any real env:
+        - `npm run e2e-local:ci`
+        - `npm run e2e-dev:ci`
 
 ## Deployment
 
