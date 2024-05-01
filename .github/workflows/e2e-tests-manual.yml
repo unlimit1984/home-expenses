@@ -32,12 +32,12 @@ env:
 jobs:
   e2e_tests_local:
     name: Run E2E tests for local
+    if: github.event.inputs.local == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
       - name: Run Playwright E2E tests for LOCAL env
-        if: github.event.inputs.local == 'true'
         uses: ./.github/actions/run-e2e-local-tests
         with:
           username: ${{ secrets.PLAYWRIGHT_USERNAME }}
@@ -45,12 +45,12 @@ jobs:
 
   e2e_tests_dev:
     name: Run E2E tests for dev
+    if: github.event.inputs.dev == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
       - name: Run Playwright E2E tests for DEV env
-        if: github.event.inputs.dev == 'true'
         uses: ./.github/actions/run-e2e-env-tests
         with:
           username: ${{ secrets.PLAYWRIGHT_USERNAME }}
