@@ -55,14 +55,15 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { DateAdapter, MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatTreeModule } from '@angular/material/tree';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { NgLetModule } from 'ng-let';
 import { SettingsComponent } from './pages/settings/settings.component';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { MondayAsFirstDayOfWeekAdapter } from './services/adapter/monday-as-first-day-of-week.adapter';
 
 @NgModule({
   declarations: [
@@ -137,11 +138,17 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
       multi: true,
       deps: [ConfigService]
     },
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    // { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+    // { provide: DateAdapter, useClass: MondayAsFirstDayOfWeekAdapter }
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+  constructor(private translateService: TranslateService, private configService: ConfigService) {
+    this.translateService.use(this.configService.getSelectedLanguage());
+  }
+}
 
 function initializeAppFactory(configService: ConfigService): () => Observable<IConfig> {
   return () => configService.loadConfig();

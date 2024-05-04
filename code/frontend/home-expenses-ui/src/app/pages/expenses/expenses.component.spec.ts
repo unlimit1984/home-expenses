@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ExpensesComponent } from './expenses.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('ExpensesComponent', () => {
   let component: ExpensesComponent;
@@ -8,7 +9,8 @@ describe('ExpensesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ExpensesComponent]
+      declarations: [ExpensesComponent],
+      imports: [TranslateModule.forRoot()]
     }).compileComponents();
 
     fixture = TestBed.createComponent(ExpensesComponent);

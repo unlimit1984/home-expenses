@@ -35,13 +35,26 @@ jobs:
           cache-dependency-path: code/frontend/home-expenses-ui/package-lock.json
           node-version: 20
 
-      - name: 🛠️ - Install, 🧪 - Test and 💾 - Lint
+      - name: 🛠️ - Install
         shell: bash
         run: |
           cd code/frontend/home-expenses-ui
-          npm i
+          npm ci
+
+      - name: 🧪 - Audit all dependencies
+        run: |
+          cd code/frontend/home-expenses-ui
+          npm audit
+        continue-on-error: true
+        shell: bash
+
+      - name: 🧪 - Test, 💾 - Lint and 🧱- Build
+        shell: bash
+        run: |
+          cd code/frontend/home-expenses-ui
           npm run test
           npm run lint
+          npm run build-gh-pages
 
   e2e_tests:
     needs: [frontend_tests]

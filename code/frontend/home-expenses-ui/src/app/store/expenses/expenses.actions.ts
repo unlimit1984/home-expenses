@@ -1,3 +1,7 @@
+/*
+ * Author: Vladimir Vysokomornyi
+ */
+
 import { createAction, props } from '@ngrx/store';
 import { ExpenseCreateForm, ExpenseResponse } from '../../interfaces/Expense';
 import { HttpErrorResponse } from '@angular/common/http';

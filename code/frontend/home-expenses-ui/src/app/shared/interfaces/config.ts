@@ -1,3 +1,7 @@
+/*
+ * Author: Vladimir Vysokomornyi
+ */
+
 import { LayoutVersion } from './layout.version';
 
 export interface IConfig {

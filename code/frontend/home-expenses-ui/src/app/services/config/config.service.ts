@@ -9,12 +9,7 @@ import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { refreshTokensTick } from '../../store/auth/auth.actions';
 import { TranslateService } from '@ngx-translate/core';
-
-enum Language {
-  en = 'en',
-  ru = 'ru',
-  pl = 'pl'
-}
+import { Language } from '../../shared/enums/language';
 
 @Injectable({
   providedIn: 'root'

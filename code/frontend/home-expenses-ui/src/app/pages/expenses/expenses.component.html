@@ -1,4 +1,11 @@
 <div class="p-3 h-100">
-  <h1>Expenses</h1>
-  <p>TBD</p>
+  <h1>{{ 'expenses' | translate }}</h1>
+  <mat-form-field>
+    <mat-label>{{ 'select_month' | translate }}</mat-label>
+    <mat-select [(value)]="currentMonth">
+      <mat-option *ngFor="let month of displayedMonths; let i = index" [value]="i">
+        {{ displayedMonths[i] }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 </div>

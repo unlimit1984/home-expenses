@@ -13,5 +13,20 @@
   "showing_records": "Показано записей: {{ count }}",
   "settings": "Настройки",
   "language": "Язык",
-  "save": "Сохранить"
+  "save": "Сохранить",
+  "select_month": "Выбери месяц",
+  "month": {
+    "january": "Январь",
+    "february": "Февраль",
+    "march": "Март",
+    "april": "Апрель",
+    "may": "Май",
+    "june": "Июнь",
+    "july": "Июль",
+    "august": "Август",
+    "september": "Сентябрь",
+    "october": "Октябрь",
+    "november": "Ноябрь",
+    "december": "Декабрь"
+  }
 }

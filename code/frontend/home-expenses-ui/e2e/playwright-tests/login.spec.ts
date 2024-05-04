@@ -3,18 +3,16 @@
  */
 
 import { test, expect } from '@playwright/test';
-const { chromium } = require('playwright');
 
 test.describe('login', () => {
   let username = process.env.PLAYWRIGHT_USERNAME;
   let password = process.env.PLAYWRIGHT_PASSWORD;
   let appUrl = process.env.APP_URL;
 
-  test.beforeAll(async () => {
-    await chromium.launch({
-      ignoreHTTPSErrors: true
-    });
-  });
+  const trustedApps: string[] = ['https://local.home-expenses.com:8444', 'localhost'];
+  if (trustedApps.includes(appUrl)) {
+    test.use({ ignoreHTTPSErrors: true });
+  }
 
   test('has correct title', async ({ page }) => {
     await page.goto(appUrl);
