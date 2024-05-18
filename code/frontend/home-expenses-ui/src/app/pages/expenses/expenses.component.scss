@@ -1,0 +1,36 @@
+.example-container {
+  height: 350px;
+  overflow: auto;
+}
+
+table {
+  width: 100%;
+}
+th.mat-sort-header-sorted {
+  color: black;
+}
+tr.mat-mdc-footer-row {
+  font-weight: bold;
+}
+
+.mat-mdc-table-sticky {
+  border-top: 1px solid #e0e0e0;
+}
+
+.spinner-wrapper {
+  height: calc(100vh - 206px);
+  & .spinner {
+    width: 5rem;
+    height: 5rem;
+  }
+}
+@media screen and (max-width: 768px) {
+  .spinner-wrapper {
+    margin-top: 4rem;
+    height: auto;
+    & .spinner {
+      width: 3rem;
+      height: 3rem;
+    }
+  }
+}

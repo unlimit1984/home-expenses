@@ -71,7 +71,8 @@
                   "maximumError": "4kb"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "baseHref": "https://unlimit1984.github.io/home-expenses"
             },
             "development": {
               "buildOptimizer": false,

@@ -1,3 +1,7 @@
+/*
+ * Author: Vladimir Vysokomornyi
+ */
+
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 

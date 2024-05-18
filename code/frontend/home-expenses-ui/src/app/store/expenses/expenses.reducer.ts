@@ -23,7 +23,7 @@ export interface ExpensesState {
 
 const expensesInitialState: ExpensesState = {
   expenses: [],
-  isLoading: false,
+  isLoading: null,
   error: null
   // isMockedData: null
 };
