@@ -19,7 +19,6 @@ import { PredefinedTranslationsService } from '../../services/predefined-transla
 import { ExpenseResponse } from '../../interfaces/Expense';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import { MatDataDatasourceTemplate } from '../../shared/templates/mat-data-datasource.template';
 import { Store } from '@ngrx/store';
 import { getExpenses } from '../../store/expenses/expenses.actions';
 import { map, Observable, of, Subject, switchMap, takeUntil, timer } from 'rxjs';
