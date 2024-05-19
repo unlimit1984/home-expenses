@@ -48,7 +48,7 @@ export class ConfigService {
   }
 
   public getSelectedLanguage(): string {
-    let lang: string = localStorage.getItem('selectedLanguage');
+    const lang: string = localStorage.getItem('selectedLanguage');
     if (lang && Object.keys(Language).includes(lang)) {
       return lang;
     }

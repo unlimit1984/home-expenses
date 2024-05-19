@@ -118,7 +118,7 @@ export class ExpensesComponent implements OnInit, OnDestroy, AfterViewInit, Afte
   @ViewChild(MatSort, { static: false }) sort: MatSort;
   // @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   ngAfterViewInit(): void {
-    // console.log('ngAfterViewInit()');
+    console.log('ngAfterViewInit()');
     // this.dataSource.sort = this.sort;
     // this.dataSource$?.subscribe((dataSource) => {
     //   setTimeout(() => {
@@ -143,9 +143,9 @@ export class ExpensesComponent implements OnInit, OnDestroy, AfterViewInit, Afte
   }
 
   ngAfterContentInit(): void {
-    // if (this.sort) {
-    //   console.log('===sort in AfterContentInit');
-    // }
+    if (this.sort) {
+      console.log('===sort in AfterContentInit');
+    }
     // this.dataSource$ = this.expenses$.pipe(
     //   map((entries) => {
     //     const ds = new MatTableDataSource(entries);
@@ -160,6 +160,7 @@ export class ExpensesComponent implements OnInit, OnDestroy, AfterViewInit, Afte
   }
 
   ngAfterViewChecked(): void {
+    console.log('ngAfterViewChecked()');
     // this.dataSource$ = this.expenses$.pipe(
     //   map((entries) => {
     //     const ds = new MatTableDataSource(entries);

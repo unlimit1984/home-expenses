@@ -138,7 +138,7 @@ import { MondayAsFirstDayOfWeekAdapter } from './services/adapter/monday-as-firs
       multi: true,
       deps: [ConfigService]
     },
-    provideAnimationsAsync(),
+    provideAnimationsAsync()
     // { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
     // { provide: DateAdapter, useClass: MondayAsFirstDayOfWeekAdapter }
   ],
