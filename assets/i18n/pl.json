@@ -28,5 +28,6 @@
     "october": "Październik",
     "november": "Listopad",
     "december": "Grudzień"
-  }
+  },
+  "select_year": "Wybierz rok"
 }
