@@ -98,7 +98,7 @@ export class ExpensesComponent implements OnInit, OnDestroy {
     plugins: {
       legend: {
         display: true
-      }
+      },
       // datalabels: {
       //   anchor: 'end',
       //   align: 'end'
