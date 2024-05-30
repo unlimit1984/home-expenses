@@ -47,7 +47,8 @@
       <ng-container matColumnDef="cost">
         <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cost">Cost</th>
         <td mat-cell *matCellDef="let expense">{{ expense.cost }}</td>
-        <td mat-footer-cell *matFooterCellDef>{{ getTotalCost(dataSource.data) | currency }}</td>
+<!--        <td mat-footer-cell *matFooterCellDef>{{ getTotalCost(dataSource.data) | currency }}</td>-->
+        <td mat-footer-cell *matFooterCellDef>{{ getTotalCost(dataSource.data) }}</td>
       </ng-container>
 
       <!-- Comment Column -->
