@@ -25,7 +25,7 @@
   <section
     id="expenses-section"
     [ngStyle]="(isLoading$ | async) == false ? { display: 'block' } : { display: 'none' }"
-    class="example-container mat-elevation-z8"
+    class="section-container mat-elevation-z8"
     tabindex="0"
   >
     <table mat-table [dataSource]="dataSource" matSort>
@@ -47,7 +47,7 @@
       <ng-container matColumnDef="cost">
         <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cost">Cost</th>
         <td mat-cell *matCellDef="let expense">{{ expense.cost }}</td>
-<!--        <td mat-footer-cell *matFooterCellDef>{{ getTotalCost(dataSource.data) | currency }}</td>-->
+        <!--        <td mat-footer-cell *matFooterCellDef>{{ getTotalCost(dataSource.data) | currency }}</td>-->
         <td mat-footer-cell *matFooterCellDef>{{ getTotalCost(dataSource.data) }}</td>
       </ng-container>
 
