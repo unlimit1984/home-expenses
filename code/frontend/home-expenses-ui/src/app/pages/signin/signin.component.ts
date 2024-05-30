@@ -39,9 +39,6 @@ export class SigninComponent implements OnInit {
           }
         })
       );
-    } else {
-      console.log('Form invalid', this.form);
-      console.log('Form invalid', this.form.get('password'));
     }
   }
 }

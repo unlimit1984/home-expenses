@@ -269,7 +269,6 @@ export class AuthEffects implements OnDestroy {
   );
 
   ngOnDestroy(): void {
-    console.log('AuthEffects OnDestroy ');
     if (this.refreshTokensTimer) {
       clearInterval(this.refreshTokensTimer);
     }

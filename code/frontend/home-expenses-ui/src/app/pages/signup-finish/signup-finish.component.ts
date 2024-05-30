@@ -32,8 +32,6 @@ export class SignupFinishComponent implements OnInit {
           }
         })
       );
-    } else {
-      // console.log('Form invalid', this.form);
     }
   }
 }

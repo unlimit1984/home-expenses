@@ -146,6 +146,9 @@ npm run test
     - run tests for any real env:
         - `npm run e2e-local:ci`
         - `npm run e2e-dev:ci`
+- Check reports
+  - `e2e:show-report` for local report from `playwright-report` folder by default
+  - create your own npm script `playwright show-report <PATH_TO_PLAYWRIGHT_REPORT_FOLDER>` to run from anywhere
 
 ## Deployment
 

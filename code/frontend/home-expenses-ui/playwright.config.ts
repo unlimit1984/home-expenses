@@ -9,7 +9,6 @@ import { defineConfig, devices } from '@playwright/test';
  * https://github.com/motdotla/dotenv
  */
 require('dotenv').config();
-// console.log('process.env', process.env) // remove this after you've confirmed it is working
 /**
  * See https://playwright.dev/docs/test-configuration.
  */

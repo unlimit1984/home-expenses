@@ -20,13 +20,10 @@ export class ConfigService {
   get config() {
     return { ...this._config };
   }
-  constructor(private http: HttpClient, private store: Store) {
-    console.log('==constructor ConfigService');
-  }
+  constructor(private http: HttpClient, private store: Store) {}
 
   private _initialize(config: IConfig) {
     if (!this._config) {
-      console.log('==initialize ConfigService');
       this._config = config;
     } else {
       console.warn('Config was already initialized earlier. Should be initialized just once');
@@ -34,7 +31,6 @@ export class ConfigService {
   }
 
   public loadConfig(): Observable<IConfig> {
-    console.log('==loadConfig');
     return this.http.get('./assets/config/config.json').pipe(
       tap((response: IConfig) => {
         this._initialize(response);
