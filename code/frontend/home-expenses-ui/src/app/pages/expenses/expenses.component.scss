@@ -17,6 +17,10 @@ tr.mat-mdc-footer-row {
   border-top: 1px solid #e0e0e0;
 }
 
+//canvas {
+//  height: calc(100vh - 240px);;
+//}
+
 .spinner-wrapper {
   height: calc(100vh - 206px);
   & .spinner {
@@ -29,6 +33,9 @@ tr.mat-mdc-footer-row {
     height: calc(100vh - 290px);
     overflow: auto;
   }
+  //canvas {
+  //  height: calc(100vh - 290px);;
+  //}
   .spinner-wrapper {
     margin-top: 4rem;
     height: auto;
