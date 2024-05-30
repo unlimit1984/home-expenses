@@ -1,3 +1,7 @@
+/*
+ * Author: Vladimir Vysokomornyi
+ */
+
 export interface ExpenseCreateForm {
   date: string;
   category: string;

@@ -1,3 +1,7 @@
+/*
+ * Author: Vladimir Vysokomornyi
+ */
+
 import { createSelector } from '@ngrx/store';
 import { ExpensesState } from './expenses.reducer';
 import { AppState } from '../state';

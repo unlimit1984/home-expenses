@@ -16,9 +16,7 @@ import { ConfigService } from '../config/config.service';
 export class AuthApiService {
   private configService: ConfigService = inject(ConfigService);
 
-  constructor(private httpClient: HttpClient) {
-    console.log('==constructor AuthApiService, api', this.configService.config.API);
-  }
+  constructor(private httpClient: HttpClient) {}
 
   public signupStart(credentials: Credentials): Observable<User> {
     return this.httpClient.post<User>(`${this.configService.config.API}/auth/signup-start`, credentials);

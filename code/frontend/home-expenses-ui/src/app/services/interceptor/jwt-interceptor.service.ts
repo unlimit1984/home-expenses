@@ -16,7 +16,6 @@ export class JwtInterceptorService implements HttpInterceptor {
   private jwtHelper = inject(JwtHelper);
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log('=intercept, req', req.url);
     let token: string;
 
     switch (req.url) {

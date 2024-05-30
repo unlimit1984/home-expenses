@@ -1,4 +1,5 @@
 {
+  "under_construction": "==W trakcie tworzenia==",
   "app_name": "Domowe Wydatki",
   "signOut": "Wyloguj się",
   "allExpenses": "Wszystkie wydatki",
@@ -13,5 +14,23 @@
   "showing_records": "Wyświetlono rekordów: {{ count }}",
   "settings": "Ustawienia",
   "language": "Język",
-  "save": "Zapisz"
+  "save": "Zapisz",
+  "select_month": "Wybierz miesiąc",
+  "month": {
+    "january": "Styczeń",
+    "february": "Luty",
+    "march": "Marzec",
+    "april": "Kwiecień",
+    "may": "Maj",
+    "june": "Czerwiec",
+    "july": "Lipiec",
+    "august": "Sierpień",
+    "september": "Wrzesień",
+    "october": "Październik",
+    "november": "Listopad",
+    "december": "Grudzień"
+  },
+  "select_year": "Wybierz rok",
+  "category_expenses": "Wydatki według kategorii",
+  "diagram": "Diagram"
 }

@@ -17,7 +17,6 @@ export class BroadcastService {
   private tokenAuthService = inject(TokenAuthService);
 
   constructor() {
-    // this.broadcastChannel = new BroadcastChannel('he-channel');
     this.broadcastChannel = new BroadcastChannel(CHANNEL_NAME);
     this.broadcastChannel.onmessage = this.handleMessage.bind(this);
   }

@@ -12,7 +12,7 @@ import { SignupComponent } from './pages/signup/signup.component';
 import { SignupFinishComponent } from './pages/signup-finish/signup-finish.component';
 import { ErrorPageComponent } from './pages/error-page/error-page.component';
 import { TestComponent } from './test/test.component';
-import {SettingsComponent} from "./pages/settings/settings.component";
+import { SettingsComponent } from './pages/settings/settings.component';
 
 const routes: Routes = [
   {

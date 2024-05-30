@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ExpensesComponent } from './expenses.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { provideMockStore } from '@ngrx/store/testing';
 
 describe('ExpensesComponent', () => {
   let component: ExpensesComponent;
@@ -8,7 +10,9 @@ describe('ExpensesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ExpensesComponent]
+      declarations: [ExpensesComponent],
+      imports: [TranslateModule.forRoot()],
+      providers: [provideMockStore({})]
     }).compileComponents();
 
     fixture = TestBed.createComponent(ExpensesComponent);

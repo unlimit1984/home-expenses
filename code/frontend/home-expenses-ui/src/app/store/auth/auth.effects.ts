@@ -217,7 +217,6 @@ export class AuthEffects implements OnDestroy {
           }, 5 * 60 * 1000);
         };
         if (this.tokenAuthService.isValidRefreshToken()) {
-          console.log('===token is VALID');
           return this.authService.refreshTokens().pipe(
             tap((value) => {
               setTimerForRefreshTokens();
@@ -231,7 +230,6 @@ export class AuthEffects implements OnDestroy {
             })
           );
         } else {
-          console.log('===token is INVALID');
           if (url && !url.includes('/auth/')) {
             this.router.navigate(['/auth/signin']);
           }
@@ -271,7 +269,6 @@ export class AuthEffects implements OnDestroy {
   );
 
   ngOnDestroy(): void {
-    console.log('AuthEffects OnDestroy ');
     if (this.refreshTokensTimer) {
       clearInterval(this.refreshTokensTimer);
     }

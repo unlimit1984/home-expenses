@@ -1,4 +1,5 @@
 {
+  "under_construction": "==В разработке==",
   "app_name": "Домашние Расходы",
   "signOut": "Выйти",
   "allExpenses": "Все расходы",
@@ -13,5 +14,24 @@
   "showing_records": "Показано записей: {{ count }}",
   "settings": "Настройки",
   "language": "Язык",
-  "save": "Сохранить"
+  "save": "Сохранить",
+  "select_month": "Выбери месяц",
+  "month": {
+    "january": "Январь",
+    "february": "Февраль",
+    "march": "Март",
+    "april": "Апрель",
+    "may": "Май",
+    "june": "Июнь",
+    "july": "Июль",
+    "august": "Август",
+    "september": "Сентябрь",
+    "october": "Октябрь",
+    "november": "Ноябрь",
+    "december": "Декабрь"
+  },
+  "select_year": "Выбери год",
+  "category_expenses": "Расходы по категориям",
+  "diagram": "Диаграмма"
+
 }

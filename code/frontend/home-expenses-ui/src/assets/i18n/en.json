@@ -1,4 +1,5 @@
 {
+  "under_construction": "==Under construction==",
   "app_name": "Home Expenses",
   "signOut": "Sign out",
   "allExpenses": "All expenses",
@@ -13,5 +14,23 @@
   "showing_records": "Showing records: {{ count }}",
   "settings": "Settings",
   "language": "Language",
-  "save": "Save"
+  "save": "Save",
+  "select_month": "Select month",
+  "month": {
+    "january": "January",
+    "february": "February",
+    "march": "March",
+    "april": "April",
+    "may": "May",
+    "june": "June",
+    "july": "July",
+    "august": "August",
+    "september": "September",
+    "october": "October",
+    "november": "November",
+    "december": "December"
+  },
+  "select_year": "Select year",
+  "category_expenses": "Expenses by category",
+  "diagram": "Chart"
 }
