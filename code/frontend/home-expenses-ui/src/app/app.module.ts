@@ -63,7 +63,6 @@ import { NgLetModule } from 'ng-let';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { MondayAsFirstDayOfWeekAdapter } from './services/adapter/monday-as-first-day-of-week.adapter';
 
 @NgModule({
   declarations: [
