@@ -1,5 +1,5 @@
 .section-container {
-  height: 350px;
+  height: calc(100vh - 240px);
   overflow: auto;
 }
 
@@ -25,6 +25,10 @@ tr.mat-mdc-footer-row {
   }
 }
 @media screen and (max-width: 768px) {
+  .section-container {
+    height: calc(100vh - 290px);
+    overflow: auto;
+  }
   .spinner-wrapper {
     margin-top: 4rem;
     height: auto;

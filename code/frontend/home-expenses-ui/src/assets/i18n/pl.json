@@ -1,4 +1,5 @@
 {
+  "under_construction": "==W trakcie tworzenia==",
   "app_name": "Domowe Wydatki",
   "signOut": "Wyloguj się",
   "allExpenses": "Wszystkie wydatki",
@@ -29,5 +30,7 @@
     "november": "Listopad",
     "december": "Grudzień"
   },
-  "select_year": "Wybierz rok"
+  "select_year": "Wybierz rok",
+  "category_expenses": "Wydatki według kategorii",
+  "diagram": "Diagram"
 }

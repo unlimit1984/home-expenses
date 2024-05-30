@@ -22,47 +22,52 @@
     <ng-container *ngTemplateOutlet="spinner"></ng-container>
   </ng-container>
 
-  <section
-    id="expenses-section"
-    [ngStyle]="(isLoading$ | async) == false ? { display: 'block' } : { display: 'none' }"
-    class="section-container mat-elevation-z8"
-    tabindex="0"
-  >
-    <table mat-table [dataSource]="dataSource" matSort>
-      <!-- Date Column -->
-      <ng-container matColumnDef="date">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by date">Date</th>
-        <td mat-cell *matCellDef="let expense">{{ getFormattedDate(expense.date) }}</td>
-        <td mat-footer-cell *matFooterCellDef>Total</td>
-      </ng-container>
+  <mat-tab-group>
+    <mat-tab label="{{ 'category_expenses' | translate }}">
+      <section
+        id="expenses-section"
+        [ngStyle]="(isLoading$ | async) == false ? { display: 'block' } : { display: 'none' }"
+        class="section-container mat-elevation-z8"
+        tabindex="0"
+      >
+        <table mat-table [dataSource]="dataSource" matSort>
+          <!-- Date Column -->
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by date">Date</th>
+            <td mat-cell *matCellDef="let expense">{{ getFormattedDate(expense.date) }}</td>
+            <td mat-footer-cell *matFooterCellDef>Total</td>
+          </ng-container>
 
-      <!-- Category Column -->
-      <ng-container matColumnDef="category">
-        <th mat-header-cell *matHeaderCellDef>Category</th>
-        <td mat-cell *matCellDef="let expense">{{ expense.category }}</td>
-        <td mat-footer-cell *matFooterCellDef></td>
-      </ng-container>
+          <!-- Category Column -->
+          <ng-container matColumnDef="category">
+            <th mat-header-cell *matHeaderCellDef>Category</th>
+            <td mat-cell *matCellDef="let expense">{{ expense.category }}</td>
+            <td mat-footer-cell *matFooterCellDef></td>
+          </ng-container>
 
-      <!-- Cost Column -->
-      <ng-container matColumnDef="cost">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cost">Cost</th>
-        <td mat-cell *matCellDef="let expense">{{ expense.cost }}</td>
-        <!--        <td mat-footer-cell *matFooterCellDef>{{ getTotalCost(dataSource.data) | currency }}</td>-->
-        <td mat-footer-cell *matFooterCellDef>{{ getTotalCost(dataSource.data) }}</td>
-      </ng-container>
+          <!-- Cost Column -->
+          <ng-container matColumnDef="cost">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cost">Cost</th>
+            <td mat-cell *matCellDef="let expense">{{ expense.cost }}</td>
+            <!--        <td mat-footer-cell *matFooterCellDef>{{ getTotalCost(dataSource.data) | currency }}</td>-->
+            <td mat-footer-cell *matFooterCellDef>{{ getTotalCost(dataSource.data) }}</td>
+          </ng-container>
 
-      <!-- Comment Column -->
-      <ng-container matColumnDef="comment">
-        <th mat-header-cell *matHeaderCellDef>Comment</th>
-        <td mat-cell *matCellDef="let expense">{{ expense.comment }}</td>
-        <td mat-footer-cell *matFooterCellDef></td>
-      </ng-container>
+          <!-- Comment Column -->
+          <ng-container matColumnDef="comment">
+            <th mat-header-cell *matHeaderCellDef>Comment</th>
+            <td mat-cell *matCellDef="let expense">{{ expense.comment }}</td>
+            <td mat-footer-cell *matFooterCellDef></td>
+          </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-      <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
-    </table>
-  </section>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
+        </table>
+      </section>
+    </mat-tab>
+    <mat-tab label="{{ 'diagram' | translate }}"> {{ 'under_construction' | translate }} </mat-tab>
+  </mat-tab-group>
 </div>
 
 <ng-template #spinner>
