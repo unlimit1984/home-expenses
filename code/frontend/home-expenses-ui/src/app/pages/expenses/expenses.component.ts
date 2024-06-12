@@ -5,13 +5,13 @@
 import { Component, Inject, inject, LOCALE_ID, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { PredefinedTranslationsService } from '../../services/predefined-translations/predefined-translations.service';
-import { ExpenseResponse } from '../../interfaces/Expense';
+import { ExpenseByCategory, ExpenseResponse } from '../../interfaces/Expense';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { Store } from '@ngrx/store';
-import { getExpenses } from '../../store/expenses/expenses.actions';
+import { getExpenses, getExpensesByCat } from '../../store/expenses/expenses.actions';
 import { Observable, Subject, takeUntil } from 'rxjs';
-import { selectExpenses, selectIsLoading } from '../../store/expenses/expenses.selectors';
+import { selectExpenses, selectExpensesByCat, selectIsLoading } from '../../store/expenses/expenses.selectors';
 import { formatDate } from '@angular/common';
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartConfiguration, ChartData, ChartEvent } from 'chart.js';
@@ -35,7 +35,8 @@ export class ExpensesComponent implements OnInit, OnDestroy {
 
   private store = inject(Store);
   public expenses$: Observable<ExpenseResponse[]>;
-  public expenses: ExpenseResponse[];
+  public expensesByCat$: Observable<ExpenseByCategory[]>;
+  // public expenses: ExpenseResponse[];
   public isLoading$: Observable<boolean>;
 
   public currentMonth: number;
@@ -43,7 +44,8 @@ export class ExpensesComponent implements OnInit, OnDestroy {
 
   public currentYear: number;
   public displayedYears: number[] = [];
-  public dataSource: MatTableDataSource<ExpenseResponse>;
+  // public dataSource: MatTableDataSource<ExpenseResponse>;
+  public dataSource: MatTableDataSource<ExpenseByCategory>;
 
   constructor(
     private predefinedTranslationsService: PredefinedTranslationsService,
@@ -51,7 +53,7 @@ export class ExpensesComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.store.dispatch(getExpenses());
+    // this.store.dispatch(getExpenses());
     const currentDate: Date = new Date();
 
     this.currentMonth = currentDate.getMonth();
@@ -60,9 +62,17 @@ export class ExpensesComponent implements OnInit, OnDestroy {
     this.currentYear = currentDate.getFullYear();
     this.displayedYears = Array.from({ length: 10 }, (_, i) => this.currentYear - 9 + i);
 
-    this.expenses$ = this.store.select(selectExpenses);
+    this.store.dispatch(getExpensesByCat({ month: this.currentMonth, year: this.currentYear }));
+
+    // this.expenses$ = this.store.select(selectExpenses);
+    // this.isLoading$ = this.store.select(selectIsLoading);
+    // this.expenses$.pipe(takeUntil(this.unsubscribe$)).subscribe((expenses) => {
+    //   this.dataSource = new MatTableDataSource(expenses);
+    //   this.dataSource.sort = this.sort;
+    // });
+    this.expensesByCat$ = this.store.select(selectExpensesByCat);
     this.isLoading$ = this.store.select(selectIsLoading);
-    this.expenses$.pipe(takeUntil(this.unsubscribe$)).subscribe((expenses) => {
+    this.expensesByCat$.pipe(takeUntil(this.unsubscribe$)).subscribe((expenses) => {
       this.dataSource = new MatTableDataSource(expenses);
       this.dataSource.sort = this.sort;
     });
@@ -75,14 +85,21 @@ export class ExpensesComponent implements OnInit, OnDestroy {
 
   @ViewChild(MatSort, { static: false }) sort: MatSort;
 
-  displayedColumns = ['date', 'category', 'cost', 'comment'];
+  displayedColumns = ['category', 'cost'];
 
-  getTotalCost(expenses: ExpenseResponse[]) {
+  // getTotalCost(expenses: ExpenseResponse[]) {
+  //   return expenses.map((t) => t.cost).reduce((acc, value) => acc + value, 0);
+  // }
+  public getTotalCost(expenses: ExpenseByCategory[]) {
     return expenses.map((t) => t.cost).reduce((acc, value) => acc + value, 0);
   }
 
   public getFormattedDate(timestamp: string): string {
     return formatDate(new Date(Number(timestamp)), 'YYYY-MM-dd HH:mm:ss', this.locale);
+  }
+
+  public applyFilter() {
+    this.store.dispatch(getExpensesByCat({ month: this.currentMonth, year: this.currentYear }));
   }
 
   @ViewChild(BaseChartDirective) chart: BaseChartDirective<'bar'> | undefined;
@@ -98,7 +115,7 @@ export class ExpensesComponent implements OnInit, OnDestroy {
     plugins: {
       legend: {
         display: true
-      },
+      }
       // datalabels: {
       //   anchor: 'end',
       //   align: 'end'

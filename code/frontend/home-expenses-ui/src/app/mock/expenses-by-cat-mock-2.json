@@ -1,0 +1,14 @@
+[
+  {
+    "category": "food",
+    "cost": 777
+  },
+  {
+    "category": "housing",
+    "cost": 450
+  },
+  {
+    "category": "transportation",
+    "cost": 420
+  }
+]

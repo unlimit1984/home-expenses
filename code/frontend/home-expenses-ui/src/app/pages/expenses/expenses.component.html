@@ -2,7 +2,7 @@
   <h1>{{ 'expenses' | translate }}</h1>
   <mat-form-field>
     <mat-label>{{ 'select_month' | translate }}</mat-label>
-    <mat-select [(value)]="currentMonth">
+    <mat-select [(value)]="currentMonth" (selectionChange)="applyFilter()">
       <mat-option *ngFor="let month of displayedMonths; let i = index" [value]="i">
         {{ month }}
       </mat-option>
@@ -11,7 +11,7 @@
 
   <mat-form-field>
     <mat-label>{{ 'select_year' | translate }}</mat-label>
-    <mat-select [(value)]="currentYear">
+    <mat-select [(value)]="currentYear" (selectionChange)="applyFilter()">
       <mat-option *ngFor="let year of displayedYears" [value]="year">
         {{ year }}
       </mat-option>
@@ -32,33 +32,39 @@
       >
         <table mat-table [dataSource]="dataSource" matSort>
           <!-- Date Column -->
-          <ng-container matColumnDef="date">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by date">Date</th>
-            <td mat-cell *matCellDef="let expense">{{ getFormattedDate(expense.date) }}</td>
-            <td mat-footer-cell *matFooterCellDef>Total</td>
-          </ng-container>
+          <!--          <ng-container matColumnDef="date">-->
+          <!--            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by date">Date</th>-->
+          <!--            <td mat-cell *matCellDef="let expense">{{ getFormattedDate(expense.date) }}</td>-->
+          <!--            <td mat-footer-cell *matFooterCellDef>Total</td>-->
+          <!--          </ng-container>-->
 
           <!-- Category Column -->
           <ng-container matColumnDef="category">
             <th mat-header-cell *matHeaderCellDef>Category</th>
             <td mat-cell *matCellDef="let expense">{{ expense.category }}</td>
-            <td mat-footer-cell *matFooterCellDef></td>
+            <td mat-footer-cell *matFooterCellDef>Total</td>
           </ng-container>
 
           <!-- Cost Column -->
+          <!--                    <ng-container matColumnDef="cost">-->
+          <!--                      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cost">Cost</th>-->
+          <!--                      <td mat-cell *matCellDef="let expense">{{ expense.cost }}</td>-->
+          <!--                      &lt;!&ndash;        <td mat-footer-cell *matFooterCellDef>{{ getTotalCost(dataSource.data) | currency }}</td>&ndash;&gt;-->
+          <!--                      <td mat-footer-cell *matFooterCellDef>{{ getTotalCost(dataSource.data) }}</td>-->
+          <!--                    </ng-container>-->
           <ng-container matColumnDef="cost">
             <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cost">Cost</th>
             <td mat-cell *matCellDef="let expense">{{ expense.cost }}</td>
-            <!--        <td mat-footer-cell *matFooterCellDef>{{ getTotalCost(dataSource.data) | currency }}</td>-->
             <td mat-footer-cell *matFooterCellDef>{{ getTotalCost(dataSource.data) }}</td>
+            <!--            <td mat-footer-cell *matFooterCellDef>{{ getTotalCost(dataSource.data) | currency }}</td>-->
           </ng-container>
 
           <!-- Comment Column -->
-          <ng-container matColumnDef="comment">
-            <th mat-header-cell *matHeaderCellDef>Comment</th>
-            <td mat-cell *matCellDef="let expense">{{ expense.comment }}</td>
-            <td mat-footer-cell *matFooterCellDef></td>
-          </ng-container>
+          <!--          <ng-container matColumnDef="comment">-->
+          <!--            <th mat-header-cell *matHeaderCellDef>Comment</th>-->
+          <!--            <td mat-cell *matCellDef="let expense">{{ expense.comment }}</td>-->
+          <!--            <td mat-footer-cell *matFooterCellDef></td>-->
+          <!--          </ng-container>-->
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
@@ -66,6 +72,7 @@
         </table>
       </section>
     </mat-tab>
+
     <mat-tab label="{{ 'diagram' | translate }}">
       <canvas
         baseChart

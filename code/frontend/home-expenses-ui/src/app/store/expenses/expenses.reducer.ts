@@ -8,24 +8,26 @@ import {
   createExpensesError,
   createExpensesResult,
   getExpenses,
+  getExpensesByCat,
+  getExpensesByCategoryResult,
   getExpensesError,
   getExpensesResult
 } from './expenses.actions';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ExpenseResponse } from '../../interfaces/Expense';
+import { ExpenseByCategory, ExpenseResponse } from '../../interfaces/Expense';
 
 export interface ExpensesState {
   expenses: ExpenseResponse[];
+  expensesByCat: ExpenseByCategory[];
   isLoading: boolean;
   error: HttpErrorResponse;
-  // isMockedData: boolean;
 }
 
 const expensesInitialState: ExpensesState = {
   expenses: [],
+  expensesByCat: [],
   isLoading: null,
   error: null
-  // isMockedData: null
 };
 
 const _expensesReducer = createReducer(
@@ -34,11 +36,20 @@ const _expensesReducer = createReducer(
   on(getExpenses, (state, action) => ({
     ...state,
     isLoading: true
-    // isMockedData: action.isMockedData
   })),
   on(getExpensesResult, (state, action) => ({
     ...state,
     expenses: action.expenses,
+    isLoading: false
+  })),
+
+  on(getExpensesByCat, (state, action) => ({
+    ...state,
+    isLoading: true
+  })),
+  on(getExpensesByCategoryResult, (state, action) => ({
+    ...state,
+    expensesByCat: action.expensesByCat,
     isLoading: false
   })),
   on(getExpensesError, (state, action) => ({
