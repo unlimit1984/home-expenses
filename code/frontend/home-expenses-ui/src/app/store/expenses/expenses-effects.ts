@@ -9,6 +9,8 @@ import {
   createExpensesError,
   createExpensesResult,
   getExpenses,
+  getExpensesByCat,
+  getExpensesByCategoryResult,
   getExpensesError,
   getExpensesResult
 } from './expenses.actions';
@@ -32,6 +34,18 @@ export class ExpensesEffects {
       switchMap((action) => {
         return this.expensesV2Service.getExpenses().pipe(
           map((expenses) => getExpensesResult({ expenses: expenses })),
+          catchError((error) => of(getExpensesError({ error })))
+        );
+      })
+    )
+  );
+
+  getExpensesByCat$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(getExpensesByCat),
+      switchMap((action) => {
+        return this.expensesV2Service.getExpensesByCatWithMonthAndYear(action.month, action.year).pipe(
+          map((expenses) => getExpensesByCategoryResult({ expensesByCat: expenses })),
           catchError((error) => of(getExpensesError({ error })))
         );
       })

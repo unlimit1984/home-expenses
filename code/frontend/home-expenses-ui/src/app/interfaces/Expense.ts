@@ -15,3 +15,8 @@ export interface ExpenseDto extends ExpenseCreateForm {
 export interface ExpenseResponse extends ExpenseCreateForm {
   id: number;
 }
+
+export interface ExpenseByCategory {
+  category: string;
+  cost: number;
+}

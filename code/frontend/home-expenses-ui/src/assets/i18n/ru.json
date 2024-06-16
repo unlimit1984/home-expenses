@@ -10,6 +10,7 @@
   "category": "Категория",
   "cost": "Цена",
   "comment": "Комментарий",
+  "total": "Сумма",
   "add": "Добавить",
   "showing_records": "Показано записей: {{ count }}",
   "settings": "Настройки",

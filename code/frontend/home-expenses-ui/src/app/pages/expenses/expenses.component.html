@@ -2,7 +2,7 @@
   <h1>{{ 'expenses' | translate }}</h1>
   <mat-form-field>
     <mat-label>{{ 'select_month' | translate }}</mat-label>
-    <mat-select [(value)]="currentMonth">
+    <mat-select [(value)]="currentMonth" (selectionChange)="applyFilter()">
       <mat-option *ngFor="let month of displayedMonths; let i = index" [value]="i">
         {{ month }}
       </mat-option>
@@ -11,7 +11,7 @@
 
   <mat-form-field>
     <mat-label>{{ 'select_year' | translate }}</mat-label>
-    <mat-select [(value)]="currentYear">
+    <mat-select [(value)]="currentYear" (selectionChange)="applyFilter()">
       <mat-option *ngFor="let year of displayedYears" [value]="year">
         {{ year }}
       </mat-option>
@@ -26,38 +26,27 @@
     <mat-tab label="{{ 'category_expenses' | translate }}">
       <section
         id="expenses-section"
-        [ngStyle]="(isLoading$ | async) == false ? { display: 'block' } : { display: 'none' }"
+        [ngStyle]="(isLoading$ | async) === false ? { display: 'block' } : { display: 'none' }"
         class="section-container mat-elevation-z8"
         tabindex="0"
       >
         <table mat-table [dataSource]="dataSource" matSort>
-          <!-- Date Column -->
-          <ng-container matColumnDef="date">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by date">Date</th>
-            <td mat-cell *matCellDef="let expense">{{ getFormattedDate(expense.date) }}</td>
-            <td mat-footer-cell *matFooterCellDef>Total</td>
-          </ng-container>
-
           <!-- Category Column -->
           <ng-container matColumnDef="category">
-            <th mat-header-cell *matHeaderCellDef>Category</th>
+            <!--<th mat-header-cell *matHeaderCellDef>Category</th>-->
+            <th mat-header-cell *matHeaderCellDef>{{ 'category' | translate }}</th>
             <td mat-cell *matCellDef="let expense">{{ expense.category }}</td>
-            <td mat-footer-cell *matFooterCellDef></td>
+            <td mat-footer-cell *matFooterCellDef>{{ 'total' | translate }}</td>
           </ng-container>
 
           <!-- Cost Column -->
           <ng-container matColumnDef="cost">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cost">Cost</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cost">
+              {{ 'cost' | translate }}
+            </th>
             <td mat-cell *matCellDef="let expense">{{ expense.cost }}</td>
-            <!--        <td mat-footer-cell *matFooterCellDef>{{ getTotalCost(dataSource.data) | currency }}</td>-->
             <td mat-footer-cell *matFooterCellDef>{{ getTotalCost(dataSource.data) }}</td>
-          </ng-container>
-
-          <!-- Comment Column -->
-          <ng-container matColumnDef="comment">
-            <th mat-header-cell *matHeaderCellDef>Comment</th>
-            <td mat-cell *matCellDef="let expense">{{ expense.comment }}</td>
-            <td mat-footer-cell *matFooterCellDef></td>
+            <!--            <td mat-footer-cell *matFooterCellDef>{{ getTotalCost(dataSource.data) | currency }}</td>-->
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
@@ -66,7 +55,20 @@
         </table>
       </section>
     </mat-tab>
-    <mat-tab label="{{ 'diagram' | translate }}"> {{ 'under_construction' | translate }} </mat-tab>
+
+    <mat-tab label="{{ 'diagram' | translate }}">
+      <div id="canvas-container">
+        <canvas
+          baseChart
+          [type]="barChartType"
+          [data]="barChartData"
+          [options]="barChartOptions"
+          (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"
+        >
+        </canvas>
+      </div>
+    </mat-tab>
   </mat-tab-group>
 </div>
 
