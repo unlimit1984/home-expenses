@@ -63,6 +63,7 @@ import { NgLetModule } from 'ng-let';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { BaseChartDirective, provideCharts, withDefaultRegisterables } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -123,7 +124,8 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
     MatNativeDateModule,
     MatGridListModule,
     MatTreeModule,
-    ScrollingModule
+    ScrollingModule,
+    BaseChartDirective
   ],
   providers: [
     {
@@ -137,9 +139,10 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
       multi: true,
       deps: [ConfigService]
     },
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
     // { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
     // { provide: DateAdapter, useClass: MondayAsFirstDayOfWeekAdapter }
+    provideCharts(withDefaultRegisterables())
   ],
   bootstrap: [AppComponent]
 })

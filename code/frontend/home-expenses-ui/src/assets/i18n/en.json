@@ -10,6 +10,7 @@
   "category": "Category",
   "cost": "Cost",
   "comment": "Comment",
+  "total": "Sum",
   "add": "Add",
   "showing_records": "Showing records: {{ count }}",
   "settings": "Settings",

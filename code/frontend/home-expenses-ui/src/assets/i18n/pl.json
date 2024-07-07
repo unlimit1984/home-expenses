@@ -10,6 +10,7 @@
   "category": "Typ",
   "cost": "Wartość",
   "comment": "Komentarz",
+  "total": "Suma",
   "add": "Dodaj",
   "showing_records": "Wyświetlono rekordów: {{ count }}",
   "settings": "Ustawienia",

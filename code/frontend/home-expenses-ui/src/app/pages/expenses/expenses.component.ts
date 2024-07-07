@@ -5,14 +5,16 @@
 import { Component, Inject, inject, LOCALE_ID, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { PredefinedTranslationsService } from '../../services/predefined-translations/predefined-translations.service';
-import { ExpenseResponse } from '../../interfaces/Expense';
+import { ExpenseByCategory } from '../../interfaces/Expense';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { Store } from '@ngrx/store';
-import { getExpenses } from '../../store/expenses/expenses.actions';
+import { getExpensesByCat } from '../../store/expenses/expenses.actions';
 import { Observable, Subject, takeUntil } from 'rxjs';
-import { selectExpenses, selectIsLoading } from '../../store/expenses/expenses.selectors';
-import { formatDate } from '@angular/common';
+import { selectExpensesByCat, selectIsLoading } from '../../store/expenses/expenses.selectors';
+import { BaseChartDirective } from 'ng2-charts';
+import { ChartConfiguration, ChartData, ChartEvent } from 'chart.js';
+import { TranslateService } from '@ngx-translate/core';
 
 export interface Transaction {
   date: string;
@@ -28,28 +30,62 @@ export interface Transaction {
 })
 export class ExpensesComponent implements OnInit, OnDestroy {
   private unsubscribe$ = new Subject<void>();
-
   public form: FormGroup;
-
   private store = inject(Store);
-  public expenses$: Observable<ExpenseResponse[]>;
-  public expenses: ExpenseResponse[];
-  public isLoading$: Observable<boolean>;
 
   public currentMonth: number;
   public displayedMonths: string[] = [];
 
   public currentYear: number;
   public displayedYears: number[] = [];
-  public dataSource: MatTableDataSource<ExpenseResponse>;
+
+  private expensesByCat$: Observable<ExpenseByCategory[]>;
+  public isLoading$: Observable<boolean>;
+  public dataSource: MatTableDataSource<ExpenseByCategory>;
+
+  private chartLabels: string[] = [];
+  private chartData: number[] = [];
+  public barChartType = 'bar' as const;
+  public barChartData: ChartData<'bar'>;
+  public barChartOptions: ChartConfiguration<'bar'>['options'] = {
+    // We use these empty structures as placeholders for dynamic theming.
+    scales: {
+      x: {},
+      y: {
+        min: 10
+      }
+    },
+    plugins: {
+      legend: {
+        display: true
+      }
+      // datalabels: {
+      //   anchor: 'end',
+      //   align: 'end'
+      // }
+    }
+  };
+  // public barChartData: ChartData<'bar'> = {
+  //   labels: ['2006', '2007', '2008', '2009', '2010', '2011', '2012'],
+  //   datasets: [
+  //     { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
+  //     { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' }
+  //   ]
+  // };
+
+  // public barChartData: ChartData<'bar'> = {
+  //   labels: ['food', 'housing', 'transportation'],
+  //   datasets: [{ data: [957, 670, 70], label: 'Fee' }]
+  // };
 
   constructor(
     private predefinedTranslationsService: PredefinedTranslationsService,
-    @Inject(LOCALE_ID) private locale: string
+    @Inject(LOCALE_ID) private locale: string,
+    private translate: TranslateService
   ) {}
 
   ngOnInit(): void {
-    this.store.dispatch(getExpenses());
+    // this.store.dispatch(getExpenses());
     const currentDate: Date = new Date();
 
     this.currentMonth = currentDate.getMonth();
@@ -58,11 +94,20 @@ export class ExpensesComponent implements OnInit, OnDestroy {
     this.currentYear = currentDate.getFullYear();
     this.displayedYears = Array.from({ length: 10 }, (_, i) => this.currentYear - 9 + i);
 
-    this.expenses$ = this.store.select(selectExpenses);
+    this.store.dispatch(getExpensesByCat({ month: this.currentMonth, year: this.currentYear }));
+
     this.isLoading$ = this.store.select(selectIsLoading);
-    this.expenses$.pipe(takeUntil(this.unsubscribe$)).subscribe((expenses) => {
+    this.expensesByCat$ = this.store.select(selectExpensesByCat);
+    this.expensesByCat$.pipe(takeUntil(this.unsubscribe$)).subscribe((expenses) => {
       this.dataSource = new MatTableDataSource(expenses);
       this.dataSource.sort = this.sort;
+
+      this.chartLabels = [...expenses.map((expense) => expense.category)] || [];
+      this.chartData = [...expenses.map((expenses) => expenses.cost)] || [];
+      this.barChartData = {
+        labels: this.chartLabels,
+        datasets: [{ data: this.chartData, label: this.translate.instant('cost') }]
+      };
     });
   }
 
@@ -73,13 +118,24 @@ export class ExpensesComponent implements OnInit, OnDestroy {
 
   @ViewChild(MatSort, { static: false }) sort: MatSort;
 
-  displayedColumns = ['date', 'category', 'cost', 'comment'];
+  displayedColumns = ['category', 'cost'];
 
-  getTotalCost(expenses: ExpenseResponse[]) {
+  public getTotalCost(expenses: ExpenseByCategory[]) {
     return expenses.map((t) => t.cost).reduce((acc, value) => acc + value, 0);
   }
 
-  public getFormattedDate(timestamp: string): string {
-    return formatDate(new Date(Number(timestamp)), 'YYYY-MM-dd HH:mm:ss', this.locale);
+  public applyFilter() {
+    this.store.dispatch(getExpensesByCat({ month: this.currentMonth, year: this.currentYear }));
+  }
+
+  @ViewChild(BaseChartDirective) chart: BaseChartDirective<'bar'> | undefined;
+
+  // events
+  public chartClicked({ event, active }: { event?: ChartEvent; active?: object[] }): void {
+    // console.log(event, active);
+  }
+
+  public chartHovered({ event, active }: { event?: ChartEvent; active?: object[] }): void {
+    // console.log(event, active);
   }
 }

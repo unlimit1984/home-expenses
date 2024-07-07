@@ -3,15 +3,25 @@
  */
 
 import { createAction, props } from '@ngrx/store';
-import { ExpenseCreateForm, ExpenseResponse } from '../../interfaces/Expense';
+import { ExpenseByCategory, ExpenseCreateForm, ExpenseResponse } from '../../interfaces/Expense';
 import { HttpErrorResponse } from '@angular/common/http';
 
 // export const getExpenses = createAction('[Expenses] Get expenses', props<{ isMockedData: boolean }>());
 export const getExpenses = createAction('[Expenses] Get expenses');
 
+export const getExpensesByCat = createAction(
+  '[Expenses] Get expenses by category',
+  props<{ month: number; year: number }>()
+);
+
 export const getExpensesResult = createAction(
   '[Expenses] Get expenses result',
   props<{ expenses: ExpenseResponse[] }>()
+);
+
+export const getExpensesByCategoryResult = createAction(
+  '[Expenses] Get expenses by category result',
+  props<{ expensesByCat: ExpenseByCategory[] }>()
 );
 
 export const getExpensesError = createAction('[Expenses] Get expenses error', props<{ error: HttpErrorResponse }>());
