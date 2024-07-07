@@ -38,13 +38,18 @@ Railway:
    `.env`
 
    ```
-   PORT=__PORT__
-   DB_PORT=__DB_PORT__
-   DB_HOST=__DB_HOST__
-   DB_NAME=__DB_NAME__
-   DB_USERNAME=__DB_USERNAME__
-   DB_PASSWORD=__DB_PASSWORD__
-   ```
+   PORT=
+   UI_URL=
+   DB_PORT=
+   DB_HOST=
+   DB_NAME=
+   DB_USERNAME=
+   DB_PASSWORD=
+   MAIL_SMTP_SERVICE=smtp.gmail.com
+   MAIL_USERNAME=home.expenses.user@gmail.com
+   MAIL_APP_PASSWORD=
+   AUTH_AT_SECRET=__AUTH_AT_SECRET__
+   AUTH_RT_SECRET=__AUTH_RT_SECRET__   ```
 
 2. Fulfill `code/backend/home-expenses-api/src/datasource.ts` for db and migration
     ```ts
@@ -56,7 +61,7 @@ Railway:
       username: 'DB_USERNAME',
       password: 'DB_PASSWORD',
       database: 'DB_NAME',
-      entities: ['dist/modules/database/**/entity/*.js'],
+      entities: ['dist/modules/expenses/db/*.js', 'dist/modules/users/db/*.js'],
       migrations: ['dist/migration/*.js']
     };
     const dataSource = new DataSource(datasourceOptions);
