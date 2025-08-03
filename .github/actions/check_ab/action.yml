@@ -22,9 +22,9 @@ runs:
         echo "The descriptions is:"
         echo $DESCRIPTION
 
-        if [[ "$DESCRIPTION" =~ AB\#[0-9]{1,} ]]; then
+        if [[ "$DESCRIPTION" =~ \#[0-9]{1,} ]]; then
           echo "Description is OK"
         else
-          echo "Check failed. Description does not contain AB#[number]. You need to REOPEN this PR! Description edition does not make eny effect!"
+          echo "Check failed. Description does not contain #[number]. You need to REOPEN this PR! Description edition does not make eny effect!"
           exit -1
         fi
