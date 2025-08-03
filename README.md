@@ -144,6 +144,8 @@ npm run test
   APP_URL=https://local.home-expenses.com:8444
   ```
 - Provide `APP_URL` for the app which you want to test locally
+- Install Playwright with Chromium:
+  - `npx playwright install --with-deps chromium`
 - Run tests locally:
     - start app and run tests
         - `npm run start-local` (with running local backend) or just `npm run start-railway` (with remote backend)
