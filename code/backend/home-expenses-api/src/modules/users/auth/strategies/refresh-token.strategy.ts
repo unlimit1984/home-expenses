@@ -2,7 +2,7 @@
  * Author: Vladimir Vysokomornyi
  */
 
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { REFRESH_TOKEN } from '../guards/token.constants';
@@ -12,6 +12,7 @@ import { ConfigService } from '@nestjs/config';
 @Injectable()
 export class RefreshTokenStrategy extends PassportStrategy(Strategy, REFRESH_TOKEN) {
   constructor(private readonly configService: ConfigService) {
+    Logger.debug('RefreshTokenStrategy secretOrKey=' + configService.get<string>('auth.rt_secret'));
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       secretOrKey: configService.get<string>('auth.rt_secret')
