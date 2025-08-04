@@ -2,14 +2,14 @@
  * Author: Vladimir Vysokomornyi
  */
 
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 
 import { Repository } from 'typeorm';
 import * as argon from 'argon2';
 import { User } from './user.entity';
 import { CredentialsDto } from '../credentials';
 import { CreateUserDto } from '../create.user.dto';
-import {InjectRepository} from "@nestjs/typeorm";
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class UserDbService {
