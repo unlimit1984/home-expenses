@@ -43,5 +43,5 @@ export class User {
   expenses: ExpenseV2[];
 
   @Column({ nullable: true })
-  role: string
+  role: string;
 }

@@ -14,4 +14,3 @@ export const AUTH_CHANGE_POLICY_PASSWORD_ERROR = 'Changing Policy password error
 
 export const AUTH_ACCESS_DENIED = 'Access Denied';
 export const AUTH_REFRESH_TOKEN_ERROR = 'Refresh token error';
-

@@ -1,9 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 import { TestService } from '../../services/test/test.service';
 import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
-import * as console from "console";
-import * as process from "process";
-import {ConfigService} from "@nestjs/config";
 
 @ApiTags('Test')
 @Controller('test')
