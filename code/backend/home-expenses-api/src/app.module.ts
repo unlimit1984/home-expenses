@@ -2,7 +2,7 @@
  * Author: Vladimir Vysokomornyi
  */
 
-import { Module } from '@nestjs/common';
+import { Module, Logger } from '@nestjs/common';
 import { TestService } from './services/test/test.service';
 import { TestController } from './controllers/test/test.controller';
 
@@ -41,21 +41,38 @@ import { ExpensesModule } from './modules/expenses/expenses.module';
     }),
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
-      useFactory: async (configService: ConfigService) => ({
-        type: 'postgres',
-        host: configService.get<string>('database.host'),
-        port: configService.get<number>('database.port'),
-        database: configService.get<string>('database.name'),
-        username: configService.get<string>('database.username'),
-        password: configService.get<string>('database.password'),
-        autoLoadEntities: true,
-        // entities: [],
-        // entities: [User, ExpenseV2],
-        // migrations: [],
-        // logging: false,
-        // subscribers: [],
-        synchronize: false
-      })
+      useFactory: async (configService: ConfigService) => {
+        Logger.debug('database.host=' + configService.get<string>('database.host'));
+        Logger.debug('database.port=' + configService.get<string>('database.port'));
+        Logger.debug('database.name=' + configService.get<string>('database.name'));
+        Logger.debug('database.username=' + configService.get<string>('database.username'));
+        Logger.debug('database.password=' + configService.get<string>('database.password'));
+
+        Logger.debug('mail.host=' + configService.get<string>('mail.host'));
+        Logger.debug('mail.username=' + configService.get<string>('mail.username'));
+        Logger.debug('mail.appPassword=' + configService.get<string>('mail.appPassword'));
+
+        Logger.debug('uiUrl=' + configService.get<string>('uiUrl'));
+
+        Logger.debug('auth.at_secret=' + configService.get<string>('auth.at_secret'));
+        Logger.debug('auth.rt_secret=' + configService.get<string>('auth.rt_secret'));
+
+        return {
+          type: 'postgres',
+          host: configService.get<string>('database.host'),
+          port: configService.get<number>('database.port'),
+          database: configService.get<string>('database.name'),
+          username: configService.get<string>('database.username'),
+          password: configService.get<string>('database.password'),
+          autoLoadEntities: true,
+          // entities: [],
+          // entities: [User, ExpenseV2],
+          // migrations: [],
+          // logging: false,
+          // subscribers: [],
+          synchronize: false
+        };
+      }
     }),
     UsersModule,
     ExpensesModule
