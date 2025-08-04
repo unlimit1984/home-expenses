@@ -16,7 +16,7 @@ permissions:
   contents: read
 
 env:
-  node-version: 20
+  node-version: 22
 
 jobs:
   build_and_deploy:
@@ -49,6 +49,7 @@ jobs:
         run: |
           rm -f .env
           mv code/backend/home-expenses-api/env_template code/backend/home-expenses-api/.env
+          cat code/backend/home-expenses-api/.env
 
       - name: Set up Node.js version
         uses: actions/setup-node@v4
