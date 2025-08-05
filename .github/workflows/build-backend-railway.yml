@@ -67,12 +67,13 @@ jobs:
 #          echo "My secret via dollar: $MY_SECRET"
 #          echo "My secret via env: ${{ env.MY_SECRET }}"
 
-      - name: Install Railway
-        run: npm i -g @railway/cli
+#      - name: Install Railway
+#        run: npm i -g @railway/cli
+#
+#      - name: Deploy
+#        run: |
+#          railway up --service home-expenses
+#        env:
+#          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
 
-      - name: Deploy
-        run: |
-          railway up --service home-expenses
-        env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
 #          railway variables --set MY_SECRET=$MY_SECRET
