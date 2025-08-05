@@ -16,7 +16,7 @@ permissions:
   contents: read
 
 env:
-  node-version: 20
+  node-version: 22
 
 jobs:
   build_and_deploy:
@@ -25,30 +25,31 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: cschleiden/replace-tokens@v1
-        with:
-          tokenPrefix: '__'
-          tokenSuffix: '__'
-          files: '["code/backend/home-expenses-api/env_template"]'
-        env:
-          PORT: 3000
-          UI_URL: ${{ secrets.UI_URL}}
-          DB_PORT: ${{ secrets.DB_PORT }}
-          DB_HOST: ${{ secrets.DB_HOST }}
-          DB_NAME: ${{ secrets.DB_NAME }}
-          DB_USERNAME: ${{ secrets.DB_USERNAME }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          MAIL_SMTP_SERVICE: ${{ secrets.MAIL_SMTP_SERVICE }}
-          MAIL_USERNAME: ${{ secrets.MAIL_USERNAME }}
-          MAIL_APP_PASSWORD: ${{ secrets.MAIL_APP_PASSWORD }}
-          AUTH_AT_SECRET: ${{ secrets.AUTH_AT_SECRET }}
-          AUTH_RT_SECRET: ${{ secrets.AUTH_RT_SECRET }}
+#      - uses: cschleiden/replace-tokens@v1
+#        with:
+#          tokenPrefix: '__'
+#          tokenSuffix: '__'
+#          files: '["code/backend/home-expenses-api/env_template"]'
+#        env:
+#          PORT: 3000
+#          UI_URL: ${{ secrets.UI_URL}}
+#          DB_PORT: ${{ secrets.DB_PORT }}
+#          DB_HOST: ${{ secrets.DB_HOST }}
+#          DB_NAME: ${{ secrets.DB_NAME }}
+#          DB_USERNAME: ${{ secrets.DB_USERNAME }}
+#          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+#          MAIL_SMTP_SERVICE: ${{ secrets.MAIL_SMTP_SERVICE }}
+#          MAIL_USERNAME: ${{ secrets.MAIL_USERNAME }}
+#          MAIL_APP_PASSWORD: ${{ secrets.MAIL_APP_PASSWORD }}
+#          AUTH_AT_SECRET: ${{ secrets.AUTH_AT_SECRET }}
+#          AUTH_RT_SECRET: ${{ secrets.AUTH_RT_SECRET }}
 
-      - name: Rename env_template to .env
-        shell: bash
-        run: |
-          rm -f .env
-          mv code/backend/home-expenses-api/env_template code/backend/home-expenses-api/.env
+#      - name: Rename env_template to .env
+#        shell: bash
+#        run: |
+#          rm -f .env
+#          mv code/backend/home-expenses-api/env_template code/backend/home-expenses-api/.env
+#          cat code/backend/home-expenses-api/.env
 
       - name: Set up Node.js version
         uses: actions/setup-node@v4
@@ -62,11 +63,17 @@ jobs:
         run: |
           cd code/backend/home-expenses-api
           npm ci && npm run test
+#          echo MY_SECRET=$(openssl rand -hex 64) >> $GITHUB_ENV
+#          echo "My secret via dollar: $MY_SECRET"
+#          echo "My secret via env: ${{ env.MY_SECRET }}"
 
-      - name: Install Railway
-        run: npm i -g @railway/cli
+#      - name: Install Railway
+#        run: npm i -g @railway/cli
+#
+#      - name: Deploy
+#        run: |
+#          railway up --service home-expenses
+#        env:
+#          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
 
-      - name: Deploy
-        run: railway up --service home-expenses
-        env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+#          railway variables --set MY_SECRET=$MY_SECRET

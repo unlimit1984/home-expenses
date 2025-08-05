@@ -22,5 +22,6 @@ export default () => ({
   auth: {
     at_secret: process.env.AUTH_AT_SECRET,
     rt_secret: process.env.AUTH_RT_SECRET
-  }
+  },
+  myToken: process.env.MY_TOKEN
 });
