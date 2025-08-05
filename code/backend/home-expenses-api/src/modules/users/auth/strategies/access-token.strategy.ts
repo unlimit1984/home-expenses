@@ -14,7 +14,8 @@ export class AccessTokenStrategy extends PassportStrategy(Strategy, ACCESS_TOKEN
     Logger.debug('AccessTokenStrategy secretOrKey=' + configService.get<string>('auth.at_secret'));
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: configService.get<string>('auth.at_secret'),
+      // secretOrKey: configService.get<string>('auth.at_secret'),
+      secretOrKey: 'test',
       passReqToCallback: false
     });
   }

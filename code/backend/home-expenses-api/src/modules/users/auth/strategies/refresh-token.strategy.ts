@@ -15,7 +15,8 @@ export class RefreshTokenStrategy extends PassportStrategy(Strategy, REFRESH_TOK
     Logger.debug('RefreshTokenStrategy secretOrKey=' + configService.get<string>('auth.rt_secret'));
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: configService.get<string>('auth.rt_secret')
+      // secretOrKey: configService.get<string>('auth.rt_secret')
+      secretOrKey: 'test2'
       // passReqToCallback: true
     });
   }
