@@ -64,15 +64,15 @@ jobs:
           cd code/backend/home-expenses-api
           npm ci && npm run test
           echo MY_SECRET=$(openssl rand -hex 64) >> $GITHUB_ENV
-          echo $MY_SECRET
-          echo ${{ env.MY_SECRET }}
+          echo "My secret via dollar: $MY_SECRET"
+          echo "My secret via env: ${{ env.MY_SECRET }}"
 
       - name: Install Railway
         run: npm i -g @railway/cli
 
       - name: Deploy
         run: |
-          railway variables set MY_SECRET="$MY_SECRET"
-          railway up --service home-expenses
+          railway variables --set MY_SECRET=$MY_SECRET
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+#          railway up --service=home-expenses
