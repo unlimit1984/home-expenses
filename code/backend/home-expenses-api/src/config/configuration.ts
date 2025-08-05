@@ -27,6 +27,6 @@ export default () => {
     },
     myToken: process.env.MY_TOKEN
   };
-  Logger.debug('config=' + JSON.stringify(config));
+  Logger.debug('config=' + JSON.stringify(config, null, 2));
   return config;
 };
