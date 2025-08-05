@@ -76,4 +76,4 @@ jobs:
           railway variables --set MY_SECRET=$MY_SECRET
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-#          railway up --service=home-expenses
+#          railway up --service home-expenses
