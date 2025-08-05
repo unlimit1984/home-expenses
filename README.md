@@ -1,10 +1,11 @@
-GitHub Pages:
-[![Build & Deploy UI on Github Pages](https://github.com/unlimit1984/home-expenses/actions/workflows/build-ui-ghpages.yml/badge.svg)](https://github.com/unlimit1984/home-expenses/actions/workflows/build-ui-ghpages.yml)
-
-Railway:
-[![Build & Deploy BACKEND NestJs on Railway](https://github.com/unlimit1984/home-expenses/actions/workflows/build-backend-railway.yml/badge.svg)](https://github.com/unlimit1984/home-expenses/actions/workflows/build-backend-railway.yml)
-
 # Home Expenses App
+
+### Deployment status
+| Component | Status |
+|---------|--------|
+| Frontend - GitHub Pages| [![Build & Deploy UI on Github Pages](https://github.com/unlimit1984/home-expenses/actions/workflows/build-ui-ghpages.yml/badge.svg)](https://github.com/unlimit1984/home-expenses/actions/workflows/build-ui-ghpages.yml) |
+| Backend - Railway | [![Build & Deploy BACKEND NestJs on Railway](https://github.com/unlimit1984/home-expenses/actions/workflows/build-backend-railway.yml/badge.svg)](https://github.com/unlimit1984/home-expenses/actions/workflows/build-backend-railway.yml) |
+| E2E - Playwriths tests | [![Run E2E tests each 30 minutes](https://github.com/unlimit1984/home-expenses/actions/workflows/e2e-tests-monitoring.yml/badge.svg)](https://github.com/unlimit1984/home-expenses/actions/workflows/e2e-tests-monitoring.yml) |
 
 ## Table of contents
 
