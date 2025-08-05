@@ -72,6 +72,7 @@ jobs:
 
       - name: Deploy
         run: |
+          railway link -s home-expenses
           railway variables --set MY_SECRET=$MY_SECRET
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
