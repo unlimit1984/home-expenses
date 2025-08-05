@@ -28,6 +28,7 @@ export class TestController {
     return process.env.MY_TOKEN;
   }
 
+
   @Get('get-config-token')
   getConfigEnv(): any {
     return this.configService.get<string>('myToken');
