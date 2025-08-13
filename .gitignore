@@ -38,6 +38,7 @@ hs_err_pid*
 /code/frontend/home-expenses-ui/dist
 /code/frontend/home-expenses-ui/docs
 /code/frontend/home-expenses-ui/.env
+/code/frontend/home-expenses-ui/.nx
 
 /code/backend/home-expenses-api/node_modules
 /code/backend/home-expenses-api/dist
