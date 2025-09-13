@@ -45,6 +45,7 @@
             },
             "gh-pages": {
               "assets": [
+                "src/favicon.ico",
                 {
                   "glob": "**/*",
                   "input": "src/environments/templates/assets",
